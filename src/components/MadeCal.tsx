@@ -45,7 +45,7 @@ const RenderDays = () => {
   const dates = ["일", "월", "화", "수", "목", "금", "토"];
 
   return (
-    <Days className="days row">
+    <Days className="days row weekends">
       {dates.map((date, index) => (
         <DaysCol key={index}>{date}</DaysCol>
       ))}
@@ -72,6 +72,7 @@ const RenderCells = ({
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       formattedDate = format(day, "d");
+      //   해당 달의 날짜가 아니면 date에 null, 맞다면 날짜 그대로 객체에 들어감
       format(currentMonth, "M") !== format(day, "M")
         ? days.push({ date: null, menu: "" })
         : days.push({ date: formattedDate, menu: "" });
@@ -204,11 +205,7 @@ const DaysCol = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding-left: 1%;
-  background: transparentize(#ebcfc6, 0.6);
-  border-radius: 10px;
+  align-items: center;
 `;
 
 const Body = styled.div`
