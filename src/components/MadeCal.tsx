@@ -53,7 +53,7 @@ const RenderDays = () => {
   );
 };
 
-// body
+// 날짜 부분
 const RenderCells = ({
   currentMonth,
   selectedDate,
@@ -72,65 +72,21 @@ const RenderCells = ({
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       formattedDate = format(day, "d");
-      const cloneDay = day;
-      days.push(
-        <BodyCol>
-          {!isSameMonth(day, monthStart) ? (
-            <HeaderColFirstText>
-              {format(currentMonth, "M") !== format(day, "M") ? (
-                <BodyColNotValid>{formattedDate}</BodyColNotValid>
-              ) : (
-                formattedDate
-              )}
-            </HeaderColFirstText>
-          ) : isSameDay(day, selectedDate) ? (
-            <BodyColCellSelected
-              id={String(day)}
-              onClick={() => onDateClick(cloneDay)}
-            >
-              <HeaderColFirstText>
-                {format(currentMonth, "M") !== format(day, "M") ? (
-                  <BodyColNotValid>{formattedDate}</BodyColNotValid>
-                ) : (
-                  formattedDate
-                )}
-              </HeaderColFirstText>
-            </BodyColCellSelected>
-          ) : format(currentMonth, "M") !== format(day, "M") ? (
-            <BodyColNotValid
-              id={String(day)}
-              onClick={() => onDateClick(cloneDay)}
-            >
-              <HeaderColFirstText>
-                {format(currentMonth, "M") !== format(day, "M") ? (
-                  <BodyColNotValid>{formattedDate}</BodyColNotValid>
-                ) : (
-                  formattedDate
-                )}
-              </HeaderColFirstText>
-            </BodyColNotValid>
-          ) : (
-            <BodyColCellValid
-              id={String(day)}
-              onClick={() => onDateClick(cloneDay)}
-            >
-              <HeaderColFirstText>
-                {format(currentMonth, "M") !== format(day, "M") ? (
-                  <BodyColNotValid>{formattedDate}</BodyColNotValid>
-                ) : (
-                  formattedDate
-                )}
-              </HeaderColFirstText>
-            </BodyColCellValid>
-          )}
-        </BodyCol>
-      );
+      format(currentMonth, "M") !== format(day, "M")
+        ? days.push({ date: null, menu: "" })
+        : days.push({ date: formattedDate, menu: "" });
       day = addDays(day, 1);
     }
     rows.push(
-      <BodyRow className="row" id={String(day)}>
-        {days}
-      </BodyRow>
+      <BodyCol>
+        <BodyRow className="주" id={String(day)}>
+          {days.map((dayObject) => (
+            <BodyColCellBox>
+              <HeaderColFirstText>{dayObject.date}</HeaderColFirstText>
+            </BodyColCellBox>
+          ))}
+        </BodyRow>
+      </BodyCol>
     );
     days = [];
   }
@@ -193,7 +149,8 @@ const HeaderColFirst = styled.div`
 `;
 
 const HeaderColFirstText = styled.span`
-  font-size: 0.8em;
+  font-size: 1em;
+  font-weight: 500;
 `;
 
 const HeaderColFirstTextMonth = styled.span`
@@ -266,7 +223,7 @@ const Body = styled.div`
 
 const BodyRow = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100px;
 
   display: flex;
   flex-direction: row;
@@ -275,7 +232,7 @@ const BodyRow = styled.div`
 `;
 
 const BodyCol = styled.div`
-  width: 13.5%;
+  width: 100%;
   height: 93%;
 
   display: flex;
@@ -292,22 +249,7 @@ const BodyColNotValid = styled.span`
   color: #c4c4c4;
 `;
 
-const BodyColCellValid = styled.div`
-  :hover {
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-    box-shadow: 1.5px 1.5px 0px 0px transparentize(#686868, 0.1);
-    transform: scale(1.01);
-    border: none;
-    background: transparentize(#686868, 0.5);
-  }
-`;
-
-const BodyColCellSelected = styled.div`
-  box-shadow: 1.5px 1.5px 0px 0px transparentize(#aa5b42, 0.1);
-  transform: scale(1.02);
-  border: none;
-  background: #f3c5b6;
-  color: #aa5b42;
-  font-weight: 600;
+const BodyColCellBox = styled.div`
+  width: 100%;
+  height: 100%;
 `;
