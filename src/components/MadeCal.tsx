@@ -75,7 +75,7 @@ const RenderCells = ({
       //   해당 달의 날짜가 아니면 date에 null, 맞다면 날짜 그대로 객체에 들어감
       format(currentMonth, "M") !== format(day, "M")
         ? days.push({ date: null, menu: "" })
-        : days.push({ date: formattedDate, menu: "" });
+        : days.push({ date: formattedDate, mainMenu: "", soup: "", side: "" });
       day = addDays(day, 1);
     }
     rows.push(
@@ -83,7 +83,10 @@ const RenderCells = ({
         <BodyRow className="주" id={String(day)}>
           {days.map((dayObject) => (
             <BodyColCellBox>
-              <HeaderColFirstText>{dayObject.date}</HeaderColFirstText>
+              <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
+              메인메뉴 : {dayObject.mainMenu}
+              국거리 : {dayObject.mainMenu}
+              반찬류 : {dayObject.mainMenu}
             </BodyColCellBox>
           ))}
         </BodyRow>
@@ -249,4 +252,13 @@ const BodyColNotValid = styled.span`
 const BodyColCellBox = styled.div`
   width: 100%;
   height: 100%;
+
+  border: 1px solid gray;
+`;
+
+const BodyColCellNumber = styled.span`
+  font-size: 1em;
+  font-weight: 500;
+
+  margin: 4px;
 `;
