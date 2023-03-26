@@ -1,24 +1,13 @@
-import React, { useState } from "react";
-import { format, addMonths, subMonths } from "date-fns";
+import React from "react";
 import styled from "styled-components";
 import RenderCells from "./RenderCells";
 import RenderDays from "./RenderDays";
 import RenderHeader from "./RenderHeader";
+import useMakeCalenderFunction from "../hooks/useMakeCalendarFunction";
 
 
 export const Calendar = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
-  const prevMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1));
-  };
-  const nextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1));
-  };
-  const onDateClick = (day: Date) => {
-    setSelectedDate(day);
-  };
+  const {currentMonth, selectedDate, prevMonth, nextMonth, onDateClick} = useMakeCalenderFunction()
   return (
     <Container className="calendar">
       <RenderHeader
