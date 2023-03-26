@@ -78,23 +78,33 @@ const RenderCells = ({
         : days.push({ date: formattedDate, mainMenu: "", soup: "", side: "" });
       day = addDays(day, 1);
     }
-    rows.push(
-      <BodyCol>
-        <BodyRow className="주" id={String(day)}>
-          {days.map((dayObject) => (
-            <BodyColCellBox>
-              <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
-              메인메뉴 : {dayObject.mainMenu}
-              국거리 : {dayObject.mainMenu}
-              반찬류 : {dayObject.mainMenu}
-            </BodyColCellBox>
-          ))}
-        </BodyRow>
-      </BodyCol>
-    );
+
+    rows.push(days);
     days = [];
   }
-  return <Body className="body">{rows}</Body>;
+
+  return (
+  <Body className="body">      
+    {rows.map((row) => (
+        <BodyCol>
+        <BodyRow className="주" id={String(day)}>
+          {
+      row.map((dayObject) => (
+        
+      <BodyColCellBox>
+        <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
+        {!dayObject.date ? null : 
+        (<div>
+        메인메뉴 : {dayObject.mainMenu}
+        국거리 : {dayObject.mainMenu}
+        반찬류 : {dayObject.mainMenu}
+        </div>)}
+      </BodyColCellBox>))}  
+      </BodyRow>
+</BodyCol>
+    ))}
+
+</Body>);
 };
 
 export const MadeCal = () => {
