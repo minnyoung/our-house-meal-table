@@ -6,6 +6,7 @@ import { isSameMonth, isSameDay, addDays, parse } from "date-fns";
 import styled from "styled-components";
 import RenderCells from "./RenderCells";
 import RenderDays from "./RenderDays";
+import RenderHeader from "./RenderHeader";
 
 type RenderHeaderProps = {
   currentMonth: Date;
@@ -17,29 +18,6 @@ type RenderCellsProps = {
   currentMonth: Date;
   selectedDate: Date;
   onDateClick: (day: Date) => void;
-};
-
-const RenderHeader = ({
-  currentMonth,
-  prevMonth,
-  nextMonth,
-}: RenderHeaderProps) => {
-  return (
-    <Header className="header row">
-      <HeaderColFirst className="col col-start">
-        <HeaderColFirstText className="text">
-          <HeaderColFirstTextMonth className="text month">
-            {format(currentMonth, "M")}월
-          </HeaderColFirstTextMonth>
-          {format(currentMonth, "yyyy")}
-        </HeaderColFirstText>
-      </HeaderColFirst>
-      <ColEnd className="col col-end">
-        <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
-        <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
-      </ColEnd>
-    </Header>
-  );
 };
 
 
@@ -109,7 +87,7 @@ const HeaderColFirstTextMonth = styled.span`
   font-weight: 600;
 `;
 
-const ColEnd = styled.div`
+const HeaderColEnd = styled.div`
   width: 20%;
   height: 100%;
 
