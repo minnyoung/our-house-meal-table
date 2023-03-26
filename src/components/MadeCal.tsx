@@ -4,6 +4,7 @@ import { format, addMonths, subMonths } from "date-fns";
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from "date-fns";
 import { isSameMonth, isSameDay, addDays, parse } from "date-fns";
 import styled from "styled-components";
+import RenderCells from "./RenderCells";
 
 type RenderHeaderProps = {
   currentMonth: Date;
@@ -51,60 +52,6 @@ const RenderDays = () => {
       ))}
     </Days>
   );
-};
-
-// 날짜 부분
-const RenderCells = ({
-  currentMonth,
-  selectedDate,
-  onDateClick,
-}: RenderCellsProps) => {
-  const monthStart = startOfMonth(currentMonth);
-  const monthEnd = endOfMonth(monthStart);
-  const startDate = startOfWeek(monthStart);
-  const endDate = endOfWeek(monthEnd);
-
-  const rows = [];
-  let days = [];
-  let day = startDate;
-  let formattedDate = "";
-
-  while (day <= endDate) {
-    for (let i = 0; i < 7; i++) {
-      formattedDate = format(day, "d");
-      //   해당 달의 날짜가 아니면 date에 null, 맞다면 날짜 그대로 객체에 들어감
-      format(currentMonth, "M") !== format(day, "M")
-        ? days.push({ date: null, menu: "" })
-        : days.push({ date: formattedDate, mainMenu: "", soup: "", side: "" });
-      day = addDays(day, 1);
-    }
-
-    rows.push(days);
-    days = [];
-  }
-
-  return (
-  <Body className="body">      
-    {rows.map((row) => (
-        <BodyCol>
-        <BodyRow className="주" id={String(day)}>
-          {
-      row.map((dayObject) => (
-        
-      <BodyColCellBox>
-        <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
-        {!dayObject.date ? null : 
-        (<div>
-        메인메뉴 : {dayObject.mainMenu}
-        국거리 : {dayObject.mainMenu}
-        반찬류 : {dayObject.mainMenu}
-        </div>)}
-      </BodyColCellBox>))}  
-      </BodyRow>
-</BodyCol>
-    ))}
-
-</Body>);
 };
 
 export const MadeCal = () => {
