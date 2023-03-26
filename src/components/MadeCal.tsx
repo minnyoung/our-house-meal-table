@@ -5,6 +5,7 @@ import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from "date-fns";
 import { isSameMonth, isSameDay, addDays, parse } from "date-fns";
 import styled from "styled-components";
 import RenderCells from "./RenderCells";
+import RenderDays from "./RenderDays";
 
 type RenderHeaderProps = {
   currentMonth: Date;
@@ -41,18 +42,6 @@ const RenderHeader = ({
   );
 };
 
-// 요일
-const RenderDays = () => {
-  const dates = ["일", "월", "화", "수", "목", "금", "토"];
-
-  return (
-    <Days className="days row weekends">
-      {dates.map((date, index) => (
-        <DaysCol key={index}>{date}</DaysCol>
-      ))}
-    </Days>
-  );
-};
 
 export const MadeCal = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
