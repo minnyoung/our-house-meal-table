@@ -6,7 +6,7 @@ import RenderDays from "./RenderDays";
 import RenderHeader from "./RenderHeader";
 
 
-export const MadeCal = () => {
+export const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
 

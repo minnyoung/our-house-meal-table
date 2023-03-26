@@ -1,10 +1,10 @@
 import React from "react";
-import { MadeCal } from "./components/MadeCal";
+import { Calendar } from "./components/Calendar";
 
 function App() {
   return (
     <div className="App">
-      <MadeCal />
+      <Calendar />
     </div>
   );
 }
