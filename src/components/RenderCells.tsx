@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import useRenderCells from "../hooks/useRenderCells";
 import { mainMenuStore } from "../store/MainStore";
@@ -25,8 +25,6 @@ export default function RenderCells({
 
   const [menuList, setMenuList] = useState<MenuType[]>([]);
 
-  console.log(menuList);
-
   return (
     <Body className="body">
       {rows.map((row) => (
@@ -36,12 +34,23 @@ export default function RenderCells({
               <BodyColCellBox
                 id={String(dayObject.date)}
                 onDrop={() => {
+                  // 메뉴 존재하지 않는 경우
                   if (!menuList.find((menu) => menu.date === dayObject.date)) {
                     dayObject.date &&
                       setMenuList((state) => [
                         ...state,
                         { date: String(dayObject.date), menu: mainMenu },
                       ]);
+                    // 메뉴가 존재하는 경우
+                  } else {
+                    setMenuList((state) => [
+                      ...state.filter(
+                        (menu) =>
+                          menu !==
+                          menuList.find((menu) => menu.date === dayObject.date)
+                      ),
+                      { date: String(dayObject.date), menu: mainMenu },
+                    ]);
                   }
                 }}
                 onDragOver={(event) => event.preventDefault()}
