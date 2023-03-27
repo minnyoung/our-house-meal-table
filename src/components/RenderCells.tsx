@@ -36,11 +36,13 @@ export default function RenderCells({
               <BodyColCellBox
                 id={String(dayObject.date)}
                 onDrop={() => {
-                  dayObject.date &&
-                    setMenuList((state) => [
-                      ...state,
-                      { date: String(dayObject.date), menu: mainMenu },
-                    ]);
+                  if (!menuList.find((menu) => menu.date === dayObject.date)) {
+                    dayObject.date &&
+                      setMenuList((state) => [
+                        ...state,
+                        { date: String(dayObject.date), menu: mainMenu },
+                      ]);
+                  }
                 }}
                 onDragOver={(event) => event.preventDefault()}
               >
