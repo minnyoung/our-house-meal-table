@@ -9,6 +9,7 @@ export default function MainDish() {
         <span
           draggable="true"
           onDragStart={() => setMainMenu(mainMenu)}
+          onDragEnd={() => console.log("드롭다운")}
           key={index}
         >
           {mainMenu}

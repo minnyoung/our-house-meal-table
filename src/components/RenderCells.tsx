@@ -24,35 +24,38 @@ export default function RenderCells({
   const { mainMenu } = mainMenuStore();
 
   const [menuList, setMenuList] = useState<MenuType[]>([]);
+  const [menuDate, setMenuDate] = useState("");
+
+  const makeMenuList = () => {
+    // 메뉴 존재하지 않는 경우
+    if (
+      !menuList.find((menuListElement) => menuListElement.date === menuDate)
+    ) {
+      menuDate &&
+        setMenuList((state) => [...state, { date: menuDate, menu: mainMenu }]);
+      // 메뉴가 존재하는 경우
+    } else {
+      setMenuList((state) => [
+        ...state.filter(
+          (menu) => menu !== menuList.find((menu) => menu.date === menuDate)
+        ),
+        { date: menuDate, menu: mainMenu },
+      ]);
+    }
+  };
 
   return (
     <Body className="body">
       {rows.map((row) => (
         <BodyCol>
-          <BodyRow className="주">
+          <BodyRow className="">
             {row.map((dayObject) => (
               <BodyColCellBox
                 id={String(dayObject.date)}
-                onDrop={() => {
-                  // 메뉴 존재하지 않는 경우
-                  if (!menuList.find((menu) => menu.date === dayObject.date)) {
-                    dayObject.date &&
-                      setMenuList((state) => [
-                        ...state,
-                        { date: String(dayObject.date), menu: mainMenu },
-                      ]);
-                    // 메뉴가 존재하는 경우
-                  } else {
-                    setMenuList((state) => [
-                      ...state.filter(
-                        (menu) =>
-                          menu !==
-                          menuList.find((menu) => menu.date === dayObject.date)
-                      ),
-                      { date: String(dayObject.date), menu: mainMenu },
-                    ]);
-                  }
+                onDropCapture={() => {
+                  setMenuDate(String(dayObject.date));
                 }}
+                onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
               >
                 <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
