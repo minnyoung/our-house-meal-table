@@ -22,8 +22,8 @@ export default function useRenderCells({ currentMonth }: RenderCellsProps) {
       formattedDate = format(day, "d");
       //   해당 달의 날짜가 아니면 date에 null, 맞다면 날짜 그대로 객체에 들어감
       format(currentMonth, "M") !== format(day, "M")
-        ? days.push({ date: null, mainMenu: "", soup: "", side: "" })
-        : days.push({ date: formattedDate, mainMenu: "", soup: "", side: "" });
+        ? days.push({ date: null })
+        : days.push({ date: formattedDate });
       day = addDays(day, 1);
     }
 
