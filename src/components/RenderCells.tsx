@@ -1,60 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useRenderCells from "../hooks/useRenderCells";
 import { mainMenuStore } from "../store/MainStore";
 
-
-
 type RenderCellsProps = {
-    currentMonth: Date;
-    selectedDate: Date;
-    onDateClick: (day: Date) => void;
-  };
+  currentMonth: Date;
+  selectedDate: Date;
+  onDateClick: (day: Date) => void;
+};
+
+type MenuType = {
+  date: string;
+  menu: string;
+};
 
 // 날짜부분
-export default function RenderCells ({
-    currentMonth,
-    selectedDate,
-    onDateClick,
-  }: RenderCellsProps) {
+export default function RenderCells({
+  currentMonth,
+  selectedDate,
+  onDateClick,
+}: RenderCellsProps) {
+  const { rows, day } = useRenderCells({ currentMonth });
+  const { mainMenu } = mainMenuStore();
 
-const {rows, day} = useRenderCells({currentMonth})
-const {mainMenu, date, setDate } = mainMenuStore()
+  const [menuList, setMenuList] = useState<MenuType[]>([]);
 
-console.log(rows[0])
-    return (
-    <Body className="body">      
-      {rows.map((row, rowsIndex) => (
-          <BodyCol>
-          <BodyRow className="주" id={String(day)}>
-            {
-        row.map((dayObject, rowIndex) => (
-          
-        // <BodyColCellBox onDrop={(event) => event.dataTransfer.setData('text/plain', event.currentTarget.id) } id={String(dayObject.date)}>
-        <BodyColCellBox onDrop={(event) => {console.log("달력드롭", event.currentTarget.id); setDate(event.currentTarget.id) }}
-        // onDragEnter={(event) => {event.preventDefault(); console.log('달력 dragenter');}}
-        onDragOver={(event) => event.preventDefault()}
-        id={String(dayObject.date)}>
+  console.log(menuList);
 
-          <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
-          {!dayObject.date ? null : ( dayObject.date === date ? (rows[rowsIndex][rowIndex]['mainMenu'] = mainMenu): rows[rowsIndex][rowIndex]['mainMenu'])
-          
-          // (<div>
-          // 메인메뉴 : {dayObject.mainMenu}
-          // 국거리 : {dayObject.mainMenu}
-          // 반찬류 : {dayObject.mainMenu}
-          // </div>)
-        }{dayObject.mainMenu}
-        </BodyColCellBox>))}  
-        </BodyRow>
-  </BodyCol>
+  return (
+    <Body className="body">
+      {rows.map((row) => (
+        <BodyCol>
+          <BodyRow className="주">
+            {row.map((dayObject) => (
+              <BodyColCellBox
+                id={String(dayObject.date)}
+                onDrop={() => {
+                  dayObject.date &&
+                    setMenuList((state) => [
+                      ...state,
+                      { date: String(dayObject.date), menu: mainMenu },
+                    ]);
+                }}
+                onDragOver={(event) => event.preventDefault()}
+              >
+                <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
+                {!dayObject.date && null}
+                {
+                  menuList.find((menu) =>
+                    row.find(() => dayObject.date === menu.date)
+                  )?.menu
+                }
+              </BodyColCellBox>
+            ))}
+          </BodyRow>
+        </BodyCol>
       ))}
-  
-  </Body>);
-  };
-  
+    </Body>
+  );
+}
 
-  const Body = styled.div`
+const Body = styled.div`
   width: 100%;
   height: 89%;
 
