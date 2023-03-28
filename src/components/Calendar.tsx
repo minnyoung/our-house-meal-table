@@ -28,4 +28,6 @@ export const Calendar = () => {
 const Container = styled.div`
   width: 60%;
   height: 90%;
+  
+  flex: auto;
 `;
