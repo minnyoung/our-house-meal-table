@@ -11,7 +11,8 @@ type RenderCellsProps = {
 
 type MenuType = {
   date: string;
-  menu: string;
+  mainMenu: string;
+  soup: string;
 };
 
 // 날짜부분
@@ -21,7 +22,7 @@ export default function RenderCells({
   onDateClick,
 }: RenderCellsProps) {
   const { rows, day } = useRenderCells({ currentMonth });
-  const { mainMenu } = mainMenuStore();
+  const { mainMenu, soup, setMainMenu, setSoup } = mainMenuStore();
 
   const [menuList, setMenuList] = useState<MenuType[]>([]);
   const [menuDate, setMenuDate] = useState("");
@@ -32,17 +33,31 @@ export default function RenderCells({
       !menuList.find((menuListElement) => menuListElement.date === menuDate)
     ) {
       menuDate &&
-        setMenuList((state) => [...state, { date: menuDate, menu: mainMenu }]);
+        setMenuList((state) => [
+          ...state,
+          { date: menuDate, mainMenu: mainMenu, soup: soup },
+        ]);
+
       // 메뉴가 존재하는 경우
     } else {
-      setMenuList((state) => [
-        ...state.filter(
-          (menu) => menu !== menuList.find((menu) => menu.date === menuDate)
-        ),
-        { date: menuDate, menu: mainMenu },
-      ]);
+      let copyMenuList = [...menuList];
+
+      copyMenuList.map((menu) => {
+        if (menu === copyMenuList.find((menu) => menu.date === menuDate)) {
+          mainMenu !== "" && (menu.mainMenu = mainMenu);
+          soup !== "" && (menu.soup = soup);
+        }
+      });
+
+      setMenuList(copyMenuList);
     }
+
+    // state 초기화
+    setMainMenu("");
+    setSoup("");
   };
+
+  console.log("최종메뉴리스트: ", menuList);
 
   return (
     <Body className="body">
@@ -52,18 +67,22 @@ export default function RenderCells({
             {row.map((dayObject) => (
               <BodyColCellBox
                 id={String(dayObject.date)}
-                onDropCapture={() => {
-                  setMenuDate(String(dayObject.date));
-                }}
+                onDropCapture={() => setMenuDate(String(dayObject.date))}
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
+                // onDragOverCapture={(event) => console.log(event)}
               >
                 <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
                 {!dayObject.date && null}
                 {
                   menuList.find((menu) =>
                     row.find(() => dayObject.date === menu.date)
-                  )?.menu
+                  )?.mainMenu
+                }
+                {
+                  menuList.find((menu) =>
+                    row.find(() => dayObject.date === menu.date)
+                  )?.soup
                 }
               </BodyColCellBox>
             ))}
