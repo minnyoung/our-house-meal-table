@@ -70,7 +70,6 @@ export default function RenderCells({
                 onDropCapture={() => setMenuDate(String(dayObject.date))}
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
-                // onDragOverCapture={(event) => console.log(event)}
               >
                 <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
                 {!dayObject.date && null}
