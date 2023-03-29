@@ -13,6 +13,7 @@ type MenuType = {
   date: string;
   mainMenu: string;
   soup: string;
+  sideMenu: string;
 };
 
 // 날짜부분
@@ -22,7 +23,8 @@ export default function RenderCells({
   onDateClick,
 }: RenderCellsProps) {
   const { rows, day } = useRenderCells({ currentMonth });
-  const { mainMenu, soup, setMainMenu, setSoup } = mainMenuStore();
+  const { mainMenu, soup, sideMenu, setMainMenu, setSoup, setSideMenu } =
+    mainMenuStore();
 
   const [menuList, setMenuList] = useState<MenuType[]>([]);
   const [menuDate, setMenuDate] = useState("");
@@ -35,7 +37,12 @@ export default function RenderCells({
       menuDate &&
         setMenuList((state) => [
           ...state,
-          { date: menuDate, mainMenu: mainMenu, soup: soup },
+          {
+            date: menuDate,
+            mainMenu: mainMenu,
+            soup: soup,
+            sideMenu: sideMenu,
+          },
         ]);
 
       // 메뉴가 존재하는 경우
@@ -46,6 +53,7 @@ export default function RenderCells({
         if (menu === copyMenuList.find((menu) => menu.date === menuDate)) {
           mainMenu !== "" && (menu.mainMenu = mainMenu);
           soup !== "" && (menu.soup = soup);
+          sideMenu !== "" && (menu.sideMenu = sideMenu);
         }
       });
 
@@ -55,6 +63,7 @@ export default function RenderCells({
     // state 초기화
     setMainMenu("");
     setSoup("");
+    setSideMenu("");
   };
 
   console.log("최종메뉴리스트: ", menuList);
@@ -82,6 +91,11 @@ export default function RenderCells({
                   menuList.find((menu) =>
                     row.find(() => dayObject.date === menu.date)
                   )?.soup
+                }
+                {
+                  menuList.find((menu) =>
+                    row.find(() => dayObject.date === menu.date)
+                  )?.sideMenu
                 }
               </BodyColCellBox>
             ))}
