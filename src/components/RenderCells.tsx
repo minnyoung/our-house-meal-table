@@ -73,14 +73,16 @@ export default function RenderCells({
       {rows.map((row) => (
         <BodyCol>
           <BodyRow className="">
-            {row.map((dayObject) => (
+            {row.map((dayObject, index) => (
               <BodyColCellBox
                 id={String(dayObject.date)}
                 onDropCapture={() => setMenuDate(String(dayObject.date))}
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
               >
-                <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
+                <BodyColCellNumber color={String(index)}>
+                  {dayObject.date}
+                </BodyColCellNumber>
                 {!dayObject.date && null}
                 {
                   menuList.find((menu) =>
@@ -114,6 +116,9 @@ const Body = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  border-top: 1px solid rgb(170, 170, 170);
+  border-left: 1px solid rgb(170, 170, 170);
 `;
 
 const BodyRow = styled.div`
@@ -148,12 +153,15 @@ const BodyColCellBox = styled.div`
   width: 100%;
   height: 100%;
 
-  border: 1px solid gray;
+  border-right: 1px solid rgb(170, 170, 170);
+  border-bottom: 1px solid rgb(170, 170, 170);
 `;
 
 const BodyColCellNumber = styled.span`
+  display: flex;
+  padding: 5px;
   font-size: 1em;
   font-weight: 500;
-
-  margin: 4px;
+  color: ${({ color }) =>
+    color === "0" ? "#ff5151" : color === "6" ? "#2631ff" : "#181818"};
 `;
