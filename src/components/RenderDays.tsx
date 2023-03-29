@@ -38,5 +38,5 @@ const DaysCol = styled.div`
   align-items: center;
 
   color: ${({ color }) =>
-    color === "토" ? "#ff5151" : color === "일" ? "#2631ff" : "#686868"};
+    color === "일" ? "#ff5151" : color === "토" ? "#2631ff" : "#686868"};
 `;
