@@ -83,22 +83,30 @@ export default function RenderCells({
                 <BodyColCellNumber color={String(index)}>
                   {dayObject.date}
                 </BodyColCellNumber>
-                {!dayObject.date && null}
-                {
-                  menuList.find((menu) =>
-                    row.find(() => dayObject.date === menu.date)
-                  )?.mainMenu
-                }
-                {
-                  menuList.find((menu) =>
-                    row.find(() => dayObject.date === menu.date)
-                  )?.soup
-                }
-                {
-                  menuList.find((menu) =>
-                    row.find(() => dayObject.date === menu.date)
-                  )?.sideMenu
-                }
+                <BodyColCellMenuContainer>
+                  {!dayObject.date && null}
+                  <BodyColCellMenu color="#9ee4e87c">
+                    {
+                      menuList.find((menu) =>
+                        row.find(() => dayObject.date === menu.date)
+                      )?.mainMenu
+                    }
+                  </BodyColCellMenu>
+                  <BodyColCellMenu color="#ef9fbc76">
+                    {
+                      menuList.find((menu) =>
+                        row.find(() => dayObject.date === menu.date)
+                      )?.soup
+                    }
+                  </BodyColCellMenu>
+                  <BodyColCellMenu color="#edae3a6f">
+                    {
+                      menuList.find((menu) =>
+                        row.find(() => dayObject.date === menu.date)
+                      )?.sideMenu
+                    }
+                  </BodyColCellMenu>
+                </BodyColCellMenuContainer>
               </BodyColCellBox>
             ))}
           </BodyRow>
@@ -164,4 +172,19 @@ const BodyColCellNumber = styled.span`
   font-weight: 500;
   color: ${({ color }) =>
     color === "0" ? "#ff5151" : color === "6" ? "#2631ff" : "#181818"};
+`;
+
+const BodyColCellMenuContainer = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const BodyColCellMenu = styled.span`
+  margin-bottom: 2px;
+  padding: 1px 7px;
+  border-radius: 7px;
+
+  /* background-color: ${({ color }) => color}; */
+  font-size: 0.9em;
 `;
