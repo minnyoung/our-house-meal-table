@@ -73,30 +73,40 @@ export default function RenderCells({
       {rows.map((row) => (
         <BodyCol>
           <BodyRow className="">
-            {row.map((dayObject) => (
+            {row.map((dayObject, index) => (
               <BodyColCellBox
                 id={String(dayObject.date)}
                 onDropCapture={() => setMenuDate(String(dayObject.date))}
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
               >
-                <BodyColCellNumber>{dayObject.date}</BodyColCellNumber>
-                {!dayObject.date && null}
-                {
-                  menuList.find((menu) =>
-                    row.find(() => dayObject.date === menu.date)
-                  )?.mainMenu
-                }
-                {
-                  menuList.find((menu) =>
-                    row.find(() => dayObject.date === menu.date)
-                  )?.soup
-                }
-                {
-                  menuList.find((menu) =>
-                    row.find(() => dayObject.date === menu.date)
-                  )?.sideMenu
-                }
+                <BodyColCellNumber color={String(index)}>
+                  {dayObject.date}
+                </BodyColCellNumber>
+                <BodyColCellMenuContainer>
+                  {!dayObject.date && null}
+                  <BodyColCellMenu color="#9ee4e87c">
+                    {
+                      menuList.find((menu) =>
+                        row.find(() => dayObject.date === menu.date)
+                      )?.mainMenu
+                    }
+                  </BodyColCellMenu>
+                  <BodyColCellMenu color="#ef9fbc76">
+                    {
+                      menuList.find((menu) =>
+                        row.find(() => dayObject.date === menu.date)
+                      )?.soup
+                    }
+                  </BodyColCellMenu>
+                  <BodyColCellMenu color="#edae3a6f">
+                    {
+                      menuList.find((menu) =>
+                        row.find(() => dayObject.date === menu.date)
+                      )?.sideMenu
+                    }
+                  </BodyColCellMenu>
+                </BodyColCellMenuContainer>
               </BodyColCellBox>
             ))}
           </BodyRow>
@@ -114,6 +124,9 @@ const Body = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  border-top: 1px solid rgb(170, 170, 170);
+  border-left: 1px solid rgb(170, 170, 170);
 `;
 
 const BodyRow = styled.div`
@@ -148,12 +161,29 @@ const BodyColCellBox = styled.div`
   width: 100%;
   height: 100%;
 
-  border: 1px solid gray;
+  border-right: 1px solid rgb(170, 170, 170);
+  border-bottom: 1px solid rgb(170, 170, 170);
 `;
 
 const BodyColCellNumber = styled.span`
+  display: flex;
+  padding: 5px;
   font-size: 1em;
   font-weight: 500;
+  color: ${({ color }) =>
+    color === "0" ? "#ff5151" : color === "6" ? "#2631ff" : "#181818"};
+`;
 
-  margin: 4px;
+const BodyColCellMenuContainer = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const BodyColCellMenu = styled.span`
+  margin-bottom: 2px;
+  border-radius: 7px;
+
+  /* background-color: ${({ color }) => color}; */
+  font-size: 0.9em;
 `;

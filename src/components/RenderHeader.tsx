@@ -4,41 +4,43 @@ import { format, addMonths, subMonths } from "date-fns";
 import styled from "styled-components";
 
 type RenderHeaderProps = {
-    currentMonth: Date;
-    prevMonth: () => void;
-    nextMonth: () => void;
-  };
+  currentMonth: Date;
+  prevMonth: () => void;
+  nextMonth: () => void;
+};
 
-export default function RenderHeader  ({
-    currentMonth,
-    prevMonth,
-    nextMonth,
-  }: RenderHeaderProps) {
-    return (
-      <Header className="header row">
-        <HeaderColFirst className="col col-start">
-          <HeaderColFirstText className="text">
-            <HeaderColFirstTextMonth className="text month">
-              {format(currentMonth, "M")}월
-            </HeaderColFirstTextMonth>
-            {format(currentMonth, "yyyy")}
-          </HeaderColFirstText>
-        </HeaderColFirst>
-        <HeaderColEnd className="col col-end">
-          <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
-          <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
-        </HeaderColEnd>
-      </Header>
-    );
-  };
+export default function RenderHeader({
+  currentMonth,
+  prevMonth,
+  nextMonth,
+}: RenderHeaderProps) {
+  return (
+    <Header className="header row">
+      <HeaderColFirst className="col col-start">
+        <HeaderColFirstText className="text">
+          <HeaderColFirstTextMonth className="text month">
+            {format(currentMonth, "M")}월
+          </HeaderColFirstTextMonth>
+          {format(currentMonth, "yyyy")}
+        </HeaderColFirstText>
+      </HeaderColFirst>
+      <HeaderColEnd className="col col-end">
+        <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
+        <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
+      </HeaderColEnd>
+    </Header>
+  );
+}
 
-  const Header = styled.div`
-  width: 100%;
-  height: 7%;
+const Header = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
+
+  margin: 10px 0;
+  width: 100%;
+  height: 7%;
 `;
 
 const HeaderColFirst = styled.div`
@@ -59,7 +61,7 @@ const HeaderColFirstText = styled.span`
 
 const HeaderColFirstTextMonth = styled.span`
   margin-right: 5px;
-  font-size: 1.6em;
+  font-size: 2em;
   font-weight: 600;
 `;
 
@@ -73,7 +75,7 @@ const HeaderColEnd = styled.div`
   align-items: baseline;
 
   svg {
-    width: 11%;
+    width: 20px;
     height: fit-content;
     margin-left: 5%;
     color: transparentize(gray, 0.2);
