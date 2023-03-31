@@ -182,7 +182,6 @@ const BodyColCellMenuContainer = styled.span`
 
 const BodyColCellMenu = styled.span`
   margin-bottom: 2px;
-  padding: 1px 7px;
   border-radius: 7px;
 
   /* background-color: ${({ color }) => color}; */
