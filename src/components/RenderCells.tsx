@@ -28,7 +28,7 @@ export default function RenderCells({
 
   const [menuList, setMenuList] = useState<MenuType[]>([]);
   const [menuDate, setMenuDate] = useState("");
-
+  console.log(rows[0][6]);
   const makeMenuList = () => {
     // 메뉴 존재하지 않는 경우
     if (
@@ -75,8 +75,8 @@ export default function RenderCells({
           <BodyRow className="">
             {row.map((dayObject, index) => (
               <BodyColCellBox
-                calendarDate={String(dayObject.date)}
-                todayDate={String(todayDate)}
+                calendarDate={`${dayObject.year}${dayObject.month}${dayObject.date}`}
+                todayDate={todayDate}
                 onDropCapture={() => setMenuDate(String(dayObject.date))}
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
@@ -158,7 +158,10 @@ const BodyColNotValid = styled.span`
   color: #c4c4c4;
 `;
 
-const BodyColCellBox = styled.div<{ calendarDate: string; todayDate: string }>`
+const BodyColCellBox = styled.div<{
+  calendarDate: string;
+  todayDate: string;
+}>`
   width: 100%;
   height: 100%;
 
