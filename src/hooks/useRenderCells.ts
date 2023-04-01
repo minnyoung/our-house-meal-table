@@ -11,6 +11,7 @@ export default function useRenderCells({ currentMonth }: RenderCellsProps) {
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);
   const endDate = endOfWeek(monthEnd);
+  const todayDate = new Date().getDate();
 
   const rows = [];
   let days = [];
@@ -31,5 +32,5 @@ export default function useRenderCells({ currentMonth }: RenderCellsProps) {
     days = [];
   }
 
-  return { rows, day };
+  return { rows, day, todayDate };
 }

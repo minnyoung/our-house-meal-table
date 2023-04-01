@@ -22,7 +22,7 @@ export default function RenderCells({
   selectedDate,
   onDateClick,
 }: RenderCellsProps) {
-  const { rows, day } = useRenderCells({ currentMonth });
+  const { rows, day, todayDate } = useRenderCells({ currentMonth });
   const { mainMenu, soup, sideMenu, setMainMenu, setSoup, setSideMenu } =
     mainMenuStore();
 
@@ -75,7 +75,8 @@ export default function RenderCells({
           <BodyRow className="">
             {row.map((dayObject, index) => (
               <BodyColCellBox
-                id={String(dayObject.date)}
+                calendarDate={String(dayObject.date)}
+                todayDate={String(todayDate)}
                 onDropCapture={() => setMenuDate(String(dayObject.date))}
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
@@ -157,12 +158,14 @@ const BodyColNotValid = styled.span`
   color: #c4c4c4;
 `;
 
-const BodyColCellBox = styled.div`
+const BodyColCellBox = styled.div<{ calendarDate: string; todayDate: string }>`
   width: 100%;
   height: 100%;
 
   border-right: 1px solid rgb(170, 170, 170);
   border-bottom: 1px solid rgb(170, 170, 170);
+  background-color: ${({ calendarDate, todayDate }) =>
+    calendarDate === todayDate ? "#ffc8f12e" : "null"};
 `;
 
 const BodyColCellNumber = styled.span`
