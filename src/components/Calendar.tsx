@@ -5,11 +5,11 @@ import RenderDays from "./RenderDays";
 import RenderHeader from "./RenderHeader";
 import useMakeCalenderFunction from "../hooks/useMakeCalendarFunction";
 
-
 export const Calendar = () => {
-  const {currentMonth, selectedDate, prevMonth, nextMonth, onDateClick} = useMakeCalenderFunction()
+  const { currentMonth, selectedDate, prevMonth, nextMonth, onDateClick } =
+    useMakeCalenderFunction();
   return (
-    <Container className="calendar">
+    <Container className="calendar" id="captureSection">
       <RenderHeader
         currentMonth={currentMonth}
         prevMonth={prevMonth}
@@ -28,6 +28,6 @@ export const Calendar = () => {
 const Container = styled.div`
   width: 60%;
   height: 90%;
-  
+
   flex: auto;
 `;
