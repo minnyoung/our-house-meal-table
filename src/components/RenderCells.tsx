@@ -75,35 +75,35 @@ export default function RenderCells({
           <BodyRow className="">
             {row.map((dayObject, index) => (
               <BodyColCellBox
-                calendarDate={`${dayObject.year}${dayObject.month}${dayObject.date}`}
+                calendarDate={`${dayObject.year}${dayObject.month}${dayObject.day}`}
                 todayDate={todayDate}
-                onDropCapture={() => setMenuDate(String(dayObject.date))}
+                onDropCapture={() => setMenuDate(String(dayObject.day))}
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
               >
                 <BodyColCellNumber color={String(index)}>
-                  {dayObject.date}
+                  {dayObject.day}
                 </BodyColCellNumber>
                 <BodyColCellMenuContainer>
-                  {!dayObject.date && null}
+                  {!dayObject.day && null}
                   <BodyColCellMenu color="#9ee4e87c">
                     {
                       menuList.find((menu) =>
-                        row.find(() => dayObject.date === menu.date)
+                        row.find(() => dayObject.day === menu.date)
                       )?.mainMenu
                     }
                   </BodyColCellMenu>
                   <BodyColCellMenu color="#ef9fbc76">
                     {
                       menuList.find((menu) =>
-                        row.find(() => dayObject.date === menu.date)
+                        row.find(() => dayObject.day === menu.date)
                       )?.soup
                     }
                   </BodyColCellMenu>
                   <BodyColCellMenu color="#edae3a6f">
                     {
                       menuList.find((menu) =>
-                        row.find(() => dayObject.date === menu.date)
+                        row.find(() => dayObject.day === menu.date)
                       )?.sideMenu
                     }
                   </BodyColCellMenu>
