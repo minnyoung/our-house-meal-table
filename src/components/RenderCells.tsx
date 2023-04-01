@@ -9,24 +9,24 @@ type RenderCellsProps = {
   onDateClick: (day: Date) => void;
 };
 
-type MenuType = {
-  date: string;
-  mainMenu: string;
-  soup: string;
-  sideMenu: string;
-};
-
 // 날짜부분
 export default function RenderCells({
   currentMonth,
   selectedDate,
   onDateClick,
 }: RenderCellsProps) {
-  const { rows, day } = useRenderCells({ currentMonth });
-  const { mainMenu, soup, sideMenu, setMainMenu, setSoup, setSideMenu } =
-    mainMenuStore();
+  const { rows, day, todayDate } = useRenderCells({ currentMonth });
+  const {
+    mainMenu,
+    soup,
+    sideMenu,
+    menuList,
+    setMainMenu,
+    setSoup,
+    setSideMenu,
+    setMenuList,
+  } = mainMenuStore();
 
-  const [menuList, setMenuList] = useState<MenuType[]>([]);
   const [menuDate, setMenuDate] = useState("");
 
   const makeMenuList = () => {
@@ -35,8 +35,8 @@ export default function RenderCells({
       !menuList.find((menuListElement) => menuListElement.date === menuDate)
     ) {
       menuDate &&
-        setMenuList((state) => [
-          ...state,
+        setMenuList([
+          ...menuList,
           {
             date: menuDate,
             mainMenu: mainMenu,
@@ -66,7 +66,7 @@ export default function RenderCells({
     setSideMenu("");
   };
 
-  console.log("최종메뉴리스트: ", menuList);
+  console.log("최종메뉴: ", menuList);
 
   return (
     <Body className="body">
@@ -75,34 +75,51 @@ export default function RenderCells({
           <BodyRow className="">
             {row.map((dayObject, index) => (
               <BodyColCellBox
-                id={String(dayObject.date)}
-                onDropCapture={() => setMenuDate(String(dayObject.date))}
+                calendarDate={`${dayObject.year}${dayObject.month}${dayObject.day}`}
+                todayDate={todayDate}
+                onDropCapture={() =>
+                  setMenuDate(
+                    `${dayObject.year}-${dayObject.month}-${dayObject.day}`
+                  )
+                }
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
               >
                 <BodyColCellNumber color={String(index)}>
-                  {dayObject.date}
+                  {dayObject.day}
                 </BodyColCellNumber>
                 <BodyColCellMenuContainer>
-                  {!dayObject.date && null}
+                  {!dayObject.day && null}
                   <BodyColCellMenu color="#9ee4e87c">
                     {
                       menuList.find((menu) =>
-                        row.find(() => dayObject.date === menu.date)
+                        row.find(
+                          () =>
+                            `${dayObject.year}-${dayObject.month}-${dayObject.day}` ===
+                            menu.date
+                        )
                       )?.mainMenu
                     }
                   </BodyColCellMenu>
                   <BodyColCellMenu color="#ef9fbc76">
                     {
                       menuList.find((menu) =>
-                        row.find(() => dayObject.date === menu.date)
+                        row.find(
+                          () =>
+                            `${dayObject.year}-${dayObject.month}-${dayObject.day}` ===
+                            menu.date
+                        )
                       )?.soup
                     }
                   </BodyColCellMenu>
                   <BodyColCellMenu color="#edae3a6f">
                     {
                       menuList.find((menu) =>
-                        row.find(() => dayObject.date === menu.date)
+                        row.find(
+                          () =>
+                            `${dayObject.year}-${dayObject.month}-${dayObject.day}` ===
+                            menu.date
+                        )
                       )?.sideMenu
                     }
                   </BodyColCellMenu>
@@ -157,12 +174,17 @@ const BodyColNotValid = styled.span`
   color: #c4c4c4;
 `;
 
-const BodyColCellBox = styled.div`
+const BodyColCellBox = styled.div<{
+  calendarDate: string;
+  todayDate: string;
+}>`
   width: 100%;
   height: 100%;
 
   border-right: 1px solid rgb(170, 170, 170);
   border-bottom: 1px solid rgb(170, 170, 170);
+  background-color: ${({ calendarDate, todayDate }) =>
+    calendarDate === todayDate ? "#ffc8f12e" : "null"};
 `;
 
 const BodyColCellNumber = styled.span`

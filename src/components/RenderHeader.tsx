@@ -2,6 +2,8 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { format, addMonths, subMonths } from "date-fns";
 import styled from "styled-components";
+import useResetMenu from "../hooks/useResetMenu";
+import saveCalenderImage from "../utils/captureCalendar";
 
 type RenderHeaderProps = {
   currentMonth: Date;
@@ -14,6 +16,17 @@ export default function RenderHeader({
   prevMonth,
   nextMonth,
 }: RenderHeaderProps) {
+  const { resetMenu } = useResetMenu();
+
+  function clickResetMenuButton() {
+    const answer = window.confirm(
+      "현재 달의 메뉴를 모두 초기화합니다\n초기화 시 복구가 어려울 수 있습니다"
+    );
+    if (answer) {
+      resetMenu(currentMonth);
+    }
+  }
+
   return (
     <Header className="header row">
       <HeaderColFirst className="col col-start">
@@ -24,7 +37,22 @@ export default function RenderHeader({
           {format(currentMonth, "yyyy")}
         </HeaderColFirstText>
       </HeaderColFirst>
+
       <HeaderColEnd className="col col-end">
+        <button type="button" onClick={clickResetMenuButton}>
+          초기화
+        </button>
+        <button
+          onClick={() =>
+            saveCalenderImage(
+              "captureSection",
+              format(currentMonth, "M"),
+              format(currentMonth, "yyyy")
+            )
+          }
+        >
+          이미지 저장
+        </button>
         <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
         <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
       </HeaderColEnd>
@@ -44,7 +72,6 @@ const Header = styled.div`
 `;
 
 const HeaderColFirst = styled.div`
-  width: 80%;
   height: 100%;
 
   display: flex;
@@ -66,13 +93,28 @@ const HeaderColFirstTextMonth = styled.span`
 `;
 
 const HeaderColEnd = styled.div`
-  width: 20%;
   height: 100%;
 
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  align-items: baseline;
+  align-items: flex-end;
+
+  button {
+    width: 50px;
+    margin-left: 5%;
+    padding: 5px 5px;
+
+    font-size: 10px;
+    background-color: transparent;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    :hover {
+      transition: 0.1s ease-in-out;
+      cursor: pointer;
+      background-color: #dddddd;
+    }
+  }
 
   svg {
     width: 20px;
