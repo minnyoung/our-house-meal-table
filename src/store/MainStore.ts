@@ -1,26 +1,37 @@
 import { create } from "zustand";
 
+type MenuType = {
+  date: string;
+  mainMenu: string;
+  soup: string;
+  sideMenu: string;
+};
+
 // 메뉴 store
-interface MainMenuState {
+type MainMenuState = {
   mainMenu: string;
   soup: string;
   sideMenu: string;
   day: string;
+  menuList: MenuType[];
 
   setMainMenu: (menu: string) => void;
   setSoup: (soup: string) => void;
   setSideMenu: (sideMenu: string) => void;
   setDay: (day: string) => void;
-}
+  setMenuList: (menuObject: MenuType[]) => void;
+};
 
 export const mainMenuStore = create<MainMenuState>((set) => ({
   mainMenu: "",
   soup: "",
   sideMenu: "",
   day: "",
+  menuList: [],
 
   setMainMenu: (mainMenu) => set(() => ({ mainMenu })),
   setSoup: (soup) => set(() => ({ soup })),
   setSideMenu: (sideMenu) => set(() => ({ sideMenu })),
   setDay: (day) => set(() => ({ day })),
+  setMenuList: (menuObject) => set(() => ({ menuList: menuObject })),
 }));

@@ -9,13 +9,6 @@ type RenderCellsProps = {
   onDateClick: (day: Date) => void;
 };
 
-type MenuType = {
-  date: string;
-  mainMenu: string;
-  soup: string;
-  sideMenu: string;
-};
-
 // 날짜부분
 export default function RenderCells({
   currentMonth,
@@ -23,10 +16,17 @@ export default function RenderCells({
   onDateClick,
 }: RenderCellsProps) {
   const { rows, day, todayDate } = useRenderCells({ currentMonth });
-  const { mainMenu, soup, sideMenu, setMainMenu, setSoup, setSideMenu } =
-    mainMenuStore();
+  const {
+    mainMenu,
+    soup,
+    sideMenu,
+    menuList,
+    setMainMenu,
+    setSoup,
+    setSideMenu,
+    setMenuList,
+  } = mainMenuStore();
 
-  const [menuList, setMenuList] = useState<MenuType[]>([]);
   const [menuDate, setMenuDate] = useState("");
 
   const makeMenuList = () => {
@@ -35,8 +35,8 @@ export default function RenderCells({
       !menuList.find((menuListElement) => menuListElement.date === menuDate)
     ) {
       menuDate &&
-        setMenuList((state) => [
-          ...state,
+        setMenuList([
+          ...menuList,
           {
             date: menuDate,
             mainMenu: mainMenu,
