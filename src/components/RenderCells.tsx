@@ -28,7 +28,7 @@ export default function RenderCells({
 
   const [menuList, setMenuList] = useState<MenuType[]>([]);
   const [menuDate, setMenuDate] = useState("");
-  console.log(rows[0][6]);
+
   const makeMenuList = () => {
     // 메뉴 존재하지 않는 경우
     if (
@@ -65,8 +65,6 @@ export default function RenderCells({
     setSoup("");
     setSideMenu("");
   };
-
-  console.log("최종메뉴리스트: ", menuList);
 
   return (
     <Body className="body">
