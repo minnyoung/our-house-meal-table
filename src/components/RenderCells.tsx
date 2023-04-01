@@ -66,6 +66,8 @@ export default function RenderCells({
     setSideMenu("");
   };
 
+  console.log("최종메뉴: ", menuList);
+
   return (
     <Body className="body">
       {rows.map((row) => (
@@ -75,7 +77,11 @@ export default function RenderCells({
               <BodyColCellBox
                 calendarDate={`${dayObject.year}${dayObject.month}${dayObject.day}`}
                 todayDate={todayDate}
-                onDropCapture={() => setMenuDate(String(dayObject.day))}
+                onDropCapture={() =>
+                  setMenuDate(
+                    `${dayObject.year}-${dayObject.month}-${dayObject.day}`
+                  )
+                }
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
               >
@@ -87,21 +93,33 @@ export default function RenderCells({
                   <BodyColCellMenu color="#9ee4e87c">
                     {
                       menuList.find((menu) =>
-                        row.find(() => dayObject.day === menu.date)
+                        row.find(
+                          () =>
+                            `${dayObject.year}-${dayObject.month}-${dayObject.day}` ===
+                            menu.date
+                        )
                       )?.mainMenu
                     }
                   </BodyColCellMenu>
                   <BodyColCellMenu color="#ef9fbc76">
                     {
                       menuList.find((menu) =>
-                        row.find(() => dayObject.day === menu.date)
+                        row.find(
+                          () =>
+                            `${dayObject.year}-${dayObject.month}-${dayObject.day}` ===
+                            menu.date
+                        )
                       )?.soup
                     }
                   </BodyColCellMenu>
                   <BodyColCellMenu color="#edae3a6f">
                     {
                       menuList.find((menu) =>
-                        row.find(() => dayObject.day === menu.date)
+                        row.find(
+                          () =>
+                            `${dayObject.year}-${dayObject.month}-${dayObject.day}` ===
+                            menu.date
+                        )
                       )?.sideMenu
                     }
                   </BodyColCellMenu>
