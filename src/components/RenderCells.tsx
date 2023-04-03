@@ -34,7 +34,7 @@ export default function RenderCells({
     if (
       !menuList.find((menuListElement) => menuListElement.date === menuDate)
     ) {
-      menuDate &&
+      !menuDate.includes("undefined") &&
         setMenuList([
           ...menuList,
           {
