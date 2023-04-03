@@ -38,7 +38,7 @@ export default function RenderHeader({
         </HeaderColFirstText>
       </HeaderColFirst>
 
-      <HeaderColEnd className="col col-end">
+      <HeaderColEnd className="col col-end" data-html2canvas-ignore="true">
         <button type="button" onClick={clickResetMenuButton}>
           초기화
         </button>
