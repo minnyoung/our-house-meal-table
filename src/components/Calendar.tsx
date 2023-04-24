@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import RenderCells from "./RenderCells";
-import RenderDays from "./RenderDays";
-import RenderHeader from "./RenderHeader";
+import CalendarCells from "./CalendarCells";
+import CalendarWeekDays from "./CalendarWeekDays";
+import CalendarHeader from "./CalendarHeader";
 import useMakeCalenderFunction from "../hooks/useMakeCalendarFunction";
 
 export const Calendar = () => {
@@ -10,13 +10,13 @@ export const Calendar = () => {
     useMakeCalenderFunction();
   return (
     <Container className="calendar" id="captureSection">
-      <RenderHeader
+      <CalendarHeader
         currentMonth={currentMonth}
         prevMonth={prevMonth}
         nextMonth={nextMonth}
       />
-      <RenderDays />
-      <RenderCells
+      <CalendarWeekDays />
+      <CalendarCells
         currentMonth={currentMonth}
         selectedDate={selectedDate}
         onDateClick={onDateClick}

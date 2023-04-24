@@ -7,7 +7,7 @@ type RenderCellsProps = {
   currentMonth: Date;
 };
 
-export default function useRenderCells({ currentMonth }: RenderCellsProps) {
+export default function useCalendarCells({ currentMonth }: RenderCellsProps) {
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);

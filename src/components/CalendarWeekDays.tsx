@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 // 요일
-export default function RenderDays() {
+export default function CalendarWeekDays() {
   const dates = ["일", "월", "화", "수", "목", "금", "토"];
 
   return (

@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import useRenderCells from "../hooks/useRenderCells";
+import useCalendarCells from "../hooks/useCalendarCells";
 import { mainMenuStore } from "../store/MainStore";
 
-type RenderCellsProps = {
+type CalendarCellsProps = {
   currentMonth: Date;
   selectedDate: Date;
   onDateClick: (day: Date) => void;
 };
 
 // 날짜부분
-export default function RenderCells({
+export default function CalendarCells({
   currentMonth,
   selectedDate,
   onDateClick,
-}: RenderCellsProps) {
-  const { rows, day, todayDate } = useRenderCells({ currentMonth });
+}: CalendarCellsProps) {
+  const { rows, day, todayDate } = useCalendarCells({ currentMonth });
   const {
     mainMenu,
     soup,

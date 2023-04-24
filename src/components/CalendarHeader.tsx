@@ -5,17 +5,17 @@ import styled from "styled-components";
 import useResetMenu from "../hooks/useResetMenu";
 import saveCalenderImage from "../utils/captureCalendar";
 
-type RenderHeaderProps = {
+type CalendarHeaderProps = {
   currentMonth: Date;
   prevMonth: () => void;
   nextMonth: () => void;
 };
 
-export default function RenderHeader({
+export default function CalendarHeader({
   currentMonth,
   prevMonth,
   nextMonth,
-}: RenderHeaderProps) {
+}: CalendarHeaderProps) {
   const { resetMenu } = useResetMenu();
 
   function clickResetMenuButton() {
