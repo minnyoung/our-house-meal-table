@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import useCalendarCells from "../hooks/useCalendarCells";
 import { mainMenuStore } from "../store/MainStore";
+import { firestore } from "../firebase-config";
 
 type CalendarCellsProps = {
   currentMonth: Date;
@@ -15,6 +16,7 @@ export default function CalendarCells({
   selectedDate,
   onDateClick,
 }: CalendarCellsProps) {
+  console.log(firestore);
   const { rows, day, todayDate } = useCalendarCells({ currentMonth });
   const {
     mainMenu,
