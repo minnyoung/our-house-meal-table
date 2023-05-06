@@ -4,6 +4,7 @@ import { format, addMonths, subMonths } from "date-fns";
 import styled from "styled-components";
 import useResetMenu from "../hooks/useResetMenu";
 import saveCalenderImage from "../utils/captureCalendar";
+import Firebase from "./Firebase";
 
 type CalendarHeaderProps = {
   currentMonth: Date;
@@ -39,6 +40,7 @@ export default function CalendarHeader({
       </HeaderColFirst>
 
       <HeaderColEnd className="col col-end" data-html2canvas-ignore="true">
+        <Firebase />
         <button type="button" onClick={clickResetMenuButton}>
           초기화
         </button>
