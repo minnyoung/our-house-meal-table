@@ -4,6 +4,7 @@ import { format, addMonths, subMonths } from "date-fns";
 import styled from "styled-components";
 import useResetMenu from "../hooks/useResetMenu";
 import saveCalenderImage from "../utils/captureCalendar";
+import CalendarHeaderButton from "./element/CalaendarHeaderButton";
 
 type CalendarHeaderPropsType = {
   currentMonth: Date;
@@ -40,20 +41,20 @@ export default function CalendarHeader({
         className="col col-end"
         data-html2canvas-ignore="true"
       >
-        <button type="button" onClick={handleResetButton}>
-          초기화
-        </button>
-        <button
-          onClick={() =>
+        <CalendarHeaderButton
+          buttonText="초기화"
+          onClickEvent={handleResetButton}
+        />
+        <CalendarHeaderButton
+          buttonText="이미지 저장"
+          onClickEvent={() =>
             saveCalenderImage(
               "captureSection",
               format(currentMonth, "M"),
               format(currentMonth, "yyyy")
             )
           }
-        >
-          이미지 저장
-        </button>
+        />
         <Icon icon="bi:arrow-left-circle-fill" onClick={movePreviousMonth} />
         <Icon icon="bi:arrow-right-circle-fill" onClick={moveNextMonth} />
       </S.HeaderButtonWrapper>
@@ -90,28 +91,10 @@ const S = {
 
   HeaderButtonWrapper: styled.div`
     height: 100%;
-
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
-
-    button {
-      width: 50px;
-      margin-left: 5%;
-      padding: 5px 5px;
-
-      font-size: 10px;
-      background-color: transparent;
-      border: 1px solid #bebebe;
-      border-radius: 5px;
-      :hover {
-        transition: 0.1s ease-in-out;
-        cursor: pointer;
-        background-color: #dddddd;
-      }
-    }
-
     svg {
       width: 20px;
       height: fit-content;
