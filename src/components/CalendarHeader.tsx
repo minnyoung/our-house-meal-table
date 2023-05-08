@@ -4,7 +4,6 @@ import { format, addMonths, subMonths } from "date-fns";
 import styled from "styled-components";
 import useResetMenu from "../hooks/useResetMenu";
 import saveCalenderImage from "../utils/captureCalendar";
-import Firebase from "./Firebase";
 
 type CalendarHeaderPropsType = {
   currentMonth: Date;
@@ -29,18 +28,18 @@ export default function CalendarHeader({
   }
 
   return (
-    <Header className="header row">
-      <HeaderColFirst className="col col-start">
-        <HeaderColFirstText className="text">
-          <HeaderColFirstTextMonth className="text month">
-            {format(currentMonth, "M")}월
-          </HeaderColFirstTextMonth>
-          {format(currentMonth, "yyyy")}
-        </HeaderColFirstText>
-      </HeaderColFirst>
+    <S.Container className="header row">
+      <S.HeaderDateBox className="col col-start">
+        <S.HeaderMonth className="text month">
+          {format(currentMonth, "M")}월
+        </S.HeaderMonth>
+        {format(currentMonth, "yyyy")}
+      </S.HeaderDateBox>
 
-      <HeaderColEnd className="col col-end" data-html2canvas-ignore="true">
-        <Firebase />
+      <S.HeaderButtonWrapper
+        className="col col-end"
+        data-html2canvas-ignore="true"
+      >
         <button type="button" onClick={handleResetButton}>
           초기화
         </button>
@@ -57,78 +56,74 @@ export default function CalendarHeader({
         </button>
         <Icon icon="bi:arrow-left-circle-fill" onClick={movePreviousMonth} />
         <Icon icon="bi:arrow-right-circle-fill" onClick={moveNextMonth} />
-      </HeaderColEnd>
-    </Header>
+      </S.HeaderButtonWrapper>
+    </S.Container>
   );
 }
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
+const S = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
 
-  margin: 10px 0;
-  width: 100%;
-  height: 7%;
-`;
+    margin: 10px 0;
+    width: 100%;
+    height: 7%;
+  `,
+  HeaderDateBox: styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    margin-left: 1%;
+    font-size: 1em;
+    font-weight: 500;
+  `,
+  HeaderMonth: styled.span`
+    margin-right: 5px;
+    font-size: 2em;
+    font-weight: 600;
+  `,
 
-const HeaderColFirst = styled.div`
-  height: 100%;
+  HeaderButtonWrapper: styled.div`
+    height: 100%;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  margin-left: 1%;
-`;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
 
-const HeaderColFirstText = styled.span`
-  font-size: 1em;
-  font-weight: 500;
-`;
+    button {
+      width: 50px;
+      margin-left: 5%;
+      padding: 5px 5px;
 
-const HeaderColFirstTextMonth = styled.span`
-  margin-right: 5px;
-  font-size: 2em;
-  font-weight: 600;
-`;
-
-const HeaderColEnd = styled.div`
-  height: 100%;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-end;
-
-  button {
-    width: 50px;
-    margin-left: 5%;
-    padding: 5px 5px;
-
-    font-size: 10px;
-    background-color: transparent;
-    border: 1px solid #bebebe;
-    border-radius: 5px;
-    :hover {
-      transition: 0.1s ease-in-out;
-      cursor: pointer;
-      background-color: #dddddd;
+      font-size: 10px;
+      background-color: transparent;
+      border: 1px solid #bebebe;
+      border-radius: 5px;
+      :hover {
+        transition: 0.1s ease-in-out;
+        cursor: pointer;
+        background-color: #dddddd;
+      }
     }
-  }
 
-  svg {
-    width: 20px;
-    height: fit-content;
-    margin-left: 5%;
-    color: transparentize(gray, 0.2);
+    svg {
+      width: 20px;
+      height: fit-content;
+      margin-left: 5%;
+      color: transparentize(gray, 0.2);
 
-    &:hover {
-      cursor: pointer;
-      transition: 0.2s ease-in-out;
-      transform: scale(1.15);
-      color: #686868;
+      &:hover {
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+        transform: scale(1.15);
+        color: #686868;
+      }
     }
-  }
-`;
+  `,
+};
