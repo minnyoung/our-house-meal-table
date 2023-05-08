@@ -3,13 +3,13 @@ import styled from "styled-components";
 
 // 요일
 export default function CalendarWeekDays() {
-  const dates = ["일", "월", "화", "수", "목", "금", "토"];
+  const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
 
   return (
     <Days className="days row weekends">
-      {dates.map((date, index) => (
-        <DaysCol key={index} color={date}>
-          {date}
+      {weekDays.map((weekDay, index) => (
+        <DaysCol key={`weekDay-${index}`} weekDay={weekDay}>
+          {weekDay}
         </DaysCol>
       ))}
     </Days>
@@ -29,7 +29,7 @@ const Days = styled.div`
   font-size: 0.75em;
 `;
 
-const DaysCol = styled.div`
+const DaysCol = styled.div<{ weekDay: string }>`
   width: 12.9%;
   height: 100%;
 
@@ -37,6 +37,6 @@ const DaysCol = styled.div`
   flex-direction: column;
   align-items: center;
 
-  color: ${({ color }) =>
-    color === "일" ? "#ff5151" : color === "토" ? "#2631ff" : "#686868"};
+  color: ${({ weekDay }) =>
+    weekDay === "일" ? "#ff5151" : weekDay === "토" ? "#2631ff" : "#686868"};
 `;
