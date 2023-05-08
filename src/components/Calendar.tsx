@@ -6,14 +6,19 @@ import CalendarHeader from "./CalendarHeader";
 import useMakeCalenderFunction from "../hooks/useMakeCalendarFunction";
 
 export const Calendar = () => {
-  const { currentMonth, selectedDate, prevMonth, nextMonth, onDateClick } =
-    useMakeCalenderFunction();
+  const {
+    currentMonth,
+    selectedDate,
+    movePreviousMonth,
+    moveNextMonth,
+    onDateClick,
+  } = useMakeCalenderFunction();
   return (
     <Container className="calendar" id="captureSection">
       <CalendarHeader
         currentMonth={currentMonth}
-        prevMonth={prevMonth}
-        nextMonth={nextMonth}
+        movePreviousMonth={movePreviousMonth}
+        moveNextMonth={moveNextMonth}
       />
       <CalendarWeekDays />
       <CalendarCells

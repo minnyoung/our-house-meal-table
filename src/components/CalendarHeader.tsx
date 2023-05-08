@@ -6,20 +6,20 @@ import useResetMenu from "../hooks/useResetMenu";
 import saveCalenderImage from "../utils/captureCalendar";
 import Firebase from "./Firebase";
 
-type CalendarHeaderProps = {
+type CalendarHeaderPropsType = {
   currentMonth: Date;
-  prevMonth: () => void;
-  nextMonth: () => void;
+  movePreviousMonth: () => void;
+  moveNextMonth: () => void;
 };
 
 export default function CalendarHeader({
   currentMonth,
-  prevMonth,
-  nextMonth,
-}: CalendarHeaderProps) {
+  movePreviousMonth,
+  moveNextMonth,
+}: CalendarHeaderPropsType) {
   const { resetMenu } = useResetMenu();
 
-  function clickResetMenuButton() {
+  function handleResetButton() {
     const answer = window.confirm(
       "현재 달의 메뉴를 모두 초기화합니다\n초기화 시 복구가 어려울 수 있습니다"
     );
@@ -41,7 +41,7 @@ export default function CalendarHeader({
 
       <HeaderColEnd className="col col-end" data-html2canvas-ignore="true">
         <Firebase />
-        <button type="button" onClick={clickResetMenuButton}>
+        <button type="button" onClick={handleResetButton}>
           초기화
         </button>
         <button
@@ -55,8 +55,8 @@ export default function CalendarHeader({
         >
           이미지 저장
         </button>
-        <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
-        <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
+        <Icon icon="bi:arrow-left-circle-fill" onClick={movePreviousMonth} />
+        <Icon icon="bi:arrow-right-circle-fill" onClick={moveNextMonth} />
       </HeaderColEnd>
     </Header>
   );
