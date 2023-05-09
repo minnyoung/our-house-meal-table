@@ -1,22 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-import RenderCells from "./RenderCells";
-import RenderDays from "./RenderDays";
-import RenderHeader from "./RenderHeader";
+import CalendarBody from "./CalendarBody";
+import CalendarWeekDays from "./CalendarWeekDays";
+import CalendarHeader from "./CalendarHeader";
 import useMakeCalenderFunction from "../hooks/useMakeCalendarFunction";
 
 export const Calendar = () => {
-  const { currentMonth, selectedDate, prevMonth, nextMonth, onDateClick } =
-    useMakeCalenderFunction();
+  const {
+    currentMonth,
+    selectedDate,
+    movePreviousMonth,
+    moveNextMonth,
+    onDateClick,
+  } = useMakeCalenderFunction();
   return (
     <Container className="calendar" id="captureSection">
-      <RenderHeader
+      <CalendarHeader
         currentMonth={currentMonth}
-        prevMonth={prevMonth}
-        nextMonth={nextMonth}
+        movePreviousMonth={movePreviousMonth}
+        moveNextMonth={moveNextMonth}
       />
-      <RenderDays />
-      <RenderCells
+      <CalendarWeekDays />
+      <CalendarBody
         currentMonth={currentMonth}
         selectedDate={selectedDate}
         onDateClick={onDateClick}
