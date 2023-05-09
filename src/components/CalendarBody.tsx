@@ -73,12 +73,12 @@ export default function CalendarBody({
   console.log("최종메뉴: ", menuList);
 
   return (
-    <Body className="body">
+    <S.Container className="body">
       {weeks.map((week) => (
-        <BodyCol>
-          <BodyRow className="">
+        <S.WeeksWrapper>
+          <S.DaysWrapper>
             {week.map((day, index) => (
-              <BodyColCellBox
+              <S.DayBox
                 calendarDate={`${day.year}${day.month}${day.day}`}
                 todayDate={todayDate}
                 onDropCapture={() =>
@@ -87,12 +87,12 @@ export default function CalendarBody({
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
               >
-                <BodyColCellNumber color={String(index)}>
+                <S.DayNumber weekdayNumber={String(index)}>
                   {day.day}
-                </BodyColCellNumber>
-                <BodyColCellMenuContainer>
+                </S.DayNumber>
+                <S.MenuListWrapper>
                   {!day.day && null}
-                  <BodyColCellMenu color="#9ee4e87c">
+                  <S.MenuText color="#9ee4e87c">
                     {
                       menuList.find((menu) =>
                         week.find(
@@ -101,8 +101,8 @@ export default function CalendarBody({
                         )
                       )?.mainMenu
                     }
-                  </BodyColCellMenu>
-                  <BodyColCellMenu color="#ef9fbc76">
+                  </S.MenuText>
+                  <S.MenuText color="#ef9fbc76">
                     {
                       menuList.find((menu) =>
                         week.find(
@@ -111,8 +111,8 @@ export default function CalendarBody({
                         )
                       )?.soup
                     }
-                  </BodyColCellMenu>
-                  <BodyColCellMenu color="#edae3a6f">
+                  </S.MenuText>
+                  <S.MenuText color="#edae3a6f">
                     {
                       menuList.find((menu) =>
                         week.find(
@@ -121,90 +121,85 @@ export default function CalendarBody({
                         )
                       )?.sideMenu
                     }
-                  </BodyColCellMenu>
-                </BodyColCellMenuContainer>
-              </BodyColCellBox>
+                  </S.MenuText>
+                </S.MenuListWrapper>
+              </S.DayBox>
             ))}
-          </BodyRow>
-        </BodyCol>
+          </S.DaysWrapper>
+        </S.WeeksWrapper>
       ))}
-    </Body>
+    </S.Container>
   );
 }
 
-const Body = styled.div`
-  width: 100%;
-  height: 89%;
+const S = {
+  Container: styled.div`
+    width: 100%;
+    height: 89%;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  border-top: 1px solid rgb(170, 170, 170);
-  border-left: 1px solid rgb(170, 170, 170);
-`;
+    border-top: 1px solid rgb(170, 170, 170);
+    border-left: 1px solid rgb(170, 170, 170);
+  `,
+  WeeksWrapper: styled.div`
+    width: 100%;
+    height: 93%;
 
-const BodyRow = styled.div`
-  width: 100%;
-  height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
+    border: 0.4px solid transparentize(gray, 0.4);
+    border-radius: 3px;
+    font-size: 0.8em;
+  `,
+  DaysWrapper: styled.div`
+    width: 100%;
+    height: 100px;
 
-const BodyCol = styled.div`
-  width: 100%;
-  height: 93%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  `,
 
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  DayBox: styled.div<{
+    calendarDate: string;
+    todayDate: string;
+  }>`
+    width: 100%;
+    height: 100%;
 
-  border: 0.4px solid transparentize(gray, 0.4);
-  border-radius: 3px;
-  font-size: 0.8em;
-`;
-
-const BodyColNotValid = styled.span`
-  color: #c4c4c4;
-`;
-
-const BodyColCellBox = styled.div<{
-  calendarDate: string;
-  todayDate: string;
-}>`
-  width: 100%;
-  height: 100%;
-
-  border-right: 1px solid rgb(170, 170, 170);
-  border-bottom: 1px solid rgb(170, 170, 170);
-  background-color: ${({ calendarDate, todayDate }) =>
-    calendarDate === todayDate ? "#ffc8f12e" : "null"};
-`;
-
-const BodyColCellNumber = styled.span`
-  display: flex;
-  padding: 5px;
-  font-size: 1em;
-  font-weight: 500;
-  color: ${({ color }) =>
-    color === "0" ? "#ff5151" : color === "6" ? "#2631ff" : "#181818"};
-`;
-
-const BodyColCellMenuContainer = styled.span`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const BodyColCellMenu = styled.span`
-  margin-bottom: 2px;
-  border-radius: 7px;
-
-  /* background-color: ${({ color }) => color}; */
-  font-size: 0.9em;
-`;
+    border-right: 1px solid rgb(170, 170, 170);
+    border-bottom: 1px solid rgb(170, 170, 170);
+    background-color: ${({ calendarDate, todayDate }) =>
+      calendarDate === todayDate ? "#ffc8f12e" : "null"};
+  `,
+  DayNumber: styled.span<{ weekdayNumber: string }>`
+    display: flex;
+    padding: 5px;
+    font-size: 1em;
+    font-weight: 500;
+    color: ${({ weekdayNumber }) =>
+      weekdayNumber === "0"
+        ? "#ff5151"
+        : weekdayNumber === "6"
+        ? "#2631ff"
+        : "#181818"};
+  `,
+  MenuListWrapper: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `,
+  MenuText: styled.span`
+    margin-bottom: 2px;
+    border-radius: 7px;
+    font-size: 0.9em;
+  `,
+};
