@@ -7,33 +7,33 @@ import Soup from "./Soup";
 export default function Menu() {
   const [menuState, setMenuState] = useState("");
   return (
-    <Container>
-      <ButtonContainer>
-        <MenuButton
+    <S.Container>
+      <S.ButtonContainer>
+        <S.MenuButton
           onClick={() => setMenuState("MAIN")}
           menuType="MAIN"
           menuState={menuState}
           color="#65c2c7"
         >
           메인메뉴
-        </MenuButton>
-        <MenuButton
+        </S.MenuButton>
+        <S.MenuButton
           onClick={() => setMenuState("SOUP")}
           menuType="SOUP"
           menuState={menuState}
           color="#ef9fbc"
         >
           국거리
-        </MenuButton>
-        <MenuButton
+        </S.MenuButton>
+        <S.MenuButton
           onClick={() => setMenuState("SIDE")}
           menuType="SIDE"
           menuState={menuState}
           color="#edae3a"
         >
           반찬
-        </MenuButton>
-      </ButtonContainer>
+        </S.MenuButton>
+      </S.ButtonContainer>
       <div>
         {menuState === "MAIN" ? (
           <MainDish />
@@ -43,30 +43,30 @@ export default function Menu() {
           <SideDish />
         ) : null}
       </div>
-    </Container>
+    </S.Container>
   );
 }
+const S = {
+  Container: styled.div`
+    width: 20rem;
+  `,
 
-const Container = styled.div`
-  width: 20rem;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  margin-top: 20px;
-`;
-
-const MenuButton = styled.button<{ menuType: string; menuState: string }>`
-  margin: 4px;
-  flex: 1 1 auto;
-  height: 3em;
-  background-color: ${({ menuType, menuState, color }) =>
-    menuType === menuState ? color : "transparent"};
-  border: none;
-  border-radius: 60px;
-  :hover {
-    background-color: ${({ color }) => color};
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-`;
+  ButtonContainer: styled.div`
+    display: flex;
+    margin-top: 20px;
+  `,
+  MenuButton: styled.button<{ menuType: string; menuState: string }>`
+    margin: 4px;
+    flex: 1 1 auto;
+    height: 3em;
+    background-color: ${({ menuType, menuState, color }) =>
+      menuType === menuState ? color : "transparent"};
+    border: none;
+    border-radius: 60px;
+    :hover {
+      background-color: ${({ color }) => color};
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+  `,
+};
