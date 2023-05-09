@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import useCalendarCells from "../hooks/useCalendarCells";
+import useCalendarDays from "../hooks/useCalendarDays";
 import { mainMenuStore } from "../store/MainStore";
 import { firestore } from "../firebase-config";
 
@@ -11,13 +11,15 @@ type CalendarCellsProps = {
 };
 
 // 날짜부분
-export default function CalendarCells({
+// TODO: selectedDate 이용해서 오늘 날짜 표시 변경하기
+export default function CalendarBody({
   currentMonth,
   selectedDate,
   onDateClick,
 }: CalendarCellsProps) {
-  console.log(firestore);
-  const { rows, day, todayDate } = useCalendarCells({ currentMonth });
+  const { weeks, todayDate } = useCalendarDays({
+    currentMonth,
+  });
   const {
     mainMenu,
     soup,
@@ -72,33 +74,30 @@ export default function CalendarCells({
 
   return (
     <Body className="body">
-      {rows.map((row) => (
+      {weeks.map((week) => (
         <BodyCol>
           <BodyRow className="">
-            {row.map((dayObject, index) => (
+            {week.map((day, index) => (
               <BodyColCellBox
-                calendarDate={`${dayObject.year}${dayObject.month}${dayObject.day}`}
+                calendarDate={`${day.year}${day.month}${day.day}`}
                 todayDate={todayDate}
                 onDropCapture={() =>
-                  setMenuDate(
-                    `${dayObject.year}-${dayObject.month}-${dayObject.day}`
-                  )
+                  setMenuDate(`${day.year}-${day.month}-${day.day}`)
                 }
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
               >
                 <BodyColCellNumber color={String(index)}>
-                  {dayObject.day}
+                  {day.day}
                 </BodyColCellNumber>
                 <BodyColCellMenuContainer>
-                  {!dayObject.day && null}
+                  {!day.day && null}
                   <BodyColCellMenu color="#9ee4e87c">
                     {
                       menuList.find((menu) =>
-                        row.find(
+                        week.find(
                           () =>
-                            `${dayObject.year}-${dayObject.month}-${dayObject.day}` ===
-                            menu.date
+                            `${day.year}-${day.month}-${day.day}` === menu.date
                         )
                       )?.mainMenu
                     }
@@ -106,10 +105,9 @@ export default function CalendarCells({
                   <BodyColCellMenu color="#ef9fbc76">
                     {
                       menuList.find((menu) =>
-                        row.find(
+                        week.find(
                           () =>
-                            `${dayObject.year}-${dayObject.month}-${dayObject.day}` ===
-                            menu.date
+                            `${day.year}-${day.month}-${day.day}` === menu.date
                         )
                       )?.soup
                     }
@@ -117,10 +115,9 @@ export default function CalendarCells({
                   <BodyColCellMenu color="#edae3a6f">
                     {
                       menuList.find((menu) =>
-                        row.find(
+                        week.find(
                           () =>
-                            `${dayObject.year}-${dayObject.month}-${dayObject.day}` ===
-                            menu.date
+                            `${day.year}-${day.month}-${day.day}` === menu.date
                         )
                       )?.sideMenu
                     }

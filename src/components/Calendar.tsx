@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import CalendarCells from "./CalendarCells";
+import CalendarBody from "./CalendarBody";
 import CalendarWeekDays from "./CalendarWeekDays";
 import CalendarHeader from "./CalendarHeader";
 import useMakeCalenderFunction from "../hooks/useMakeCalendarFunction";
@@ -21,7 +21,7 @@ export const Calendar = () => {
         moveNextMonth={moveNextMonth}
       />
       <CalendarWeekDays />
-      <CalendarCells
+      <CalendarBody
         currentMonth={currentMonth}
         selectedDate={selectedDate}
         onDateClick={onDateClick}
