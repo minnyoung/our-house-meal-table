@@ -94,31 +94,25 @@ export default function CalendarBody({
                   {!day.day && null}
                   <S.MenuText color="#9ee4e87c">
                     {
-                      menuList.find((menu) =>
-                        week.find(
-                          () =>
-                            `${day.year}-${day.month}-${day.day}` === menu.date
-                        )
+                      menuList.find(
+                        (menu) =>
+                          `${day.year}-${day.month}-${day.day}` === menu.date
                       )?.mainMenu
                     }
                   </S.MenuText>
                   <S.MenuText color="#ef9fbc76">
                     {
-                      menuList.find((menu) =>
-                        week.find(
-                          () =>
-                            `${day.year}-${day.month}-${day.day}` === menu.date
-                        )
+                      menuList.find(
+                        (menu) =>
+                          `${day.year}-${day.month}-${day.day}` === menu.date
                       )?.soup
                     }
                   </S.MenuText>
                   <S.MenuText color="#edae3a6f">
                     {
-                      menuList.find((menu) =>
-                        week.find(
-                          () =>
-                            `${day.year}-${day.month}-${day.day}` === menu.date
-                        )
+                      menuList.find(
+                        (menu) =>
+                          `${day.year}-${day.month}-${day.day}` === menu.date
                       )?.sideMenu
                     }
                   </S.MenuText>
