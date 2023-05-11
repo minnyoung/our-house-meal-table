@@ -1,31 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../firebase-config";
-import { useNavigate } from "react-router";
 import styled from "styled-components";
+import useUserAuthFunction from "../hooks/useUserAuthFunction";
 
 export default function Home() {
-  const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, checkUserAuthentication } = useUserAuthFunction();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // logged in
-        setIsLoggedIn(true);
-        navigate("/mealTable");
-      } else {
-        // logged out
-        setIsLoggedIn(false);
-        navigate("/");
-      }
-    });
-  }, []);
+  useEffect(checkUserAuthentication, []);
 
   async function clickGooglelogin() {
     const provider = new GoogleAuthProvider();
