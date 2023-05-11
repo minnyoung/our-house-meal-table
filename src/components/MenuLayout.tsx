@@ -4,7 +4,7 @@ import MainDish from "./MainDish";
 import SideDish from "./SideDish";
 import Soup from "./Soup";
 
-export default function Menu() {
+export default function MenuLayout() {
   const [menuState, setMenuState] = useState("");
   return (
     <S.Container>
