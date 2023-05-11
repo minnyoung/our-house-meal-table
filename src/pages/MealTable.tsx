@@ -1,4 +1,4 @@
-import Calendar from "react-calendar";
+import Calendar from "../components/Calendar";
 import MenuLayout from "../components/MenuLayout";
 import styled from "styled-components";
 

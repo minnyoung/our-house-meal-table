@@ -1,20 +1,12 @@
 import React from "react";
-import styled from "styled-components";
-import { Calendar } from "./components/Calendar";
-import MenuLayout from "./components/MenuLayout";
+import Router from "./router";
 
 function App() {
   return (
-    <Container className="Container App">
-      <Calendar />
-      <MenuLayout />
-    </Container>
+    <div className="App">
+      <Router />
+    </div>
   );
 }
 
 export default App;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
