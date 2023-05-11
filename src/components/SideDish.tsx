@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { mainMenuStore } from "../store/MainStore";
+import { menuListStore } from "../store/menuListStore";
 
 export default function SideDish() {
-  const SIDEMENULIST = ["콩나물무침", "시금치무침", "무나물", "숙주나물무침"];
+  const { sideMenu } = menuListStore();
   const { setSideMenu } = mainMenuStore();
   return (
     <MenuButtonContainer>
-      {SIDEMENULIST.map((sideMenu, index) => (
+      {sideMenu.map((sideMenu: string, index: number) => (
         <MenuButton
           draggable="true"
           onDragStart={() => {

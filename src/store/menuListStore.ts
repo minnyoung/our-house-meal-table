@@ -1,16 +1,17 @@
+import { DocumentData } from "firebase/firestore";
 import { create } from "zustand";
 
 type MenuListState = {
-  mainMenu: string[];
-  soup: string[];
-  sideMenu: string[];
+  mainMenu: DocumentData;
+  soup: DocumentData;
+  sideMenu: DocumentData;
 
-  setMainMenu: (mainMenu: string[]) => void;
-  setSoup: (soup: string[]) => void;
-  setSideMenu: (sideMenu: string[]) => void;
+  setMainMenu: (mainMenu: DocumentData) => void;
+  setSoup: (soup: DocumentData) => void;
+  setSideMenu: (sideMenu: DocumentData) => void;
 };
 
-export const mainMenuStore = create<MenuListState>((set) => ({
+export const menuListStore = create<MenuListState>((set) => ({
   mainMenu: [],
   soup: [],
   sideMenu: [],

@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { mainMenuStore } from "../store/MainStore";
+import { menuListStore } from "../store/menuListStore";
 
 export default function Soup() {
-  const SOUPMENULIST = ["콩나물국", "소고기미역국", "근대된장국", "황태국"];
+  const { soup } = menuListStore();
   const { setSoup } = mainMenuStore();
   return (
     <MenuButtonContainer>
-      {SOUPMENULIST.map((soupMenu, index) => (
+      {soup.map((soupMenu: string, index: number) => (
         <MenuButton
           draggable="true"
           onDragStart={() => {

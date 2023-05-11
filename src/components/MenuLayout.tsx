@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getMenuList } from "../apis/menuListApis";
+import { menuListStore } from "../store/menuListStore";
 import styled from "styled-components";
 import MainDish from "./MainDish";
 import SideDish from "./SideDish";
@@ -6,6 +8,16 @@ import Soup from "./Soup";
 
 export default function MenuLayout() {
   const [menuState, setMenuState] = useState("");
+  const { setMainMenu, setSoup, setSideMenu } = menuListStore();
+  async function setMenuList() {
+    const menuList = await getMenuList();
+    setMainMenu(menuList?.mainDish);
+    setSideMenu(menuList?.sideMenu);
+    setSoup(menuList?.soup);
+  }
+  useEffect(() => {
+    setMenuList();
+  }, []);
   return (
     <S.Container>
       <S.ButtonContainer>
