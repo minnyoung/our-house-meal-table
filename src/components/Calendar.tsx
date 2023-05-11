@@ -5,7 +5,7 @@ import CalendarWeekDays from "./CalendarWeekDays";
 import CalendarHeader from "./CalendarHeader";
 import useMakeCalenderFunction from "../hooks/useMakeCalendarFunction";
 
-export const Calendar = () => {
+export default function Calendar() {
   const {
     currentMonth,
     selectedDate,
@@ -28,7 +28,7 @@ export const Calendar = () => {
       />
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   width: 60%;
