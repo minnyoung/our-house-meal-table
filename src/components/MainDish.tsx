@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { mainMenuStore } from "../store/MainStore";
+import { menuListStore } from "../store/menuListStore";
 
 export default function MainDish() {
-  const MAINMENULIST = ["닭갈비", "족발", "보쌈"];
+  const { mainMenu } = menuListStore();
   const { setMainMenu } = mainMenuStore();
   return (
     <MenuButtonContainer>
-      {MAINMENULIST.map((mainMenu, index) => (
+      {mainMenu.map((mainMenu: string, index: number) => (
         <MenuButton
           draggable="true"
           onDragStart={() => {

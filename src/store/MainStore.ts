@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type MenuType = {
+export type MenuType = {
   date: string;
   mainMenu: string;
   soup: string;
@@ -34,4 +34,14 @@ export const mainMenuStore = create<MainMenuState>((set) => ({
   setSideMenu: (sideMenu) => set(() => ({ sideMenu })),
   setDay: (day) => set(() => ({ day })),
   setMenuList: (menuObject) => set(() => ({ menuList: menuObject })),
+}));
+
+type UserIdState = {
+  userId: string;
+  setUserId: (userId: string) => void;
+};
+
+export const userIdStore = create<UserIdState>((set) => ({
+  userId: "",
+  setUserId: (userId) => set(() => ({ userId })),
 }));
