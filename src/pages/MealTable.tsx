@@ -13,7 +13,11 @@ export default function MealTable() {
 
   async function setMealTable() {
     const menuList = await getUserMenuList(userId);
-    setMenuList(menuList?.menuList);
+    if (menuList?.menuList) {
+      setMenuList(menuList?.menuList);
+    } else {
+      setMenuList([]);
+    }
   }
 
   useEffect(() => {
