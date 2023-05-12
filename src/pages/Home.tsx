@@ -1,23 +1,12 @@
 import { useEffect } from "react";
-
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "../firebase-config";
 import styled from "styled-components";
 import useUserAuthFunction from "../hooks/useUserAuthFunction";
+import { loginToGoogle } from "../apis/authApis";
 
 export default function Home() {
   const { isLoggedIn, checkUserAuthentication } = useUserAuthFunction();
 
   useEffect(checkUserAuthentication, []);
-
-  async function clickGooglelogin() {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.log("로그인 시 에러", error);
-    }
-  }
 
   return (
     <>
@@ -25,7 +14,7 @@ export default function Home() {
         <S.Container>
           <h1>우리집 식단표</h1>
           <S.ButtonContainer>
-            <button onClick={clickGooglelogin}>
+            <button onClick={loginToGoogle}>
               <svg
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"

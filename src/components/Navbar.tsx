@@ -1,23 +1,11 @@
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase-config";
-import { removeUid } from "../utils/uid";
 import styled from "styled-components";
+import { logout } from "../apis/authApis";
 
 export default function Navbar() {
-  function logOut() {
-    signOut(auth)
-      .then(() => {
-        removeUid();
-      })
-      .catch((error) => {
-        console.log("로그아웃 중 에러가 발생했습니다.", error);
-      });
-  }
-
   return (
     <S.Container>
       <span>우리집 식단표</span>
-      <button type="button" onClick={logOut}>
+      <button type="button" onClick={logout}>
         로그아웃
       </button>
     </S.Container>
