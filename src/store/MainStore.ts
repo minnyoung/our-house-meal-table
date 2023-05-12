@@ -35,13 +35,3 @@ export const mainMenuStore = create<MainMenuState>((set) => ({
   setDay: (day) => set(() => ({ day })),
   setMenuList: (menuObject) => set(() => ({ menuList: menuObject })),
 }));
-
-type UserIdState = {
-  userId: string;
-  setUserId: (userId: string) => void;
-};
-
-export const userIdStore = create<UserIdState>((set) => ({
-  userId: "",
-  setUserId: (userId) => set(() => ({ userId })),
-}));

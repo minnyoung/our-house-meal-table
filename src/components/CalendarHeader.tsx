@@ -5,8 +5,9 @@ import styled from "styled-components";
 import useResetMenu from "../hooks/useResetMenu";
 import saveCalenderImage from "../utils/captureCalendar";
 import CalendarHeaderButton from "./element/CalaendarHeaderButton";
-import { mainMenuStore, userIdStore } from "../store/MainStore";
+import { mainMenuStore } from "../store/MainStore";
 import { setUserMenuList } from "../apis/menuListApis";
+import { getUid } from "../utils/uid";
 
 type CalendarHeaderPropsType = {
   currentMonth: Date;
@@ -21,7 +22,7 @@ export default function CalendarHeader({
 }: CalendarHeaderPropsType) {
   const { resetMenu } = useResetMenu();
   const { menuList } = mainMenuStore();
-  const { userId } = userIdStore();
+  const uid = getUid();
 
   function handleResetButton() {
     const answer = window.confirm(
@@ -47,7 +48,7 @@ export default function CalendarHeader({
       >
         <CalendarHeaderButton
           buttonText="메뉴 저장"
-          onClickEvent={() => setUserMenuList(menuList, userId)}
+          onClickEvent={() => setUserMenuList(menuList, uid!)}
         />
         <CalendarHeaderButton
           buttonText="초기화"
