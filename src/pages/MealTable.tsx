@@ -4,19 +4,25 @@ import MenuLayout from "../components/MenuLayout";
 import styled from "styled-components";
 import useUserAuthFunction from "../hooks/useUserAuthFunction";
 import { getUserMenuList } from "../apis/menuListApis";
-import { mainMenuStore, userIdStore } from "../store/MainStore";
+import { mainMenuStore } from "../store/MainStore";
+import { useNavigate } from "react-router-dom";
 
 export default function MealTable() {
   const { checkUserAuthentication } = useUserAuthFunction();
-  const { userId } = userIdStore();
   const { setMenuList } = mainMenuStore();
+  const navigate = useNavigate();
+  const uid = localStorage.getItem("uid");
 
   async function setMealTable() {
-    const menuList = await getUserMenuList(userId);
-    if (menuList?.menuList) {
-      setMenuList(menuList?.menuList);
+    if (uid) {
+      const menuList = await getUserMenuList(uid);
+      if (menuList?.menuList) {
+        setMenuList(menuList?.menuList);
+      } else {
+        setMenuList([]);
+      }
     } else {
-      setMenuList([]);
+      navigate("/");
     }
   }
 

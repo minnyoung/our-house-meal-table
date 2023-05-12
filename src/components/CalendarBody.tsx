@@ -70,15 +70,16 @@ export default function CalendarBody({
     setSideMenu("");
   };
 
-  console.log("최종메뉴: ", menuList);
+  // console.log("최종메뉴: ", menuList);
 
   return (
     <S.Container className="body">
-      {weeks.map((week) => (
-        <S.WeeksWrapper>
+      {weeks.map((week, index) => (
+        <S.WeeksWrapper key={`weeks-${index}`}>
           <S.DaysWrapper>
             {week.map((day, index) => (
               <S.DayBox
+                key={`week-${index}`}
                 calendarDate={`${day.year}${day.month}${day.day}`}
                 todayDate={todayDate}
                 onDropCapture={() =>
