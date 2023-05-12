@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Calendar from "../components/Calendar";
 import MenuLayout from "../components/MenuLayout";
+import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import useUserAuthFunction from "../hooks/useUserAuthFunction";
 import { getUserMenuList } from "../apis/menuListApis";
@@ -32,15 +33,18 @@ export default function MealTable() {
   }, []);
 
   return (
-    <S.Container>
-      <Calendar />
-      <MenuLayout />
-    </S.Container>
+    <div>
+      <Navbar />
+      <S.MealTableWapper>
+        <Calendar />
+        <MenuLayout />
+      </S.MealTableWapper>
+    </div>
   );
 }
 
 const S = {
-  Container: styled.div`
+  MealTableWapper: styled.div`
     display: flex;
     flex-direction: row;
   `,
