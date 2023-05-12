@@ -7,6 +7,7 @@ import saveCalenderImage from "../utils/captureCalendar";
 import CalendarHeaderButton from "./element/CalaendarHeaderButton";
 import { mainMenuStore } from "../store/MainStore";
 import { setUserMenuList } from "../apis/menuListApis";
+import { getUid } from "../utils/uid";
 
 type CalendarHeaderPropsType = {
   currentMonth: Date;
@@ -21,7 +22,7 @@ export default function CalendarHeader({
 }: CalendarHeaderPropsType) {
   const { resetMenu } = useResetMenu();
   const { menuList } = mainMenuStore();
-  const uid = localStorage.getItem("uid");
+  const uid = getUid();
 
   function handleResetButton() {
     const answer = window.confirm(

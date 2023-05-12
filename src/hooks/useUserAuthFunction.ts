@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "../firebase-config";
+import { removeUid, setUid } from "../utils/uid";
 
 export default function useUserAuthFunction() {
   const navigate = useNavigate();
@@ -12,12 +13,12 @@ export default function useUserAuthFunction() {
       if (user) {
         // logged in
         setIsLoggedIn(true);
-        localStorage.setItem("uid", user.uid);
+        setUid(user.uid);
         navigate("/mealTable");
       } else {
         // logged out
         setIsLoggedIn(false);
-        localStorage.removeItem("uid");
+        removeUid();
         navigate("/");
       }
     });
