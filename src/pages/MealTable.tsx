@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "../components/Calendar";
 import MenuLayout from "../components/MenuLayout";
 import Navbar from "../components/Navbar";
@@ -7,11 +7,14 @@ import useUserAuthFunction from "../hooks/useUserAuthFunction";
 import { getUserMenuList } from "../apis/menuListApis";
 import { mainMenuStore } from "../store/MainStore";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 export default function MealTable() {
   const { checkUserAuthentication } = useUserAuthFunction();
   const { setMenuList } = mainMenuStore();
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
   const uid = localStorage.getItem("uid");
 
   async function setMealTable() {
@@ -28,11 +31,17 @@ export default function MealTable() {
   }
 
   useEffect(() => {
-    checkUserAuthentication();
-    setMealTable();
+    (async () => {
+      setIsLoading(true);
+      checkUserAuthentication();
+      await setMealTable();
+      setIsLoading(false);
+    })();
   }, []);
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div>
       <Navbar />
       <S.MealTableWapper>
