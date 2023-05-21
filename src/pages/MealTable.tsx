@@ -8,6 +8,7 @@ import { getUserMenuList } from "../apis/menuListApis";
 import { mainMenuStore } from "../store/MainStore";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
+import { getUid } from "../utils/uid";
 
 export default function MealTable() {
   const { checkUserAuthentication } = useUserAuthFunction();
@@ -15,7 +16,7 @@ export default function MealTable() {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
-  const uid = localStorage.getItem("uid");
+  const uid = getUid();
 
   async function setMealTable() {
     if (uid) {
