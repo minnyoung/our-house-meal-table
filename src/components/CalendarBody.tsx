@@ -3,6 +3,7 @@ import styled from "styled-components";
 import useCalendarDays from "../hooks/useCalendarDays";
 import { mainMenuStore } from "../store/MainStore";
 import { firestore } from "../firebase-config";
+import UserMenuText from "./UserMenuText";
 
 type CalendarCellsProps = {
   currentMonth: Date;
@@ -92,31 +93,13 @@ export default function CalendarBody({
                   {day.day}
                 </S.DayNumber>
                 <S.MenuListWrapper>
-                  {!day.day && null}
-                  <S.MenuText color="#9ee4e87c">
-                    {
-                      menuList.find(
-                        (menu) =>
-                          `${day.year}-${day.month}-${day.day}` === menu.date
-                      )?.mainMenu
-                    }
-                  </S.MenuText>
-                  <S.MenuText color="#ef9fbc76">
-                    {
-                      menuList.find(
-                        (menu) =>
-                          `${day.year}-${day.month}-${day.day}` === menu.date
-                      )?.soup
-                    }
-                  </S.MenuText>
-                  <S.MenuText color="#edae3a6f">
-                    {
-                      menuList.find(
-                        (menu) =>
-                          `${day.year}-${day.month}-${day.day}` === menu.date
-                      )?.sideMenu
-                    }
-                  </S.MenuText>
+                  {!day.day ? null : (
+                    <>
+                      <UserMenuText date={day} menuType="mainMenu" />
+                      <UserMenuText date={day} menuType="soup" />
+                      <UserMenuText date={day} menuType="sideMenu" />
+                    </>
+                  )}
                 </S.MenuListWrapper>
               </S.DayBox>
             ))}
@@ -191,10 +174,5 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-  `,
-  MenuText: styled.span`
-    margin-bottom: 2px;
-    border-radius: 7px;
-    font-size: 0.9em;
   `,
 };
