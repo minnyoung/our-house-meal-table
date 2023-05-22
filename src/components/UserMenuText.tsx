@@ -18,7 +18,17 @@ export default function UserMenuText({ date, menuType }: UserMenuTextProps) {
     )
   );
 
-  return <S.MenuText>{dayMenuList[menuType]}</S.MenuText>;
+  return (
+    <>
+      {typeof dayMenuList[menuType] === "object" ? (
+        dayMenuList[menuType].map((data: string) => (
+          <S.MenuText>{data}</S.MenuText>
+        ))
+      ) : (
+        <S.MenuText>{dayMenuList[menuType]}</S.MenuText>
+      )}
+    </>
+  );
 }
 
 const S = {
