@@ -11,11 +11,11 @@ export default function SideDish() {
         <MenuButton
           draggable="true"
           onDragStart={() => {
-            setSideMenu(sideMenu);
+            setSideMenu([sideMenu]);
           }}
           // 메뉴바에서 달력으로 드래그 하지 않았을 때 초기화
           onDragEnd={() => {
-            setSideMenu("");
+            setSideMenu([]);
           }}
           key={index}
         >

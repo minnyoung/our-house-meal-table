@@ -58,7 +58,8 @@ export default function CalendarBody({
         if (menu === copyMenuList.find((menu) => menu.date === menuDate)) {
           mainMenu !== "" && (menu.mainMenu = mainMenu);
           soup !== "" && (menu.soup = soup);
-          sideMenu !== "" && (menu.sideMenu = sideMenu);
+          sideMenu.length !== 0 &&
+            (menu.sideMenu = [...menu.sideMenu, ...sideMenu]);
         }
       });
 
@@ -68,7 +69,7 @@ export default function CalendarBody({
     // state 초기화
     setMainMenu("");
     setSoup("");
-    setSideMenu("");
+    setSideMenu([]);
   };
 
   // console.log("최종메뉴: ", menuList);
