@@ -59,6 +59,8 @@ export default function CalendarBody({
           mainMenu !== "" && (menu.mainMenu = mainMenu);
           soup !== "" && (menu.soup = soup);
           sideMenu.length !== 0 &&
+            menu.sideMenu.length < 3 &&
+            !menu.sideMenu.includes(sideMenu[0]) &&
             (menu.sideMenu = [...menu.sideMenu, ...sideMenu]);
         }
       });
@@ -84,9 +86,9 @@ export default function CalendarBody({
                 key={`week-${index}`}
                 calendarDate={`${day.year}${day.month}${day.day}`}
                 todayDate={todayDate}
-                onDropCapture={() =>
-                  setMenuDate(`${day.year}-${day.month}-${day.day}`)
-                }
+                onDropCapture={() => {
+                  setMenuDate(`${day.year}-${day.month}-${day.day}`);
+                }}
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
               >
@@ -158,6 +160,9 @@ const S = {
     border-bottom: 1px solid rgb(170, 170, 170);
     background-color: ${({ calendarDate, todayDate }) =>
       calendarDate === todayDate ? "#ffc8f12e" : "null"};
+    :drag {
+      background-color: red;
+    }
   `,
   DayNumber: styled.span<{ weekdayNumber: string }>`
     display: flex;
