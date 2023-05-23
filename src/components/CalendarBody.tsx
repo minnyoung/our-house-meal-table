@@ -141,7 +141,7 @@ const S = {
   `,
   DaysWrapper: styled.div`
     width: 100%;
-    height: 100px;
+    height: 130px;
 
     display: flex;
     flex-direction: row;
