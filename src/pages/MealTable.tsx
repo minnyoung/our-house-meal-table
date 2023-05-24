@@ -5,14 +5,14 @@ import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import useUserAuthFunction from "../hooks/useUserAuthFunction";
 import { getUserMenuList } from "../apis/menuListApis";
-import { mainMenuStore } from "../store/MainStore";
+import { userMenuStore } from "../store/userMenuStore";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { getUid } from "../utils/uid";
 
 export default function MealTable() {
   const { checkUserAuthentication } = useUserAuthFunction();
-  const { setMenuList } = mainMenuStore();
+  const { setUserMenuList } = userMenuStore();
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -22,9 +22,9 @@ export default function MealTable() {
     if (uid) {
       const menuList = await getUserMenuList(uid);
       if (menuList?.menuList) {
-        setMenuList(menuList?.menuList);
+        setUserMenuList(menuList?.menuList);
       } else {
-        setMenuList([]);
+        setUserMenuList([]);
       }
     } else {
       navigate("/");

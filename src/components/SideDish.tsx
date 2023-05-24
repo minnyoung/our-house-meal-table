@@ -1,21 +1,21 @@
 import styled from "styled-components";
-import { mainMenuStore } from "../store/MainStore";
+import { userMenuStore } from "../store/userMenuStore";
 import { menuListStore } from "../store/menuListStore";
 
 export default function SideDish() {
   const { sideMenu } = menuListStore();
-  const { setSideMenu } = mainMenuStore();
+  const { setUserSideMenu } = userMenuStore();
   return (
     <MenuButtonContainer>
       {sideMenu.map((sideMenu: string, index: number) => (
         <MenuButton
           draggable="true"
           onDragStart={() => {
-            setSideMenu([sideMenu]);
+            setUserSideMenu([sideMenu]);
           }}
           // 메뉴바에서 달력으로 드래그 하지 않았을 때 초기화
           onDragEnd={() => {
-            setSideMenu([]);
+            setUserSideMenu([]);
           }}
           key={index}
         >

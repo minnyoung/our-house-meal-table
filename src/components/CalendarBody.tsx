@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import useCalendarDays from "../hooks/useCalendarDays";
-import { mainMenuStore } from "../store/MainStore";
+import { userMenuStore } from "../store/userMenuStore";
 import { firestore } from "../firebase-config";
 import UserMenuText from "./UserMenuText";
 
@@ -22,59 +22,59 @@ export default function CalendarBody({
     currentMonth,
   });
   const {
-    mainMenu,
-    soup,
-    sideMenu,
-    menuList,
-    setMainMenu,
-    setSoup,
-    setSideMenu,
-    setMenuList,
-  } = mainMenuStore();
+    userMainMenu,
+    userSoup,
+    userSideMenu,
+    userMenuList,
+    setUserMainMenu,
+    setUserSoup,
+    setUserSideMenu,
+    setUserMenuList,
+  } = userMenuStore();
 
   const [menuDate, setMenuDate] = useState("");
 
   const makeMenuList = () => {
     // 메뉴 존재하지 않는 경우
     if (
-      !menuList.find((menuListElement) => menuListElement.date === menuDate)
+      !userMenuList.find((menuListElement) => menuListElement.date === menuDate)
     ) {
       !menuDate.includes("undefined") &&
-        setMenuList([
-          ...menuList,
+        setUserMenuList([
+          ...userMenuList,
           {
             date: menuDate,
-            mainMenu: mainMenu,
-            soup: soup,
-            sideMenu: sideMenu,
+            userMainMenu: userMainMenu,
+            userSoup: userSoup,
+            userSideMenu: userSideMenu,
           },
         ]);
 
       // 메뉴가 존재하는 경우
     } else {
-      let copyMenuList = [...menuList];
+      let copyMenuList = [...userMenuList];
 
       copyMenuList.map((menu) => {
         if (menu === copyMenuList.find((menu) => menu.date === menuDate)) {
-          mainMenu !== "" && (menu.mainMenu = mainMenu);
-          soup !== "" && (menu.soup = soup);
-          sideMenu.length !== 0 &&
-            menu.sideMenu.length < 3 &&
-            !menu.sideMenu.includes(sideMenu[0]) &&
-            (menu.sideMenu = [...menu.sideMenu, ...sideMenu]);
+          userMainMenu !== "" && (menu.userMainMenu = userMainMenu);
+          userSoup !== "" && (menu.userSoup = userSoup);
+          userSideMenu.length !== 0 &&
+            menu.userSideMenu.length < 3 &&
+            !menu.userSideMenu.includes(userSideMenu[0]) &&
+            (menu.userSideMenu = [...menu.userSideMenu, ...userSideMenu]);
         }
       });
 
-      setMenuList(copyMenuList);
+      setUserMenuList(copyMenuList);
     }
 
     // state 초기화
-    setMainMenu("");
-    setSoup("");
-    setSideMenu([]);
+    setUserMainMenu("");
+    setUserSoup("");
+    setUserSideMenu([]);
   };
 
-  // console.log("최종메뉴: ", menuList);
+  // console.log("최종메뉴: ", userMenuList);
 
   return (
     <S.Container className="body">
@@ -98,9 +98,9 @@ export default function CalendarBody({
                 <S.MenuListWrapper>
                   {!day.day ? null : (
                     <>
-                      <UserMenuText date={day} menuType="mainMenu" />
-                      <UserMenuText date={day} menuType="soup" />
-                      <UserMenuText date={day} menuType="sideMenu" />
+                      <UserMenuText date={day} menuType="userMainMenu" />
+                      <UserMenuText date={day} menuType="userSoup" />
+                      <UserMenuText date={day} menuType="userSideMenu" />
                     </>
                   )}
                 </S.MenuListWrapper>

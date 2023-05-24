@@ -1,6 +1,6 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { firestore } from "../firebase-config";
-import { MenuType } from "../store/MainStore";
+import { MenuType } from "../store/userMenuStore";
 
 export async function getMenuList() {
   const docData = doc(firestore, "food", "mainMenu");

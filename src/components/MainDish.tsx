@@ -1,21 +1,21 @@
 import styled from "styled-components";
-import { mainMenuStore } from "../store/MainStore";
+import { userMenuStore } from "../store/userMenuStore";
 import { menuListStore } from "../store/menuListStore";
 
 export default function MainDish() {
   const { mainMenu } = menuListStore();
-  const { setMainMenu } = mainMenuStore();
+  const { setUserMainMenu } = userMenuStore();
   return (
     <MenuButtonContainer>
       {mainMenu.map((mainMenu: string, index: number) => (
         <MenuButton
           draggable="true"
           onDragStart={() => {
-            setMainMenu(mainMenu);
+            setUserMainMenu(mainMenu);
           }}
           // 메뉴바에서 달력으로 드래그 하지 않았을 때 초기화
           onDragEnd={() => {
-            setMainMenu("");
+            setUserMainMenu("");
           }}
           key={index}
         >
