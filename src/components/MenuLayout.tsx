@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getMenuList } from "../apis/menuListApis";
 import { menuListStore } from "../store/menuListStore";
 import styled from "styled-components";
-import MainDish from "./MainDish";
-import SideDish from "./SideDish";
+import MainMenu from "./MainMenu";
+import SideMenu from "./SideMenu";
 import Soup from "./Soup";
 
 export default function MenuLayout() {
@@ -48,11 +48,11 @@ export default function MenuLayout() {
       </S.ButtonContainer>
       <div>
         {menuState === "MAIN" ? (
-          <MainDish />
+          <MainMenu />
         ) : menuState === "SOUP" ? (
           <Soup />
         ) : menuState === "SIDE" ? (
-          <SideDish />
+          <SideMenu />
         ) : null}
       </div>
     </S.Container>

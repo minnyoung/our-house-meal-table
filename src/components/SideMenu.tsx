@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { userMenuStore } from "../store/userMenuStore";
 import { menuListStore } from "../store/menuListStore";
 
-export default function SideDish() {
+export default function SideMenu() {
   const { sideMenu } = menuListStore();
   const { setUserSideMenu } = userMenuStore();
   return (
