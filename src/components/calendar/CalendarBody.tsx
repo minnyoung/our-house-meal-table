@@ -34,6 +34,7 @@ export default function CalendarBody({
 
   const [menuDate, setMenuDate] = useState("");
   const [isOpenMenuModal, setIsOpenMenuModal] = useState(false);
+  const [clickCalendarDate, setClickCalendarDate] = useState("");
 
   const makeMenuList = () => {
     // 메뉴 존재하지 않는 경우
@@ -79,7 +80,12 @@ export default function CalendarBody({
 
   return (
     <S.Container className="body">
-      {isOpenMenuModal && <MenuModal setIsOpenMenuModal={setIsOpenMenuModal} />}
+      {isOpenMenuModal && (
+        <MenuModal
+          date={clickCalendarDate}
+          setIsOpenMenuModal={setIsOpenMenuModal}
+        />
+      )}
       {weeks.map((week, index) => (
         <S.WeeksWrapper key={`weeks-${index}`}>
           <S.DaysWrapper>
@@ -90,6 +96,7 @@ export default function CalendarBody({
                 todayDate={todayDate}
                 onClick={() => {
                   if (day.day) {
+                    setClickCalendarDate(`${day.year}-${day.month}-${day.day}`);
                     setIsOpenMenuModal(true);
                   }
                 }}
