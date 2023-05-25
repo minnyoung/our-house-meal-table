@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { userMenuStore } from "../../store/userMenuStore";
 import useCalendarDays from "../../hooks/useCalendarDays";
 import UserMenuText from "../UserMenuText";
+import MenuModal from "../MenuModal";
 
 type CalendarCellsProps = {
   currentMonth: Date;
@@ -32,6 +33,7 @@ export default function CalendarBody({
   } = userMenuStore();
 
   const [menuDate, setMenuDate] = useState("");
+  const [isOpenMenuModal, setIsOpenMenuModal] = useState(false);
 
   const makeMenuList = () => {
     // 메뉴 존재하지 않는 경우
@@ -77,6 +79,7 @@ export default function CalendarBody({
 
   return (
     <S.Container className="body">
+      {isOpenMenuModal && <MenuModal setIsOpenMenuModal={setIsOpenMenuModal} />}
       {weeks.map((week, index) => (
         <S.WeeksWrapper key={`weeks-${index}`}>
           <S.DaysWrapper>
@@ -85,6 +88,11 @@ export default function CalendarBody({
                 key={`week-${index}`}
                 calendarDate={`${day.year}${day.month}${day.day}`}
                 todayDate={todayDate}
+                onClick={() => {
+                  if (day.day) {
+                    setIsOpenMenuModal(true);
+                  }
+                }}
                 onDropCapture={() => {
                   setMenuDate(`${day.year}-${day.month}-${day.day}`);
                 }}
