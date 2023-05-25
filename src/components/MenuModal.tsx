@@ -6,28 +6,55 @@ type MenuModalType = {
   setIsOpenMenuModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
-  const { userMenuList } = userMenuStore();
+  const { userMenuList, setUserMenuList } = userMenuStore();
   const [year, month, day] = date.split("-");
   const dayMenuList = userMenuList.find((menu) => menu.date === date);
+
+  function deleteUserMenu(
+    menuType: "userMainMenu" | "userSoup" | "userSideMenu"
+  ) {
+    let copyMenuList = [...userMenuList];
+    copyMenuList.map((dateMenuList) => {
+      if (dateMenuList.date === date) {
+        menuType === "userSideMenu"
+          ? (dateMenuList[menuType] = [])
+          : (dateMenuList[menuType] = "");
+      }
+    });
+    setUserMenuList(copyMenuList);
+  }
 
   return (
     <S.ModalContainer>
       <S.Modal>
+        <button type="button" onClick={() => setIsOpenMenuModal(false)}>
+          닫기
+        </button>
         <S.ModalText>
           {year}년 {month}월 {day}일 식단표
         </S.ModalText>
         {dayMenuList ? (
           <>
             <div>메인메뉴 | {dayMenuList.userMainMenu}</div>
+            {dayMenuList.userMainMenu && (
+              <button onClick={() => deleteUserMenu("userMainMenu")}>
+                삭제
+              </button>
+            )}
             <div>국 | {dayMenuList.userSoup}</div>
+            {dayMenuList.userSoup && (
+              <button onClick={() => deleteUserMenu("userSoup")}>삭제</button>
+            )}
             <div>반찬 | {dayMenuList.userSideMenu.join(", ")}</div>
+            {dayMenuList.userSideMenu && (
+              <button onClick={() => deleteUserMenu("userSideMenu")}>
+                삭제
+              </button>
+            )}
           </>
         ) : (
           <div>등록된메뉴가 없습니다</div>
         )}
-        <button type="button" onClick={() => setIsOpenMenuModal(false)}>
-          x
-        </button>
       </S.Modal>
     </S.ModalContainer>
   );
