@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import CalendarBody from "./CalendarBody";
-import CalendarWeekDays from "./CalendarWeekDays";
+import useMakeCalenderFunction from "../../hooks/useMakeCalendarFunction";
 import CalendarHeader from "./CalendarHeader";
-import useMakeCalenderFunction from "../hooks/useMakeCalendarFunction";
+import CalendarWeekDays from "./CalendarWeekDays";
 
 export default function Calendar() {
   const {

@@ -1,25 +1,25 @@
 import styled from "styled-components";
-import { userMenuStore } from "../store/userMenuStore";
-import { menuListStore } from "../store/menuListStore";
+import { menuListStore } from "../../store/menuListStore";
+import { userMenuStore } from "../../store/userMenuStore";
 
-export default function Soup() {
-  const { soup } = menuListStore();
-  const { setUserSoup } = userMenuStore();
+export default function SideMenu() {
+  const { sideMenu } = menuListStore();
+  const { setUserSideMenu } = userMenuStore();
   return (
     <MenuButtonContainer>
-      {soup.map((soupMenu: string, index: number) => (
+      {sideMenu.map((sideMenu: string, index: number) => (
         <MenuButton
           draggable="true"
           onDragStart={() => {
-            setUserSoup(soupMenu);
+            setUserSideMenu([sideMenu]);
           }}
           // 메뉴바에서 달력으로 드래그 하지 않았을 때 초기화
           onDragEnd={() => {
-            setUserSoup("");
+            setUserSideMenu([]);
           }}
           key={index}
         >
-          {soupMenu}
+          {sideMenu}
         </MenuButton>
       ))}
     </MenuButtonContainer>

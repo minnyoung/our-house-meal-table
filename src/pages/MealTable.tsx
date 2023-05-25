@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import Calendar from "../components/Calendar";
-import MenuLayout from "../components/MenuLayout";
+import Calendar from "../components/calendar/Calendar";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import useUserAuthFunction from "../hooks/useUserAuthFunction";
@@ -9,6 +8,7 @@ import { userMenuStore } from "../store/userMenuStore";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { getUid } from "../utils/uid";
+import MenuLayout from "../components/menuSection/MenuLayout";
 
 export default function MealTable() {
   const { checkUserAuthentication } = useUserAuthFunction();

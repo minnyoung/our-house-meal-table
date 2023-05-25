@@ -2,12 +2,12 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { format, addMonths, subMonths } from "date-fns";
 import styled from "styled-components";
-import useResetMenu from "../hooks/useResetMenu";
-import saveCalenderImage from "../utils/captureCalendar";
-import CalendarHeaderButton from "./element/CalaendarHeaderButton";
-import { userMenuStore } from "../store/userMenuStore";
-import { setUserMenuList } from "../apis/menuListApis";
-import { getUid } from "../utils/uid";
+import useResetMenu from "../../hooks/useResetMenu";
+import { userMenuStore } from "../../store/userMenuStore";
+import { getUid } from "../../utils/uid";
+import CalendarHeaderButton from "../element/CalaendarHeaderButton";
+import { setUserMenuList } from "../../apis/menuListApis";
+import saveCalenderImage from "../../utils/captureCalendar";
 
 type CalendarHeaderPropsType = {
   currentMonth: Date;

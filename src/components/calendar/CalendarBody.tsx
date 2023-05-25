@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import useCalendarDays from "../hooks/useCalendarDays";
-import { userMenuStore } from "../store/userMenuStore";
-import { firestore } from "../firebase-config";
-import UserMenuText from "./UserMenuText";
+import { userMenuStore } from "../../store/userMenuStore";
+import useCalendarDays from "../../hooks/useCalendarDays";
+import UserMenuText from "../UserMenuText";
 
 type CalendarCellsProps = {
   currentMonth: Date;

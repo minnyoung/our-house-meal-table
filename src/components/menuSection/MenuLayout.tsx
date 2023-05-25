@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getMenuList } from "../apis/menuListApis";
-import { menuListStore } from "../store/menuListStore";
 import styled from "styled-components";
 import MainMenu from "./MainMenu";
 import SideMenu from "./SideMenu";
 import Soup from "./Soup";
+import { getMenuList } from "../../apis/menuListApis";
+import { menuListStore } from "../../store/menuListStore";
 
 export default function MenuLayout() {
   const [menuState, setMenuState] = useState("");
