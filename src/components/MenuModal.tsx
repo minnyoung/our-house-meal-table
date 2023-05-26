@@ -46,7 +46,7 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
               <button onClick={() => deleteUserMenu("userSoup")}>삭제</button>
             )}
             <div>반찬 | {dayMenuList.userSideMenu.join(", ")}</div>
-            {dayMenuList.userSideMenu && (
+            {dayMenuList.userSideMenu.length > 0 && (
               <button onClick={() => deleteUserMenu("userSideMenu")}>
                 삭제
               </button>
