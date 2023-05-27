@@ -130,15 +130,12 @@ export default function CalendarBody({
 const S = {
   Container: styled.div`
     width: 940px;
-    height: 650px;
+    height: fit-content;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    border-top: 1px solid rgb(170, 170, 170);
-    border-left: 1px solid rgb(170, 170, 170);
   `,
   WeeksWrapper: styled.div`
     width: 100%;
@@ -155,7 +152,7 @@ const S = {
   `,
   DaysWrapper: styled.div`
     width: 100%;
-    height: 130px;
+    height: 136px;
 
     display: flex;
     flex-direction: row;
@@ -167,21 +164,18 @@ const S = {
     calendarDate: string;
     todayDate: string;
   }>`
-    width: 100%;
-    height: 100%;
-
-    border-right: 1px solid rgb(170, 170, 170);
-    border-bottom: 1px solid rgb(170, 170, 170);
+    width: 130px;
+    height: 130px;
+    margin: 3px;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 10px;
     background-color: ${({ calendarDate, todayDate }) =>
       calendarDate === todayDate ? "#ffc8f12e" : "null"};
-    :drag {
-      background-color: red;
-    }
   `,
   DayNumber: styled.span<{ weekdayNumber: string }>`
     display: flex;
-    padding: 5px;
-    font-size: 1em;
+    padding: 7px 0 0 8px;
+    font-size: 16px;
     font-weight: 500;
     color: ${({ weekdayNumber }) =>
       weekdayNumber === "0"
