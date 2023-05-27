@@ -11,7 +11,7 @@ export default function MenuLayout() {
   const { setMainMenu, setSoup, setSideMenu } = menuListStore();
   async function setMenuList() {
     const menuList = await getMenuList();
-    setMainMenu(menuList?.mainDish);
+    setMainMenu(menuList?.mainMenu);
     setSideMenu(menuList?.sideMenu);
     setSoup(menuList?.soup);
   }

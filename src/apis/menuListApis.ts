@@ -3,7 +3,7 @@ import { firestore } from "../firebase-config";
 import { MenuType } from "../store/userMenuStore";
 
 export async function getMenuList() {
-  const docData = doc(firestore, "food", "mainMenu");
+  const docData = doc(firestore, "food", "MenuList");
   const querySnapshot = await getDoc(docData);
   try {
     const data = await querySnapshot.data();
