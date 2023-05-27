@@ -46,7 +46,7 @@ export default function MenuLayout() {
           반찬
         </S.MenuButton>
       </S.ButtonContainer>
-      <div>
+      <S.MenuContainer>
         {menuState === "MAIN" ? (
           <MainMenu />
         ) : menuState === "SOUP" ? (
@@ -54,7 +54,7 @@ export default function MenuLayout() {
         ) : menuState === "SIDE" ? (
           <SideMenu />
         ) : null}
-      </div>
+      </S.MenuContainer>
     </S.Container>
   );
 }
@@ -79,6 +79,21 @@ const S = {
       background-color: ${({ color }) => color};
       cursor: pointer;
       transition: all 0.2s ease;
+    }
+  `,
+  MenuContainer: styled.div`
+    display: flex;
+    align-items: flex-start;
+    margin-top: 5px;
+    height: 850px;
+    overflow: auto;
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 20%;
+      background: #e6e6e6;
+      border-radius: 10px;
     }
   `,
 };
