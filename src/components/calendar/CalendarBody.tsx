@@ -129,8 +129,8 @@ export default function CalendarBody({
 
 const S = {
   Container: styled.div`
-    width: 940px;
-    height: fit-content;
+    width: 100%;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -171,6 +171,9 @@ const S = {
     border-radius: 10px;
     background-color: ${({ calendarDate, todayDate }) =>
       calendarDate === todayDate ? "#ffc8f12e" : "null"};
+    :hover {
+      cursor: pointer;
+    }
   `,
   DayNumber: styled.span<{ weekdayNumber: string }>`
     display: flex;

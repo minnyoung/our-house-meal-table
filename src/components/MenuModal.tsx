@@ -29,7 +29,6 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
       <S.Modal>
         <S.MenuCloseButton
           type="button"
-          contents="close"
           onClick={() => setIsOpenMenuModal(false)}
         >
           닫기
@@ -47,9 +46,24 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
                   <td>
                     <S.MenuDeleteButton
                       onClick={() => deleteUserMenu("userMainMenu")}
-                      contents="delete"
                     >
-                      삭제
+                      <svg
+                        className="feather feather-trash-2"
+                        fill="none"
+                        height="18"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="18"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        <line x1="10" x2="10" y1="11" y2="17" />
+                        <line x1="14" x2="14" y1="11" y2="17" />
+                      </svg>
                     </S.MenuDeleteButton>
                   </td>
                 )}
@@ -61,9 +75,24 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
                   <td>
                     <S.MenuDeleteButton
                       onClick={() => deleteUserMenu("userSoup")}
-                      contents="delete"
                     >
-                      삭제
+                      <svg
+                        className="feather feather-trash-2"
+                        fill="none"
+                        height="18"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="18"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        <line x1="10" x2="10" y1="11" y2="17" />
+                        <line x1="14" x2="14" y1="11" y2="17" />
+                      </svg>
                     </S.MenuDeleteButton>
                   </td>
                 )}
@@ -75,9 +104,24 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
                   <td>
                     <S.MenuDeleteButton
                       onClick={() => deleteUserMenu("userSideMenu")}
-                      contents="delete"
                     >
-                      삭제
+                      <svg
+                        className="feather feather-trash-2"
+                        fill="none"
+                        height="18"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="18"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        <line x1="10" x2="10" y1="11" y2="17" />
+                        <line x1="14" x2="14" y1="11" y2="17" />
+                      </svg>
                     </S.MenuDeleteButton>
                   </td>
                 )}
@@ -95,16 +139,12 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
 const S = {
   ModalContainer: styled.div`
     position: absolute;
-    width: inherit;
-    height: inherit;
     z-index: 100;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #00000043;
   `,
   Modal: styled.div`
-    margin: auto 0;
     padding: 30px 60px;
     display: flex;
     flex-direction: column;
@@ -113,13 +153,14 @@ const S = {
     height: 200px;
     border-radius: 10px;
     background-color: #fcfcfc;
+    box-shadow: 0 0 15px 1px #cecece71;
   `,
   ModalTitle: styled.span`
     margin-bottom: 10px;
     text-align: center;
     font-weight: 600;
   `,
-  MenuCloseButton: styled.button<{ contents: string }>`
+  MenuCloseButton: styled.button`
     position: absolute;
     top: 210px;
     right: 225px;
@@ -128,9 +169,12 @@ const S = {
     text-align: right;
     border-radius: 15px;
     transition: 0.1s ease-in-out;
+    color: #aaaaaa;
     :hover {
       transition: 0.1s ease-in-out;
-      color: #dedede;
+      color: black;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
   `,
   MenuTable: styled.table`
@@ -146,17 +190,20 @@ const S = {
       :nth-child(2) {
         width: 260px;
       }
+      :nth-child(3) {
+        text-align: center;
+      }
     }
   `,
-  MenuDeleteButton: styled.button<{ contents: string }>`
-    padding: 8px 15px;
+  MenuDeleteButton: styled.button`
     font-size: 13px;
     text-align: right;
     border-radius: 15px;
+    color: #aaaaaa;
     transition: 0.1s ease-in-out;
     :hover {
       transition: 0.1s ease-in-out;
-      color: #dedede;
+      color: black;
     }
   `,
 };
