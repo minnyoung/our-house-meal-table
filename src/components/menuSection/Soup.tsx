@@ -7,7 +7,7 @@ export default function Soup() {
   const { setUserSoup } = userMenuStore();
   return (
     <MenuButtonContainer>
-      {soup.map((soupMenu: string, index: number) => (
+      {soup.sort().map((soupMenu: string, index: number) => (
         <MenuButton
           draggable="true"
           onDragStart={() => {

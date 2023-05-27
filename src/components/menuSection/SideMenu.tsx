@@ -7,7 +7,7 @@ export default function SideMenu() {
   const { setUserSideMenu } = userMenuStore();
   return (
     <MenuButtonContainer>
-      {sideMenu.map((sideMenu: string, index: number) => (
+      {sideMenu.sort().map((sideMenu: string, index: number) => (
         <MenuButton
           draggable="true"
           onDragStart={() => {

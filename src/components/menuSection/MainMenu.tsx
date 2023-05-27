@@ -7,7 +7,7 @@ export default function MainMenu() {
   const { setUserMainMenu } = userMenuStore();
   return (
     <MenuButtonContainer>
-      {mainMenu.map((mainMenu: string, index: number) => (
+      {mainMenu.sort().map((mainMenu: string, index: number) => (
         <MenuButton
           draggable="true"
           onDragStart={() => {
