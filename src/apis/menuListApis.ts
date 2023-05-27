@@ -2,6 +2,19 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { firestore } from "../firebase-config";
 import { MenuType } from "../store/userMenuStore";
 
+export async function setMenuList() {
+  try {
+    await setDoc(doc(firestore, "food", "MenuList"), {
+      // mainMenu: mainMenuNotList.split(" "),
+      // sideMenu: sideMenuNotList.split(" "),
+      // soup: soupList.split(" "),
+    });
+    alert("저장되었습니다.");
+  } catch (e) {
+    console.log("등록 중 에러가 발생했습니다.", e);
+  }
+}
+
 export async function getMenuList() {
   const docData = doc(firestore, "food", "MenuList");
   const querySnapshot = await getDoc(docData);
