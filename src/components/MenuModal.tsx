@@ -12,13 +12,16 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
   const dayMenuList = userMenuList.find((menu) => menu.date === date);
 
   function deleteUserMenu(
-    menuType: "userMainMenu" | "userSoup" | "userSideMenu"
+    menuType: "userMainMenu" | "userSoup" | "userSideMenu",
+    sideMenu?: string
   ) {
     let copyMenuList = [...userMenuList];
     copyMenuList.map((dateMenuList) => {
       if (dateMenuList.date === date) {
         menuType === "userSideMenu"
-          ? (dateMenuList[menuType] = [])
+          ? (dateMenuList[menuType] = dateMenuList[menuType].filter(
+              (menu) => menu !== sideMenu
+            ))
           : (dateMenuList[menuType] = "");
       }
     });
@@ -62,17 +65,42 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
                   </td>
                 )}
               </tr>
-              <tr>
-                <td>반찬</td>
-                <td>{dayMenuList.userSideMenu.join(", ")}</td>
-                {dayMenuList.userSideMenu.length > 0 && (
-                  <td>
-                    <ModalMenuDeleteButton
-                      deleteUserMenu={() => deleteUserMenu("userSideMenu")}
-                    />
-                  </td>
-                )}
-              </tr>
+              {dayMenuList.userSideMenu.length === 0 && (
+                <tr>
+                  <td>반찬</td>
+                </tr>
+              )}
+              {dayMenuList.userSideMenu.map((sideMenu, index) =>
+                index === 0 ? (
+                  <tr>
+                    <td>반찬</td>
+                    <td>{sideMenu}</td>
+                    {dayMenuList.userSideMenu.length > 0 && (
+                      <td>
+                        <ModalMenuDeleteButton
+                          deleteUserMenu={() =>
+                            deleteUserMenu("userSideMenu", sideMenu)
+                          }
+                        />
+                      </td>
+                    )}
+                  </tr>
+                ) : (
+                  <tr>
+                    <td></td>
+                    <td>{sideMenu}</td>
+                    {dayMenuList.userSideMenu.length > 0 && (
+                      <td>
+                        <ModalMenuDeleteButton
+                          deleteUserMenu={() =>
+                            deleteUserMenu("userSideMenu", sideMenu)
+                          }
+                        />
+                      </td>
+                    )}
+                  </tr>
+                )
+              )}
             </S.MenuTable>
           </>
         ) : (
@@ -127,7 +155,7 @@ const S = {
   MenuTable: styled.table`
     width: 400px;
     td {
-      height: 35px;
+      height: 30px;
       :first-child {
         width: 70px;
         text-align: center;
