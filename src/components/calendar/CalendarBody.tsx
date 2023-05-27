@@ -129,8 +129,8 @@ export default function CalendarBody({
 
 const S = {
   Container: styled.div`
-    width: 100%;
-    height: 89%;
+    width: 940px;
+    height: 650px;
 
     display: flex;
     flex-direction: column;

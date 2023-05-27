@@ -27,33 +27,65 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
   return (
     <S.ModalContainer>
       <S.Modal>
-        <button type="button" onClick={() => setIsOpenMenuModal(false)}>
+        <S.MenuCloseButton
+          type="button"
+          contents="close"
+          onClick={() => setIsOpenMenuModal(false)}
+        >
           닫기
-        </button>
-        <S.ModalText>
+        </S.MenuCloseButton>
+        <S.ModalTitle>
           {year}년 {month}월 {day}일 식단표
-        </S.ModalText>
+        </S.ModalTitle>
         {dayMenuList ? (
           <>
-            <div>메인메뉴 | {dayMenuList.userMainMenu}</div>
-            {dayMenuList.userMainMenu && (
-              <button onClick={() => deleteUserMenu("userMainMenu")}>
-                삭제
-              </button>
-            )}
-            <div>국 | {dayMenuList.userSoup}</div>
-            {dayMenuList.userSoup && (
-              <button onClick={() => deleteUserMenu("userSoup")}>삭제</button>
-            )}
-            <div>반찬 | {dayMenuList.userSideMenu.join(", ")}</div>
-            {dayMenuList.userSideMenu.length > 0 && (
-              <button onClick={() => deleteUserMenu("userSideMenu")}>
-                삭제
-              </button>
-            )}
+            <S.MenuTable>
+              <tr>
+                <td>메인메뉴</td>
+                <td>{dayMenuList.userMainMenu}</td>
+                {dayMenuList.userMainMenu && (
+                  <td>
+                    <S.MenuDeleteButton
+                      onClick={() => deleteUserMenu("userMainMenu")}
+                      contents="delete"
+                    >
+                      삭제
+                    </S.MenuDeleteButton>
+                  </td>
+                )}
+              </tr>
+              <tr>
+                <td>국</td>
+                <td>{dayMenuList.userSoup}</td>
+                {dayMenuList.userSoup && (
+                  <td>
+                    <S.MenuDeleteButton
+                      onClick={() => deleteUserMenu("userSoup")}
+                      contents="delete"
+                    >
+                      삭제
+                    </S.MenuDeleteButton>
+                  </td>
+                )}
+              </tr>
+              <tr>
+                <td>반찬</td>
+                <td>{dayMenuList.userSideMenu.join(", ")}</td>
+                {dayMenuList.userSideMenu.length > 0 && (
+                  <td>
+                    <S.MenuDeleteButton
+                      onClick={() => deleteUserMenu("userSideMenu")}
+                      contents="delete"
+                    >
+                      삭제
+                    </S.MenuDeleteButton>
+                  </td>
+                )}
+              </tr>
+            </S.MenuTable>
           </>
         ) : (
-          <div>등록된메뉴가 없습니다</div>
+          <div>등록된 메뉴가 없습니다</div>
         )}
       </S.Modal>
     </S.ModalContainer>
@@ -63,36 +95,68 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
 const S = {
   ModalContainer: styled.div`
     position: absolute;
-    width: fit-content;
-    height: fit-content;
+    width: inherit;
+    height: inherit;
     z-index: 100;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #00000043;
   `,
   Modal: styled.div`
     margin: auto 0;
-    padding: 3rem 6rem;
+    padding: 30px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    height: 200px;
     border-radius: 10px;
     background-color: #fcfcfc;
   `,
-  ModalText: styled.span`
+  ModalTitle: styled.span`
+    margin-bottom: 10px;
+    text-align: center;
     font-weight: 600;
   `,
-  ModalButtonContainer: styled.div`
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-  `,
-  ModalButton: styled.button<{ contents: string }>`
+  MenuCloseButton: styled.button<{ contents: string }>`
+    position: absolute;
+    top: 210px;
+    right: 225px;
     padding: 8px 15px;
     font-size: 13px;
+    text-align: right;
     border-radius: 15px;
     transition: 0.1s ease-in-out;
     :hover {
       transition: 0.1s ease-in-out;
-      color: #ffffff;
+      color: #dedede;
+    }
+  `,
+  MenuTable: styled.table`
+    width: 400px;
+    td {
+      height: 35px;
+      :first-child {
+        width: 70px;
+        text-align: center;
+        font-size: 14px;
+        color: #2a2a2a;
+      }
+      :nth-child(2) {
+        width: 260px;
+      }
+    }
+  `,
+  MenuDeleteButton: styled.button<{ contents: string }>`
+    padding: 8px 15px;
+    font-size: 13px;
+    text-align: right;
+    border-radius: 15px;
+    transition: 0.1s ease-in-out;
+    :hover {
+      transition: 0.1s ease-in-out;
+      color: #dedede;
     }
   `,
 };
