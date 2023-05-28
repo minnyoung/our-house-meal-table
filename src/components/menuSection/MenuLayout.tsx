@@ -3,17 +3,30 @@ import styled from "styled-components";
 import MainMenu from "./MainMenu";
 import SideMenu from "./SideMenu";
 import Soup from "./Soup";
+import SearchMenuBar from "./SearchMenuBar";
+import SearchedList from "./SearchedList";
 import { getMenuList } from "../../apis/menuListApis";
 import { menuListStore } from "../../store/menuListStore";
+import { DocumentData } from "@firebase/firestore";
+import { SearchResultType } from "../../types/SearchResultType";
 
 export default function MenuLayout() {
   const [menuState, setMenuState] = useState("");
+  const [wholeMenuList, setWholeMenuList] = useState<
+    DocumentData | undefined
+  >();
+  const [searchResult, setSearchResult] = useState<SearchResultType>({
+    mainMenu: [],
+    soup: [],
+    sideMenu: [],
+  });
   const { setMainMenu, setSoup, setSideMenu } = menuListStore();
   async function setMenuList() {
     const menuList = await getMenuList();
     setMainMenu(menuList?.mainMenu);
     setSideMenu(menuList?.sideMenu);
     setSoup(menuList?.soup);
+    setWholeMenuList(menuList);
   }
   useEffect(() => {
     setMenuList();
@@ -46,6 +59,11 @@ export default function MenuLayout() {
           반찬
         </S.MenuButton>
       </S.ButtonContainer>
+      <SearchMenuBar
+        wholeMenuList={wholeMenuList}
+        setMenuState={setMenuState}
+        setSearchResult={setSearchResult}
+      />
       <S.MenuContainer>
         {menuState === "MAIN" ? (
           <MainMenu />
@@ -53,6 +71,8 @@ export default function MenuLayout() {
           <Soup />
         ) : menuState === "SIDE" ? (
           <SideMenu />
+        ) : menuState === "SEARCH" ? (
+          <SearchedList searchResult={searchResult} />
         ) : null}
       </S.MenuContainer>
     </S.Container>
