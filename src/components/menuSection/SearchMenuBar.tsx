@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { DocumentData } from "@firebase/firestore";
 import { menuListStore } from "../../store/menuListStore";
 import { SearchResultType } from "../../types/SearchResultType";
+import useDebounce from "../../hooks/useDebounde";
 
 type SearchMenuType = {
   setMenuState: React.Dispatch<React.SetStateAction<string>>;
@@ -15,19 +16,25 @@ export default function SearchMenuBar({
   wholeMenuList,
 }: SearchMenuType) {
   const { mainMenu, soup, sideMenu } = menuListStore();
-
   const [searchWords, setSearchWords] = useState("");
+  const debouncedSearchQuery = useDebounce(searchWords, 300);
 
   useEffect(() => {
-    if (searchWords !== "") {
+    if (debouncedSearchQuery !== "") {
       setSearchResult({
-        mainMenu: mainMenu.filter((menu: string) => menu.includes(searchWords)),
-        soup: soup.filter((menu: string) => menu.includes(searchWords)),
-        sideMenu: sideMenu.filter((menu: string) => menu.includes(searchWords)),
+        mainMenu: mainMenu.filter((menu: string) =>
+          menu.includes(debouncedSearchQuery)
+        ),
+        soup: soup.filter((menu: string) =>
+          menu.includes(debouncedSearchQuery)
+        ),
+        sideMenu: sideMenu.filter((menu: string) =>
+          menu.includes(debouncedSearchQuery)
+        ),
       });
       setMenuState("SEARCH");
     } else setMenuState("null");
-  }, [searchWords, wholeMenuList]);
+  }, [debouncedSearchQuery, wholeMenuList]);
 
   return (
     <div>
