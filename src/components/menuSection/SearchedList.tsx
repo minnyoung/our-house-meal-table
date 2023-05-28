@@ -8,10 +8,10 @@ type SearchedListType = {
 
 export default function SearchedList({ searchResult }: SearchedListType) {
   return (
-    <Container>
+    <S.Container>
       {/* 최종 검색결과 객체에 결과가 없을 경우 */}
       {Object.values(searchResult).flat().length === 0 ? (
-        <div>검색된 결과가 없습니다.</div>
+        <S.NonResultText>검색된 결과가 없습니다.</S.NonResultText>
       ) : (
         <>
           <SearchedItem
@@ -31,11 +31,19 @@ export default function SearchedList({ searchResult }: SearchedListType) {
           />
         </>
       )}
-    </Container>
+    </S.Container>
   );
 }
 
-const Container = styled.div`
-  margin: 0 auto;
-  width: 19.5rem;
-`;
+const S = {
+  Container: styled.div`
+    margin: 0 auto;
+    width: 19.5rem;
+  `,
+  NonResultText: styled.span`
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  `,
+};
