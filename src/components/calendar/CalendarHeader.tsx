@@ -2,12 +2,12 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { format, addMonths, subMonths } from "date-fns";
 import styled from "styled-components";
-import useResetMenu from "../hooks/useResetMenu";
-import saveCalenderImage from "../utils/captureCalendar";
-import CalendarHeaderButton from "./element/CalaendarHeaderButton";
-import { mainMenuStore } from "../store/MainStore";
-import { setUserMenuList } from "../apis/menuListApis";
-import { getUid } from "../utils/uid";
+import useResetMenu from "../../hooks/useResetMenu";
+import { userMenuStore } from "../../store/userMenuStore";
+import { getUid } from "../../utils/uid";
+import CalendarHeaderButton from "../element/CalaendarHeaderButton";
+import { setUserMenuList } from "../../apis/menuListApis";
+import saveCalenderImage from "../../utils/captureCalendar";
 
 type CalendarHeaderPropsType = {
   currentMonth: Date;
@@ -21,7 +21,7 @@ export default function CalendarHeader({
   moveNextMonth,
 }: CalendarHeaderPropsType) {
   const { resetMenu } = useResetMenu();
-  const { menuList } = mainMenuStore();
+  const { userMenuList } = userMenuStore();
   const uid = getUid();
 
   function handleResetButton() {
@@ -48,7 +48,7 @@ export default function CalendarHeader({
       >
         <CalendarHeaderButton
           buttonText="메뉴 저장"
-          onClickEvent={() => setUserMenuList(menuList, uid!)}
+          onClickEvent={() => setUserMenuList(userMenuList, uid!)}
         />
         <CalendarHeaderButton
           buttonText="초기화"

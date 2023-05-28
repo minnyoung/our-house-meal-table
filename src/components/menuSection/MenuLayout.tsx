@@ -1,19 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { getMenuList } from "../apis/menuListApis";
-import { menuListStore } from "../store/menuListStore";
 import styled from "styled-components";
-import MainDish from "./MainDish";
-import SideDish from "./SideDish";
+import MainMenu from "./MainMenu";
+import SideMenu from "./SideMenu";
 import Soup from "./Soup";
+import SearchMenuBar from "./SearchMenuBar";
+import SearchedList from "./SearchedList";
+import { getMenuList } from "../../apis/menuListApis";
+import { menuListStore } from "../../store/menuListStore";
+import { DocumentData } from "@firebase/firestore";
+import { SearchResultType } from "../../types/SearchResultType";
 
 export default function MenuLayout() {
   const [menuState, setMenuState] = useState("");
+  const [wholeMenuList, setWholeMenuList] = useState<
+    DocumentData | undefined
+  >();
+  const [searchResult, setSearchResult] = useState<SearchResultType>({
+    mainMenu: [],
+    soup: [],
+    sideMenu: [],
+  });
   const { setMainMenu, setSoup, setSideMenu } = menuListStore();
   async function setMenuList() {
     const menuList = await getMenuList();
-    setMainMenu(menuList?.mainDish);
+    setMainMenu(menuList?.mainMenu);
     setSideMenu(menuList?.sideMenu);
     setSoup(menuList?.soup);
+    setWholeMenuList(menuList);
   }
   useEffect(() => {
     setMenuList();
@@ -46,15 +59,22 @@ export default function MenuLayout() {
           반찬
         </S.MenuButton>
       </S.ButtonContainer>
-      <div>
+      <SearchMenuBar
+        wholeMenuList={wholeMenuList}
+        setMenuState={setMenuState}
+        setSearchResult={setSearchResult}
+      />
+      <S.MenuContainer>
         {menuState === "MAIN" ? (
-          <MainDish />
+          <MainMenu />
         ) : menuState === "SOUP" ? (
           <Soup />
         ) : menuState === "SIDE" ? (
-          <SideDish />
+          <SideMenu />
+        ) : menuState === "SEARCH" ? (
+          <SearchedList searchResult={searchResult} />
         ) : null}
-      </div>
+      </S.MenuContainer>
     </S.Container>
   );
 }
@@ -79,6 +99,21 @@ const S = {
       background-color: ${({ color }) => color};
       cursor: pointer;
       transition: all 0.2s ease;
+    }
+  `,
+  MenuContainer: styled.div`
+    display: flex;
+    align-items: flex-start;
+    margin-top: 5px;
+    height: 850px;
+    overflow: auto;
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 20%;
+      background: #e6e6e6;
+      border-radius: 10px;
     }
   `,
 };

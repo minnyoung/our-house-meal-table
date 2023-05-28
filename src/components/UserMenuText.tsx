@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mainMenuStore } from "../store/MainStore";
+import { userMenuStore } from "../store/userMenuStore";
 
 type UserMenuTextProps = {
   date: {
@@ -11,14 +11,24 @@ type UserMenuTextProps = {
 };
 
 export default function UserMenuText({ date, menuType }: UserMenuTextProps) {
-  const { menuList } = mainMenuStore();
+  const { userMenuList } = userMenuStore();
   const dayMenuList = Object(
-    menuList.find(
+    userMenuList.find(
       (menu) => `${date.year}-${date.month}-${date.day}` === menu.date
     )
   );
 
-  return <S.MenuText>{dayMenuList[menuType]}</S.MenuText>;
+  return (
+    <>
+      {typeof dayMenuList[menuType] === "object" ? (
+        dayMenuList[menuType].map((data: string) => (
+          <S.MenuText>{data}</S.MenuText>
+        ))
+      ) : (
+        <S.MenuText>{dayMenuList[menuType]}</S.MenuText>
+      )}
+    </>
+  );
 }
 
 const S = {

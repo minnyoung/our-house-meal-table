@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import useCalendarDays from "../hooks/useCalendarDays";
-import { mainMenuStore } from "../store/MainStore";
-import { firestore } from "../firebase-config";
-import UserMenuText from "./UserMenuText";
+import { userMenuStore } from "../../store/userMenuStore";
+import useCalendarDays from "../../hooks/useCalendarDays";
+import UserMenuText from "../UserMenuText";
+import MenuModal from "../MenuModal";
 
 type CalendarCellsProps = {
   currentMonth: Date;
@@ -22,59 +22,70 @@ export default function CalendarBody({
     currentMonth,
   });
   const {
-    mainMenu,
-    soup,
-    sideMenu,
-    menuList,
-    setMainMenu,
-    setSoup,
-    setSideMenu,
-    setMenuList,
-  } = mainMenuStore();
+    userMainMenu,
+    userSoup,
+    userSideMenu,
+    userMenuList,
+    setUserMainMenu,
+    setUserSoup,
+    setUserSideMenu,
+    setUserMenuList,
+  } = userMenuStore();
 
   const [menuDate, setMenuDate] = useState("");
+  const [isOpenMenuModal, setIsOpenMenuModal] = useState(false);
+  const [clickCalendarDate, setClickCalendarDate] = useState("");
 
   const makeMenuList = () => {
     // 메뉴 존재하지 않는 경우
     if (
-      !menuList.find((menuListElement) => menuListElement.date === menuDate)
+      !userMenuList.find((menuListElement) => menuListElement.date === menuDate)
     ) {
       !menuDate.includes("undefined") &&
-        setMenuList([
-          ...menuList,
+        setUserMenuList([
+          ...userMenuList,
           {
             date: menuDate,
-            mainMenu: mainMenu,
-            soup: soup,
-            sideMenu: sideMenu,
+            userMainMenu: userMainMenu,
+            userSoup: userSoup,
+            userSideMenu: userSideMenu,
           },
         ]);
 
       // 메뉴가 존재하는 경우
     } else {
-      let copyMenuList = [...menuList];
+      let copyMenuList = [...userMenuList];
 
       copyMenuList.map((menu) => {
         if (menu === copyMenuList.find((menu) => menu.date === menuDate)) {
-          mainMenu !== "" && (menu.mainMenu = mainMenu);
-          soup !== "" && (menu.soup = soup);
-          sideMenu !== "" && (menu.sideMenu = sideMenu);
+          userMainMenu !== "" && (menu.userMainMenu = userMainMenu);
+          userSoup !== "" && (menu.userSoup = userSoup);
+          userSideMenu.length !== 0 &&
+            menu.userSideMenu.length < 3 &&
+            !menu.userSideMenu.includes(userSideMenu[0]) &&
+            (menu.userSideMenu = [...menu.userSideMenu, ...userSideMenu]);
         }
       });
 
-      setMenuList(copyMenuList);
+      setUserMenuList(copyMenuList);
     }
 
     // state 초기화
-    setMainMenu("");
-    setSoup("");
-    setSideMenu("");
+    setUserMainMenu("");
+    setUserSoup("");
+    setUserSideMenu([]);
   };
 
-  // console.log("최종메뉴: ", menuList);
+  // console.log("최종메뉴: ", userMenuList);
 
   return (
     <S.Container className="body">
+      {isOpenMenuModal && (
+        <MenuModal
+          date={clickCalendarDate}
+          setIsOpenMenuModal={setIsOpenMenuModal}
+        />
+      )}
       {weeks.map((week, index) => (
         <S.WeeksWrapper key={`weeks-${index}`}>
           <S.DaysWrapper>
@@ -83,9 +94,15 @@ export default function CalendarBody({
                 key={`week-${index}`}
                 calendarDate={`${day.year}${day.month}${day.day}`}
                 todayDate={todayDate}
-                onDropCapture={() =>
-                  setMenuDate(`${day.year}-${day.month}-${day.day}`)
-                }
+                onClick={() => {
+                  if (day.day) {
+                    setClickCalendarDate(`${day.year}-${day.month}-${day.day}`);
+                    setIsOpenMenuModal(true);
+                  }
+                }}
+                onDropCapture={() => {
+                  setMenuDate(`${day.year}-${day.month}-${day.day}`);
+                }}
                 onDrop={makeMenuList}
                 onDragOver={(event) => event.preventDefault()}
               >
@@ -95,9 +112,9 @@ export default function CalendarBody({
                 <S.MenuListWrapper>
                   {!day.day ? null : (
                     <>
-                      <UserMenuText date={day} menuType="mainMenu" />
-                      <UserMenuText date={day} menuType="soup" />
-                      <UserMenuText date={day} menuType="sideMenu" />
+                      <UserMenuText date={day} menuType="userMainMenu" />
+                      <UserMenuText date={day} menuType="userSoup" />
+                      <UserMenuText date={day} menuType="userSideMenu" />
                     </>
                   )}
                 </S.MenuListWrapper>
@@ -113,15 +130,12 @@ export default function CalendarBody({
 const S = {
   Container: styled.div`
     width: 100%;
-    height: 89%;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    border-top: 1px solid rgb(170, 170, 170);
-    border-left: 1px solid rgb(170, 170, 170);
   `,
   WeeksWrapper: styled.div`
     width: 100%;
@@ -138,7 +152,7 @@ const S = {
   `,
   DaysWrapper: styled.div`
     width: 100%;
-    height: 100px;
+    height: 136px;
 
     display: flex;
     flex-direction: row;
@@ -150,18 +164,21 @@ const S = {
     calendarDate: string;
     todayDate: string;
   }>`
-    width: 100%;
-    height: 100%;
-
-    border-right: 1px solid rgb(170, 170, 170);
-    border-bottom: 1px solid rgb(170, 170, 170);
+    width: 130px;
+    height: 130px;
+    margin: 3px;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 10px;
     background-color: ${({ calendarDate, todayDate }) =>
       calendarDate === todayDate ? "#ffc8f12e" : "null"};
+    :hover {
+      cursor: pointer;
+    }
   `,
   DayNumber: styled.span<{ weekdayNumber: string }>`
     display: flex;
-    padding: 5px;
-    font-size: 1em;
+    padding: 7px 0 0 8px;
+    font-size: 16px;
     font-weight: 500;
     color: ${({ weekdayNumber }) =>
       weekdayNumber === "0"
