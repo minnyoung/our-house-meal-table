@@ -37,8 +37,8 @@ export default function SearchedList({ searchResult }: SearchedListType) {
 
 const S = {
   Container: styled.div`
-    margin: 0 auto;
-    width: 19.5rem;
+    width: 100%;
+    padding: 0 10px;
   `,
   NonResultText: styled.span`
     display: block;
