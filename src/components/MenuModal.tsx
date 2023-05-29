@@ -36,12 +36,6 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
       onDragOver={(event) => event.preventDefault()}
     >
       <S.Modal>
-        <S.MenuCloseButton
-          type="button"
-          onClick={() => setIsOpenMenuModal(false)}
-        >
-          닫기
-        </S.MenuCloseButton>
         <S.ModalTitle>
           {year}년 {month}월 {day}일 식단표
         </S.ModalTitle>
@@ -109,8 +103,14 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
             </S.MenuTable>
           </>
         ) : (
-          <div>등록된 메뉴가 없습니다</div>
+          <S.NonAddedMenuText>등록된 메뉴가 없습니다</S.NonAddedMenuText>
         )}
+        <S.MenuCloseButton
+          type="button"
+          onClick={() => setIsOpenMenuModal(false)}
+        >
+          닫기
+        </S.MenuCloseButton>
       </S.Modal>
     </S.ModalContainer>
   );
@@ -125,12 +125,12 @@ const S = {
     align-items: center;
   `,
   Modal: styled.div`
+    width: 400px;
+    height: 230px;
     padding: 30px 60px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 400px;
-    height: 200px;
+    justify-content: flex-start;
     border-radius: 10px;
     background-color: #fcfcfc;
     box-shadow: 0 0 15px 1px #cecece71;
@@ -142,7 +142,7 @@ const S = {
   `,
   MenuCloseButton: styled.button`
     position: absolute;
-    top: 210px;
+    top: 13.5rem;
     right: 225px;
     padding: 8px 15px;
     font-size: 13px;
@@ -159,6 +159,8 @@ const S = {
   `,
   MenuTable: styled.table`
     width: 400px;
+    display: flex;
+    flex-direction: column;
     td {
       height: 30px;
       :first-child {
@@ -174,5 +176,12 @@ const S = {
         text-align: center;
       }
     }
+  `,
+  NonAddedMenuText: styled.span`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   `,
 };
