@@ -46,9 +46,10 @@ export default function SearchedItem({
 }
 
 const MenuTypeText = styled.span`
+  width: 100%;
   display: block;
   margin: 10px 0 5px 0;
-  width: 100%;
+  font-size: 15px;
 `;
 const MenuButtonContainer = styled.div`
   display: grid;

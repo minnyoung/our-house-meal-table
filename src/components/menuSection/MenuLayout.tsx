@@ -80,7 +80,8 @@ export default function MenuLayout() {
 }
 const S = {
   Container: styled.div`
-    width: 20rem;
+    margin-left: 10px;
+    width: 350px;
   `,
 
   ButtonContainer: styled.div`
@@ -88,15 +89,14 @@ const S = {
     margin-top: 20px;
   `,
   MenuButton: styled.button<{ menuType: string; menuState: string }>`
-    margin: 4px;
+    margin: 4px 10px;
     flex: 1 1 auto;
     height: 3em;
-    background-color: ${({ menuType, menuState, color }) =>
-      menuType === menuState ? color : "transparent"};
-    border: none;
-    border-radius: 60px;
+    border-bottom: 5px solid
+      ${({ menuType, menuState, color }) =>
+        menuType === menuState ? color : "transparent"};
     :hover {
-      background-color: ${({ color }) => color};
+      border-bottom: 5px solid ${({ color }) => color};
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -104,7 +104,7 @@ const S = {
   MenuContainer: styled.div`
     display: flex;
     align-items: flex-start;
-    margin-top: 5px;
+    margin-top: 10px;
     height: 850px;
     overflow: auto;
     ::-webkit-scrollbar {
