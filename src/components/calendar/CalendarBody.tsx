@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { userMenuStore } from "../../store/userMenuStore";
 import useCalendarDays from "../../hooks/useCalendarDays";
 import UserMenuText from "../UserMenuText";
 import MenuModal from "../MenuModal";
+import { useMakeMenuListFunction } from "../../hooks/useMakeMenuListFunction";
 
 type CalendarCellsProps = {
   currentMonth: Date;
@@ -18,63 +18,15 @@ export default function CalendarBody({
   selectedDate,
   onDateClick,
 }: CalendarCellsProps) {
-  const { weeks, todayDate } = useCalendarDays({
-    currentMonth,
-  });
-  const {
-    userMainMenu,
-    userSoup,
-    userSideMenu,
-    userMenuList,
-    setUserMainMenu,
-    setUserSoup,
-    setUserSideMenu,
-    setUserMenuList,
-  } = userMenuStore();
-
   const [menuDate, setMenuDate] = useState("");
   const [isOpenMenuModal, setIsOpenMenuModal] = useState(false);
   const [clickCalendarDate, setClickCalendarDate] = useState("");
 
-  const makeMenuList = () => {
-    // 메뉴 존재하지 않는 경우
-    if (
-      !userMenuList.find((menuListElement) => menuListElement.date === menuDate)
-    ) {
-      !menuDate.includes("undefined") &&
-        setUserMenuList([
-          ...userMenuList,
-          {
-            date: menuDate,
-            userMainMenu: userMainMenu,
-            userSoup: userSoup,
-            userSideMenu: userSideMenu,
-          },
-        ]);
+  const { weeks, todayDate } = useCalendarDays({
+    currentMonth,
+  });
 
-      // 메뉴가 존재하는 경우
-    } else {
-      let copyMenuList = [...userMenuList];
-
-      copyMenuList.map((menu) => {
-        if (menu === copyMenuList.find((menu) => menu.date === menuDate)) {
-          userMainMenu !== "" && (menu.userMainMenu = userMainMenu);
-          userSoup !== "" && (menu.userSoup = userSoup);
-          userSideMenu.length !== 0 &&
-            menu.userSideMenu.length < 3 &&
-            !menu.userSideMenu.includes(userSideMenu[0]) &&
-            (menu.userSideMenu = [...menu.userSideMenu, ...userSideMenu]);
-        }
-      });
-
-      setUserMenuList(copyMenuList);
-    }
-
-    // state 초기화
-    setUserMainMenu("");
-    setUserSoup("");
-    setUserSideMenu([]);
-  };
+  const { makeMenuList } = useMakeMenuListFunction(menuDate);
 
   // console.log("최종메뉴: ", userMenuList);
 
