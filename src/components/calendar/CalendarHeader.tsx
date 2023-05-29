@@ -8,6 +8,9 @@ import { getUid } from "../../utils/uid";
 import CalendarHeaderButton from "../element/CalaendarHeaderButton";
 import { setUserMenuList } from "../../apis/menuListApis";
 import saveCalenderImage from "../../utils/captureCalendar";
+import ClearIcon from "../icons/ClearIcon";
+import SaveImageIcon from "../icons/SaveImageIcon";
+import SaveMenuListIcon from "../icons/SaveMenuListIcon";
 
 type CalendarHeaderPropsType = {
   currentMonth: Date;
@@ -48,14 +51,17 @@ export default function CalendarHeader({
       >
         <CalendarHeaderButton
           buttonText="메뉴 저장"
+          menuIcon={<SaveMenuListIcon />}
           onClickEvent={() => setUserMenuList(userMenuList, uid!)}
         />
         <CalendarHeaderButton
           buttonText="초기화"
+          menuIcon={<ClearIcon />}
           onClickEvent={handleResetButton}
         />
         <CalendarHeaderButton
           buttonText="이미지 저장"
+          menuIcon={<SaveImageIcon />}
           onClickEvent={() =>
             saveCalenderImage(
               "captureSection",
@@ -64,9 +70,11 @@ export default function CalendarHeader({
             )
           }
         />
+      </S.HeaderButtonWrapper>
+      <S.ArrowIconContainer>
         <Icon icon="bi:arrow-left-circle-fill" onClick={movePreviousMonth} />
         <Icon icon="bi:arrow-right-circle-fill" onClick={moveNextMonth} />
-      </S.HeaderButtonWrapper>
+      </S.ArrowIconContainer>
     </S.Container>
   );
 }
@@ -99,6 +107,12 @@ const S = {
   `,
 
   HeaderButtonWrapper: styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+  `,
+  ArrowIconContainer: styled.div`
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -109,7 +123,6 @@ const S = {
       height: fit-content;
       margin-left: 5%;
       color: transparentize(gray, 0.2);
-
       &:hover {
         cursor: pointer;
         transition: 0.2s ease-in-out;

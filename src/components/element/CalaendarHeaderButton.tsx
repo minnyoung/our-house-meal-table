@@ -2,34 +2,36 @@ import styled from "styled-components";
 
 type CalendarHeaderButtonProps = {
   buttonText: string;
+  menuIcon: JSX.Element;
   onClickEvent: () => void;
 };
 
 export default function CalendarHeaderButton({
+  menuIcon,
   buttonText,
   onClickEvent,
 }: CalendarHeaderButtonProps) {
   return (
     <S.Button type="button" onClick={onClickEvent}>
-      {buttonText}
+      {menuIcon}
     </S.Button>
   );
 }
 
 const S = {
   Button: styled.button`
-    width: 50px;
-    margin-left: 5%;
-    padding: 5px 5px;
-
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 10px;
-    background-color: transparent;
-    border: 1px solid #bebebe;
     border-radius: 5px;
+    background-color: transparent;
     :hover {
-      transition: 0.1s ease-in-out;
+      transition: 0.2s ease-in-out;
       cursor: pointer;
-      background-color: #dddddd;
+      background-color: #f1f1f1;
     }
   `,
 };
