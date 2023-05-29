@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { userMenuStore } from "../store/userMenuStore";
+import { MenuType, userMenuStore } from "../store/userMenuStore";
 import ModalMenuDeleteButton from "./element/ModalMenuDeleteButton";
 import { useMakeMenuListFunction } from "../hooks/useMakeMenuListFunction";
 
@@ -12,6 +12,24 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
   const { makeMenuList } = useMakeMenuListFunction(date);
   const [year, month, day] = date.split("-");
   const dayMenuList = userMenuList.find((menu) => menu.date === date);
+
+  /**모달 내에서 메뉴를 모두 삭제했을 때,
+   * 메뉴가 없는 날짜라면 전체 메뉴 리스트에서 삭제시켜주는 함수 */
+  function confirmToEmptyMenu(
+    wholeMenuList: MenuType[],
+    menuListItem: MenuType | undefined
+  ) {
+    if (
+      menuListItem &&
+      menuListItem.userMainMenu === "" &&
+      menuListItem.userSoup === "" &&
+      menuListItem.userSideMenu.length === 0
+    ) {
+      return wholeMenuList.filter(
+        (dateOfMenuList) => dateOfMenuList.date !== menuListItem.date
+      );
+    }
+  }
 
   function deleteUserMenu(
     menuType: "userMainMenu" | "userSoup" | "userSideMenu",
@@ -27,7 +45,10 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
           : (dateMenuList[menuType] = "");
       }
     });
-    setUserMenuList(copyMenuList);
+    const confirmedMenuList = confirmToEmptyMenu(copyMenuList, dayMenuList);
+    confirmedMenuList
+      ? setUserMenuList(confirmedMenuList)
+      : setUserMenuList(copyMenuList);
   }
 
   return (
