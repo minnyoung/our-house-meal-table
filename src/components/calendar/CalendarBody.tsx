@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useCalendarDays from "../../hooks/useCalendarDays";
 import UserMenuText from "../UserMenuText";
@@ -21,12 +21,14 @@ export default function CalendarBody({
   const [menuDate, setMenuDate] = useState("");
   const [isOpenMenuModal, setIsOpenMenuModal] = useState(false);
   const [clickCalendarDate, setClickCalendarDate] = useState("");
-
   const { weeks, todayDate } = useCalendarDays({
     currentMonth,
   });
-
   const { makeMenuList } = useMakeMenuListFunction(menuDate);
+
+  useEffect(() => {
+    setIsOpenMenuModal(false);
+  }, [currentMonth]);
 
   // console.log("최종메뉴: ", userMenuList);
 
