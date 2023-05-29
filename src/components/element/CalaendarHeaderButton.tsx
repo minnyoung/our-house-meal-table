@@ -59,7 +59,7 @@ const S = {
     }
   `,
   OuterContainer: styled.div<{ isVisibleBubble: boolean }>`
-    top: 115px;
+    top: 135px;
     margin-left: 8px;
     position: absolute;
     cursor: pointer;

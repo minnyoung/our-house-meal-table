@@ -38,27 +38,28 @@ export default function CalendarHeader({
 
   return (
     <S.Container className="header row">
-      <S.HeaderDateBox className="col col-start">
-        <S.HeaderMonth className="text month">
-          {format(currentMonth, "M")}월
-        </S.HeaderMonth>
-        {format(currentMonth, "yyyy")}
-      </S.HeaderDateBox>
-
-      <S.HeaderButtonWrapper
-        className="col col-end"
-        data-html2canvas-ignore="true"
-      >
-        <CalendarHeaderButton
-          buttonText="메뉴 저장"
-          menuIcon={<SaveMenuListIcon />}
-          onClickEvent={() => setUserMenuList(userMenuList, uid!)}
-        />
+      <S.HeaderButtonWrapper data-html2canvas-ignore="true">
         <CalendarHeaderButton
           buttonText="초기화"
           menuIcon={<ClearIcon />}
           onClickEvent={handleResetButton}
         />
+      </S.HeaderButtonWrapper>
+      <S.HeaderDateBox className="col col-start">
+        <S.ArrowIconContainer data-html2canvas-ignore="true">
+          <Icon icon="bi:arrow-left-circle-fill" onClick={movePreviousMonth} />
+        </S.ArrowIconContainer>
+        <div>
+          {format(currentMonth, "yyyy")}
+          <S.HeaderMonth className="text month">
+            {format(currentMonth, "M")}월
+          </S.HeaderMonth>
+        </div>
+        <S.ArrowIconContainer data-html2canvas-ignore="true">
+          <Icon icon="bi:arrow-right-circle-fill" onClick={moveNextMonth} />
+        </S.ArrowIconContainer>
+      </S.HeaderDateBox>
+      <S.HeaderButtonWrapper data-html2canvas-ignore="true">
         <CalendarHeaderButton
           buttonText="이미지 저장"
           menuIcon={<SaveImageIcon />}
@@ -70,11 +71,12 @@ export default function CalendarHeader({
             )
           }
         />
+        <CalendarHeaderButton
+          buttonText="메뉴 저장"
+          menuIcon={<SaveMenuListIcon />}
+          onClickEvent={() => setUserMenuList(userMenuList, uid!)}
+        />
       </S.HeaderButtonWrapper>
-      <S.ArrowIconContainer>
-        <Icon icon="bi:arrow-left-circle-fill" onClick={movePreviousMonth} />
-        <Icon icon="bi:arrow-right-circle-fill" onClick={moveNextMonth} />
-      </S.ArrowIconContainer>
     </S.Container>
   );
 }
@@ -84,8 +86,7 @@ const S = {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: baseline;
-
+    align-items: flex-end;
     margin: 10px 0;
     width: 100%;
     height: 7%;
@@ -93,19 +94,23 @@ const S = {
   HeaderDateBox: styled.div`
     height: 100%;
     display: flex;
+    flex: 1;
     flex-direction: row;
     justify-content: center;
-    align-items: baseline;
-    margin-left: 1%;
+    align-items: center;
     font-size: 1em;
     font-weight: 500;
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 10px;
+    }
   `,
   HeaderMonth: styled.span`
-    margin-right: 5px;
     font-size: 2em;
     font-weight: 600;
   `,
-
   HeaderButtonWrapper: styled.div`
     display: flex;
     flex-direction: row;
