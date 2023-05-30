@@ -25,7 +25,7 @@ const S = {
     width: 100%;
     height: fit-content;
     font-weight: 600;
-    font-size: 0.75em;
+    font-size: 16px;
   `,
   WeekDayWrapper: styled.div<{ weekDay: string }>`
     display: flex;
@@ -34,6 +34,6 @@ const S = {
     width: 12.9%;
     height: 100%;
     color: ${({ weekDay }) =>
-      weekDay === "일" ? "#ff5151" : weekDay === "토" ? "#2631ff" : "#686868"};
+      weekDay === "일" ? "#ff5151" : weekDay === "토" ? "#2631ff" : "#2c2c2c"};
   `,
 };
