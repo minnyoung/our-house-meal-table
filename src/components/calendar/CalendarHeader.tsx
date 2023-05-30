@@ -87,8 +87,7 @@ const S = {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    margin: 10px 0;
-    width: 100%;
+    margin: 10px;
     height: 7%;
   `,
   HeaderDateBox: styled.div`
