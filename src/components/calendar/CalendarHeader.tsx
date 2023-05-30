@@ -40,7 +40,7 @@ export default function CalendarHeader({
     <S.Container className="header row">
       <S.HeaderButtonWrapper data-html2canvas-ignore="true">
         <CalendarHeaderButton
-          buttonText="초기화"
+          buttonText="메뉴 초기화"
           menuIcon={<ClearIcon />}
           onClickEvent={handleResetButton}
         />
