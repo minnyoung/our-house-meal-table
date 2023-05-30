@@ -126,6 +126,8 @@ const S = {
     background-color: ${({ calendarDate, todayDate }) =>
       calendarDate === todayDate ? "#ffc8f12e" : "null"};
     :hover {
+      margin: 1px;
+      border: 3px solid rgb(255, 217, 105);
       cursor: pointer;
     }
   `,
