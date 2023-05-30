@@ -31,7 +31,7 @@ export default function Calendar() {
 }
 
 const Container = styled.div`
-  width: 60%;
+  width: 940px;
   height: 90%;
 
   flex: auto;
