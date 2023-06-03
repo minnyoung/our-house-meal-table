@@ -51,6 +51,14 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
       : setUserMenuList(copyMenuList);
   }
 
+  function deleteAllMenu(date: string) {
+    let copyMenuList = [...userMenuList];
+    const filteredMenuList = copyMenuList.filter(
+      (dateMenuList) => dateMenuList.date !== date
+    );
+    setUserMenuList(filteredMenuList);
+  }
+
   return (
     <S.ModalContainer
       onDrop={makeMenuList}
@@ -59,6 +67,9 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
       <S.Modal>
         <S.ModalTitle>
           {year}년 {month}월 {day}일 식단표
+          <button type="button" onClick={() => deleteAllMenu(date)}>
+            전체삭제
+          </button>
         </S.ModalTitle>
         {dayMenuList ? (
           <>
@@ -160,6 +171,25 @@ const S = {
     margin-bottom: 10px;
     text-align: center;
     font-weight: 600;
+  `,
+  DeleteIconContainer: styled.button`
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    svg {
+      color: #cbcaca;
+      transition: 0.1s ease-in-out;
+    }
+    :hover {
+      transition: 0.1s ease-in-out;
+      svg {
+        color: #171717;
+      }
+    }
   `,
   MenuCloseButton: styled.button`
     position: absolute;
