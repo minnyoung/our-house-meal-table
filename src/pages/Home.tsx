@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import useUserAuthFunction from "../hooks/useUserAuthFunction";
 import { loginToGoogle } from "../apis/authApis";
+import Login from "../components/Login";
 
 export default function Home() {
   const { isLoggedIn, checkUserAuthentication } = useUserAuthFunction();
@@ -13,6 +14,12 @@ export default function Home() {
       {!isLoggedIn && (
         <S.Container>
           <h1>우리집 식단표</h1>
+          <div>
+            <Login />
+          </div>
+          <div>
+            <button>회원가입</button>
+          </div>
           <S.ButtonContainer>
             <button onClick={loginToGoogle}>
               <svg
