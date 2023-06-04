@@ -8,9 +8,9 @@ export default function useMakeEmail() {
     setUserEmail(event.currentTarget.value);
     checkEmail(event.currentTarget.value);
   }
-
   function checkEmail(userEmail: string) {
-    const emailRegex = /[@]/g;
+    const emailRegex =
+      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
     if (emailRegex.test(userEmail)) {
       setIsConfirmEmail(true);
     } else setIsConfirmEmail(false);
