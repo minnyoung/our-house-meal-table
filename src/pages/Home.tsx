@@ -3,6 +3,7 @@ import styled from "styled-components";
 import useUserAuthFunction from "../hooks/useUserAuthFunction";
 import { loginToGoogle } from "../apis/authApis";
 import Login from "../components/Login";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const { isLoggedIn, checkUserAuthentication } = useUserAuthFunction();
@@ -18,7 +19,7 @@ export default function Home() {
             <Login />
           </div>
           <div>
-            <button>회원가입</button>
+            <Link to="/signUp">회원가입</Link>
           </div>
           <S.ButtonContainer>
             <button onClick={loginToGoogle}>
