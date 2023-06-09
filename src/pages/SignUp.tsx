@@ -41,26 +41,32 @@ export default function SignUp() {
           <Link to="/">
             <h1>우리집 식단표</h1>
           </Link>
-          <form>
-            <input
-              value={userEmail}
-              onChange={handleEmailInput}
-              type="text"
-              placeholder="sample@email.com"
-            />
-            <input
-              value={userPassWord}
-              onChange={handlePassWordInput}
-              type="password"
-              placeholder="8자리 이상 입력해주세요."
-            />
+          <S.Form>
+            <div>
+              <span>아이디</span>
+              <S.FormInput
+                value={userEmail}
+                onChange={handleEmailInput}
+                type="text"
+                placeholder="sample@email.com"
+              />
+            </div>
+            <div>
+              <span>비밀번호</span>
+              <S.FormInput
+                value={userPassWord}
+                onChange={handlePassWordInput}
+                type="password"
+                placeholder="8자리 이상 입력해주세요."
+              />
+            </div>
             <button
               onClick={(event) => handleSignUpButton(event)}
               disabled={!(isConfirmEmail && isConfirmPassWord)}
             >
               회원가입
             </button>
-          </form>
+          </S.Form>
         </S.Container>
       )}
     </>
@@ -76,9 +82,11 @@ const S = {
     flex-direction: column;
     align-items: center;
     h1 {
-      margin: 250px 0;
+      margin: 50px 0;
     }
     button {
+      border-radius: 5px;
+      padding: 4px 8px;
       :disabled {
         background-color: #b8b8b8;
         cursor: not-allowed;
@@ -86,5 +94,16 @@ const S = {
       }
       transition: 0.1s ease-in-out;
     }
+  `,
+  Form: styled.form`
+    margin: 0px auto;
+    height: 500px;
+  `,
+  FormInputSpan: styled.span``,
+  FormInput: styled.input`
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    height: 30px;
+    padding: 4px 8px;
   `,
 };
