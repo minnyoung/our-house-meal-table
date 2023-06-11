@@ -43,7 +43,7 @@ export default function SignUp() {
           </Link>
           <S.Form>
             <div>
-              <span>아이디</span>
+              <S.FormInputTitle>아이디</S.FormInputTitle>
               <S.FormInput
                 value={userEmail}
                 onChange={handleEmailInput}
@@ -52,7 +52,7 @@ export default function SignUp() {
               />
             </div>
             <div>
-              <span>비밀번호</span>
+              <S.FormInputTitle>비밀번호</S.FormInputTitle>
               <S.FormInput
                 value={userPassWord}
                 onChange={handlePassWordInput}
@@ -81,12 +81,19 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     h1 {
       margin: 50px 0;
     }
     button {
+      width: 100%;
       border-radius: 5px;
-      padding: 4px 8px;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #8dcaff;
+      :hover {
+        background-color: #5cb3ff;
+      }
       :disabled {
         background-color: #b8b8b8;
         cursor: not-allowed;
@@ -99,11 +106,23 @@ const S = {
     margin: 0px auto;
     height: 500px;
   `,
-  FormInputSpan: styled.span``,
+  FormInputTitle: styled.div`
+    margin-top: 10px;
+    font-size: 17px;
+    font-weight: 500;
+  `,
   FormInput: styled.input`
     border: 1px solid #e5e5e5;
     border-radius: 10px;
-    height: 30px;
-    padding: 4px 8px;
+    width: 250px;
+    height: 40px;
+    margin: 5px 0;
+    padding: 8px 10px;
+    transition: 0.1s ease-in-out;
+    box-sizing: border-box;
+    :focus {
+      transition: 0.1s ease-in-out;
+      border: 2px solid #5cb3ff;
+    }
   `,
 };

@@ -18,10 +18,10 @@ export default function Home() {
           <div>
             <Login />
           </div>
-          <div>
-            <Link to="/signUp">회원가입</Link>
-          </div>
           <S.ButtonContainer>
+            <S.SignUpButton>
+              <Link to="/signUp">회원가입</Link>
+            </S.SignUpButton>
             <button onClick={loginToGoogle}>
               <svg
                 version="1.1"
@@ -66,8 +66,9 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     h1 {
-      margin: 250px 0;
+      margin: 50px 0;
     }
   `,
   ButtonContainer: styled.div`
@@ -94,6 +95,18 @@ const S = {
       > span {
         flex: 1;
       }
+    }
+  `,
+  SignUpButton: styled.span`
+    display: flex;
+    justify-content: center;
+    margin: 4px 0;
+    font-size: 15px;
+    color: #a4a4a4;
+    :hover {
+      color: #000000;
+      text-decoration: underline;
+      text-underline-position: under;
     }
   `,
 };
