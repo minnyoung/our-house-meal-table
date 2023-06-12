@@ -22,21 +22,40 @@ export default function UserMenuText({ date, menuType }: UserMenuTextProps) {
     <>
       {typeof dayMenuList[menuType] === "object" ? (
         dayMenuList[menuType].map((data: string) => (
-          <S.MenuText>{data}</S.MenuText>
+          <S.MenuText
+            onClick={(event) => event.stopPropagation()}
+            rel="noreferrer"
+            target="_blank"
+            href={`https://www.10000recipe.com/recipe/list.html?q=${data}`}
+          >
+            {data}
+          </S.MenuText>
         ))
       ) : (
-        <S.MenuText>{dayMenuList[menuType]}</S.MenuText>
+        <S.MenuText
+          onClick={(event) => event.stopPropagation()}
+          rel="noreferrer"
+          target="_blank"
+          href={`https://www.10000recipe.com/recipe/list.html?q=${dayMenuList[menuType]}`}
+        >
+          {dayMenuList[menuType]}
+        </S.MenuText>
       )}
     </>
   );
 }
 
 const S = {
-  MenuText: styled.span`
-    width: 100%;
-    margin-bottom: 2px;
+  MenuText: styled.a`
+    width: fit-content;
+    padding: 1px 5px;
     border-radius: 7px;
     font-size: 0.9em;
     text-align: center;
+    transition: 0.1s ease-in-out;
+    :hover {
+      background-color: #ebebeb;
+      transition: 0.1s ease-in-out;
+    }
   `,
 };

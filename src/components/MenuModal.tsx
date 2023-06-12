@@ -51,6 +51,19 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
       : setUserMenuList(copyMenuList);
   }
 
+  function deleteAllMenu(date: string) {
+    const deleteAllMenuAnswer = window.confirm(
+      "해당일 메뉴가 삭제됩니다. \n삭제하시겠습니까?"
+    );
+    if (deleteAllMenuAnswer) {
+      let copyMenuList = [...userMenuList];
+      const filteredMenuList = copyMenuList.filter(
+        (dateMenuList) => dateMenuList.date !== date
+      );
+      setUserMenuList(filteredMenuList);
+    }
+  }
+
   return (
     <S.ModalContainer
       onDrop={makeMenuList}
@@ -58,7 +71,15 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
     >
       <S.Modal>
         <S.ModalTitle>
-          {year}년 {month}월 {day}일 식단표
+          <span>
+            {year}년 {month}월 {day}일 식단표
+          </span>
+          <S.DeleteAllMenuButton
+            type="button"
+            onClick={() => deleteAllMenu(date)}
+          >
+            전체삭제
+          </S.DeleteAllMenuButton>
         </S.ModalTitle>
         {dayMenuList ? (
           <>
@@ -157,9 +178,42 @@ const S = {
     box-shadow: 0 0 15px 1px #cecece71;
   `,
   ModalTitle: styled.span`
+    display: flex;
     margin-bottom: 10px;
     text-align: center;
     font-weight: 600;
+    span {
+      flex: 1;
+    }
+  `,
+  DeleteAllMenuButton: styled.button`
+    font-size: 12px;
+    color: #aaaaaa;
+    :hover {
+      transition: 0.1s ease-in-out;
+      color: black;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  `,
+  DeleteIconContainer: styled.button`
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    svg {
+      color: #cbcaca;
+      transition: 0.1s ease-in-out;
+    }
+    :hover {
+      transition: 0.1s ease-in-out;
+      svg {
+        color: #171717;
+      }
+    }
   `,
   MenuCloseButton: styled.button`
     position: absolute;

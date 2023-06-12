@@ -48,6 +48,7 @@ export default function CalendarBody({
                 key={`week-${index}`}
                 calendarDate={`${day.year}${day.month}${day.day}`}
                 todayDate={todayDate}
+                isCurrentMonthCalendarDate={day.day}
                 onClick={() => {
                   if (day.day) {
                     setClickCalendarDate(`${day.year}-${day.month}-${day.day}`);
@@ -117,6 +118,7 @@ const S = {
   DayBox: styled.div<{
     calendarDate: string;
     todayDate: string;
+    isCurrentMonthCalendarDate: string | null;
   }>`
     width: 130px;
     height: 130px;
@@ -125,10 +127,15 @@ const S = {
     border-radius: 10px;
     background-color: ${({ calendarDate, todayDate }) =>
       calendarDate === todayDate ? "#ffc8f12e" : "null"};
+    background-color: ${({ isCurrentMonthCalendarDate }) =>
+      !isCurrentMonthCalendarDate && "#e5e5e52d"};
     :hover {
-      margin: 1px;
-      border: 3px solid rgb(255, 217, 105);
-      cursor: pointer;
+      margin: ${({ isCurrentMonthCalendarDate }) =>
+        isCurrentMonthCalendarDate && "1px"};
+      border: ${({ isCurrentMonthCalendarDate }) =>
+        isCurrentMonthCalendarDate && "3px solid rgb(255, 217, 105)"};
+      cursor: ${({ isCurrentMonthCalendarDate }) =>
+        isCurrentMonthCalendarDate && "pointer"};
     }
   `,
   DayNumber: styled.span<{ weekdayNumber: string }>`
