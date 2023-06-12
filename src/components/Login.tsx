@@ -47,7 +47,6 @@ const S = {
     margin: 0px auto;
     display: flex;
     flex-direction: column;
-    height: 200px;
     button {
       width: 100%;
       border-radius: 5px;

@@ -45,8 +45,8 @@ const S = {
   SignUpButton: styled.span`
     display: flex;
     justify-content: center;
-    margin: 4px 0;
-    font-size: 15px;
+    margin-top: 15px;
+    font-size: 13px;
     color: #a4a4a4;
     :hover {
       color: #000000;
