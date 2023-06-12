@@ -1,11 +1,20 @@
 import {
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
 import { auth } from "../firebase-config";
 import { removeUid } from "../utils/uid";
+
+export async function fetchToSignUp(userEmail: string, userPassWord: string) {
+  try {
+    await createUserWithEmailAndPassword(auth, userEmail, userPassWord);
+  } catch (error) {
+    alert("존재하는 이메일입니다. 다른 이메일을 작성해주세요.");
+  }
+}
 
 export async function loginToEmail(userEmail: string, userPassWord: string) {
   try {

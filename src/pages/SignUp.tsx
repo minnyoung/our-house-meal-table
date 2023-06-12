@@ -1,39 +1,21 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useUserAuthFunction from "../hooks/useUserAuthFunction";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useMakeEmail from "../hooks/useMakeEmail";
 import useMakePassWord from "../hooks/useMakePassWord";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { fetchToSignUp } from "../apis/authApis";
 
 export default function SignUp() {
-  const navigate = useNavigate();
-  const { isLoggedIn, checkUserAuthentication } = useUserAuthFunction();
-  //   useEffect(checkUserAuthentication, []);
-
+  const { isLoggedIn } = useUserAuthFunction();
   const { userEmail, isConfirmEmail, handleEmailInput } = useMakeEmail();
   const { userPassWord, isConfirmPassWord, handlePassWordInput } =
     useMakePassWord();
 
   function handleSignUpButton(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    createUserWithEmailAndPassword(auth, userEmail, userPassWord)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log("유저 : ", user);
-        navigate("/");
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("에러코드 : ", errorCode);
-        console.log("에러메세지 : ", errorMessage);
-        // ..
-      });
+    fetchToSignUp(userEmail, userPassWord);
   }
+
   return (
     <>
       {!isLoggedIn && (
