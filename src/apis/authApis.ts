@@ -1,6 +1,19 @@
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../firebase-config";
 import { removeUid } from "../utils/uid";
+
+export async function loginToEmail(userEmail: string, userPassWord: string) {
+  try {
+    await signInWithEmailAndPassword(auth, userEmail, userPassWord);
+  } catch (error) {
+    alert("아이디 혹은 비밀번호가 틀렸습니다.");
+  }
+}
 
 export async function loginToGoogle() {
   const provider = new GoogleAuthProvider();

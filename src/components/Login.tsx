@@ -1,24 +1,15 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase-config";
 import useMakeEmail from "../hooks/useMakeEmail";
 import useMakePassWord from "../hooks/useMakePassWord";
+import { loginToEmail } from "../apis/authApis";
 
 export default function Login() {
   const { userEmail, handleEmailInput } = useMakeEmail();
   const { userPassWord, handlePassWordInput } = useMakePassWord();
-  const navigate = useNavigate();
 
   function handleLoginButton(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, userEmail, userPassWord)
-      .then((userCredential) => {
-        navigate("/mealTable");
-      })
-      .catch((error) => {
-        alert("아이디 혹은 비밀번호가 틀렸습니다.");
-      });
+    loginToEmail(userEmail, userPassWord);
   }
 
   return (
@@ -35,7 +26,7 @@ export default function Login() {
         onChange={handlePassWordInput}
         placeholder="비밀번호를 입력해주세요"
       />
-      <button type="submit" onClick={handleLoginButton}>
+      <button type="submit" onClick={(event) => handleLoginButton(event)}>
         로그인
       </button>
     </S.Form>
