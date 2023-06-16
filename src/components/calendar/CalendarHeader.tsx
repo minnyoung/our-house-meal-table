@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { format, addMonths, subMonths } from "date-fns";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import useResetMenu from "../../hooks/useResetMenu";
 import { userMenuStore } from "../../store/userMenuStore";
 import { getUid } from "../../utils/uid";
@@ -60,6 +60,17 @@ export default function CalendarHeader({
         </S.ArrowIconContainer>
       </S.HeaderDateBox>
       <S.HeaderButtonWrapper data-html2canvas-ignore="true">
+        <S.SaveInformationText>
+          식단표를 제작한 후 <br />
+          아래 저장버튼을 꼭 눌러주세요!
+          <br />
+          <span>↓</span>
+        </S.SaveInformationText>
+        <CalendarHeaderButton
+          buttonText="메뉴 저장"
+          menuIcon={<SaveMenuListIcon />}
+          onClickEvent={() => setUserMenuList(userMenuList, uid!)}
+        />
         <CalendarHeaderButton
           buttonText="이미지 저장"
           menuIcon={<SaveImageIcon />}
@@ -71,15 +82,22 @@ export default function CalendarHeader({
             )
           }
         />
-        <CalendarHeaderButton
-          buttonText="메뉴 저장"
-          menuIcon={<SaveMenuListIcon />}
-          onClickEvent={() => setUserMenuList(userMenuList, uid!)}
-        />
       </S.HeaderButtonWrapper>
     </S.Container>
   );
 }
+
+const upDownAnimation = keyframes`
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+  `;
 
 const S = {
   Container: styled.div`
@@ -133,6 +151,19 @@ const S = {
         transform: scale(1.15);
         color: #686868;
       }
+    }
+  `,
+  SaveInformationText: styled.span`
+    position: absolute;
+    top: 42px;
+    font-size: 12px;
+    text-align: center;
+    animation: ${upDownAnimation} 2s cubic-bezier(0.01, 1.18, 0.99, 1.26)
+      infinite;
+    span {
+      padding-left: 15px;
+      font-size: 15px;
+      font-weight: 600;
     }
   `,
 };
