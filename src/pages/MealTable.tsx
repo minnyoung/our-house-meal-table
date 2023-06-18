@@ -9,14 +9,17 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { getUid } from "../utils/uid";
 import MenuLayout from "../components/menuSection/MenuLayout";
+import { getDisplayManual } from "../utils/manualFunction";
+import Menual from "../components/Menual";
 
 export default function MealTable() {
   const { checkUserAuthentication } = useUserAuthFunction();
   const { setUserMenuList } = userMenuStore();
-  const navigate = useNavigate();
-
-  const [isLoading, setIsLoading] = useState(false);
   const uid = getUid();
+  const isDisplayMenual = getDisplayManual();
+
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   async function setMealTable() {
     if (uid) {
@@ -44,6 +47,7 @@ export default function MealTable() {
     <Loading />
   ) : (
     <div>
+      {isDisplayMenual === "true" && <Menual />}
       <Navbar />
       <S.MealTableWapper>
         <Calendar />
