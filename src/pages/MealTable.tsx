@@ -20,6 +20,8 @@ export default function MealTable() {
 
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisplayMenualState, setIsDisplayMenualState] =
+    useState(isDisplayMenual);
 
   async function setMealTable() {
     if (uid) {
@@ -47,7 +49,9 @@ export default function MealTable() {
     <Loading />
   ) : (
     <div>
-      {isDisplayMenual === "true" && <Menual />}
+      {isDisplayMenualState === "true" && (
+        <Menual setIsDisplayMenualState={setIsDisplayMenualState} />
+      )}
       <Navbar />
       <S.MealTableWapper>
         <Calendar />
