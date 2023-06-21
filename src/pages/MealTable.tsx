@@ -48,7 +48,7 @@ export default function MealTable() {
   return isLoading ? (
     <Loading />
   ) : (
-    <div>
+    <S.Container>
       {isDisplayMenualState === "true" && (
         <Menual setIsDisplayMenualState={setIsDisplayMenualState} />
       )}
@@ -57,11 +57,14 @@ export default function MealTable() {
         <Calendar />
         <MenuLayout />
       </S.MealTableWapper>
-    </div>
+    </S.Container>
   );
 }
 
 const S = {
+  Container: styled.div`
+    position: relative;
+  `,
   MealTableWapper: styled.div`
     display: flex;
     flex-direction: row;
