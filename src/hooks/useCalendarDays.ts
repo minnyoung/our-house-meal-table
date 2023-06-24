@@ -1,7 +1,5 @@
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from "date-fns";
-import { format, addMonths, subMonths } from "date-fns";
-import { isSameMonth, isSameDay, addDays, parse } from "date-fns";
-import { stringify } from "querystring";
+import { format, addDays } from "date-fns";
 
 type RenderCellsProps = {
   currentMonth: Date;

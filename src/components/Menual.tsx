@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { setDisplayManual } from "../utils/manualFunction";
 import { useState } from "react";
-import testPicture from "../assets/test.png";
 import menuModal from "../assets/menuModal.gif";
 import menuRecipe from "../assets/menuRecipe.gif";
 import menuRegist from "../assets/menuRegist.gif";

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import useUserAuthFunction from "../hooks/useUserAuthFunction";
-import { loginToGoogle } from "../apis/authApis";
 import Login from "../components/Login";
 import { Link } from "react-router-dom";
 import SnsLoginButtons from "../components/SnsLoginButtons";
