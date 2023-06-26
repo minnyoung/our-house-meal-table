@@ -1,15 +1,24 @@
 import styled from "styled-components";
 import { menuListStore } from "../../store/menuListStore";
 import { userMenuStore } from "../../store/userMenuStore";
+import { useMakeMenuListFunction } from "../../hooks/useMakeMenuListFunction";
 
 export default function Soup() {
   const { soup } = menuListStore();
-  const { setUserSoup } = userMenuStore();
+  const { setUserSoup, clickedDay } = userMenuStore();
+  const { makeMenuList } = useMakeMenuListFunction(clickedDay);
+
   return (
     <MenuButtonContainer>
       {soup.sort().map((soupMenu: string, index: number) => (
         <MenuButton
           draggable="true"
+          onClickCapture={() => {
+            if (clickedDay !== "") setUserSoup(soupMenu);
+          }}
+          onClick={() => {
+            if (clickedDay !== "") makeMenuList();
+          }}
           onDragStart={() => {
             setUserSoup(soupMenu);
           }}
