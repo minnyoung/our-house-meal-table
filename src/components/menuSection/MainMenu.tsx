@@ -4,12 +4,14 @@ import { menuListStore } from "../../store/menuListStore";
 
 export default function MainMenu() {
   const { mainMenu } = menuListStore();
-  const { setUserMainMenu } = userMenuStore();
+  const { userMainMenu, setUserMainMenu } = userMenuStore();
+  console.log(userMainMenu);
   return (
     <MenuButtonContainer>
       {mainMenu.sort().map((mainMenu: string, index: number) => (
         <MenuButton
           draggable="true"
+          onClick={() => setUserMainMenu(mainMenu)}
           onDragStart={() => {
             setUserMainMenu(mainMenu);
           }}
