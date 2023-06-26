@@ -12,13 +12,13 @@ type UserMenuState = {
   userMainMenu: string;
   userSoup: string;
   userSideMenu: string[];
-  day: string;
+  clickedDay: string;
   userMenuList: MenuType[];
 
   setUserMainMenu: (menu: string) => void;
   setUserSoup: (soup: string) => void;
   setUserSideMenu: (sideMenu: string[]) => void;
-  setDay: (day: string) => void;
+  setClickedDay: (clickedDay: string) => void;
   setUserMenuList: (userMenuList: MenuType[]) => void;
 };
 
@@ -26,7 +26,7 @@ export const userMenuStore = create<UserMenuState>((set) => ({
   userMainMenu: "",
   userSoup: "",
   userSideMenu: [],
-  day: "",
+  clickedDay: "",
   userMenuList: [],
 
   setUserMainMenu: (userMainMenu) => set(() => ({ userMainMenu })),
@@ -36,6 +36,6 @@ export const userMenuStore = create<UserMenuState>((set) => ({
       userSideMenu: userSideMenu.length === 0 ? [] : userSideMenu,
     }));
   },
-  setDay: (day) => set(() => ({ day })),
+  setClickedDay: (clickedDay) => set(() => ({ clickedDay })),
   setUserMenuList: (userMenuList) => set(() => ({ userMenuList })),
 }));
