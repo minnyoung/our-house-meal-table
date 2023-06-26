@@ -8,7 +8,8 @@ type MenuModalType = {
   setIsOpenMenuModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
-  const { userMenuList, setUserMenuList } = userMenuStore();
+  const { userMenuList, setUserMenuList, clickedDay, setClickedDay } =
+    userMenuStore();
   const { makeMenuList } = useMakeMenuListFunction(date);
   const [year, month, day] = date.split("-");
   const dayMenuList = userMenuList.find((menu) => menu.date === date);
@@ -149,7 +150,10 @@ export default function MenuModal({ date, setIsOpenMenuModal }: MenuModalType) {
         )}
         <S.MenuCloseButton
           type="button"
-          onClick={() => setIsOpenMenuModal(false)}
+          onClick={() => {
+            setIsOpenMenuModal(false);
+            setClickedDay("");
+          }}
         >
           닫기
         </S.MenuCloseButton>
