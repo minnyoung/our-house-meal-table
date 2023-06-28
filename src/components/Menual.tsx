@@ -4,6 +4,7 @@ import { useState } from "react";
 import menuModal from "../assets/menuModal.gif";
 import menuRecipe from "../assets/menuRecipe.gif";
 import menuRegist from "../assets/menuRegist.gif";
+import clickedMenuRegist from "../assets/menuRegist_click.gif";
 import menuRemove from "../assets/menuRemove.gif";
 import menuSave from "../assets/menuSave.gif";
 import menuSearch from "../assets/menuSearch.gif";
@@ -24,6 +25,14 @@ export default function Menual({ setIsDisplayMenualState }: MenualPropType) {
             <p>
               오른쪽에 있는 메뉴를 원하는 날짜의 칸으로 드래그하면 메뉴가
               등록됩니다.
+              <p>(메인메뉴, 국/찌개는 1개씩, 반찬은 3개까지 등록가능합니다.)</p>
+            </p>
+          </S.SlideLI>
+          <S.SlideLI>
+            <span>메뉴 등록</span>
+            <img src={clickedMenuRegist} alt="메뉴등록" />
+            <p>
+              달력 칸을 클릭한 후, 오른쪽의 메뉴를 클릭해도 메뉴 등록이 됩니다.
               <p>(메인메뉴, 국/찌개는 1개씩, 반찬은 3개까지 등록가능합니다.)</p>
             </p>
           </S.SlideLI>
@@ -70,7 +79,7 @@ export default function Menual({ setIsDisplayMenualState }: MenualPropType) {
         <S.ArrowButton
           direction="left"
           onClick={() => {
-            if (pageNumber > 0 && pageNumber <= 2500)
+            if (pageNumber > 0 && pageNumber <= 3000)
               setPageNumber((previousValue) => previousValue - 500);
           }}
         >
@@ -79,7 +88,7 @@ export default function Menual({ setIsDisplayMenualState }: MenualPropType) {
         <S.ArrowButton
           direction="right"
           onClick={() => {
-            if (pageNumber >= 0 && pageNumber < 2500)
+            if (pageNumber >= 0 && pageNumber < 3000)
               setPageNumber((previousValue) => previousValue + 500);
           }}
         >
@@ -151,6 +160,7 @@ const S = {
     img {
       width: 500px;
       height: 380px;
+      object-fit: contain;
     }
     p {
       text-align: center;
