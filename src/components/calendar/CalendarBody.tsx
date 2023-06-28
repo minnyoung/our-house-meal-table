@@ -4,6 +4,7 @@ import useCalendarDays from "../../hooks/useCalendarDays";
 import UserMenuText from "../UserMenuText";
 import MenuModal from "../MenuModal";
 import { useMakeMenuListFunction } from "../../hooks/useMakeMenuListFunction";
+import { userMenuStore } from "../../store/userMenuStore";
 
 type CalendarCellsProps = {
   currentMonth: Date;
@@ -20,11 +21,11 @@ export default function CalendarBody({
 }: CalendarCellsProps) {
   const [menuDate, setMenuDate] = useState("");
   const [isOpenMenuModal, setIsOpenMenuModal] = useState(false);
-  const [clickCalendarDate, setClickCalendarDate] = useState("");
   const { weeks, todayDate } = useCalendarDays({
     currentMonth,
   });
   const { makeMenuList } = useMakeMenuListFunction(menuDate);
+  const { clickedDay, setClickedDay } = userMenuStore();
 
   useEffect(() => {
     setIsOpenMenuModal(false);
@@ -35,10 +36,7 @@ export default function CalendarBody({
   return (
     <S.Container className="body">
       {isOpenMenuModal && (
-        <MenuModal
-          date={clickCalendarDate}
-          setIsOpenMenuModal={setIsOpenMenuModal}
-        />
+        <MenuModal date={clickedDay} setIsOpenMenuModal={setIsOpenMenuModal} />
       )}
       {weeks.map((week, index) => (
         <S.WeeksWrapper key={`weeks-${index}`}>
@@ -51,7 +49,7 @@ export default function CalendarBody({
                 isCurrentMonthCalendarDate={day.day}
                 onClick={() => {
                   if (day.day) {
-                    setClickCalendarDate(`${day.year}-${day.month}-${day.day}`);
+                    setClickedDay(`${day.year}-${day.month}-${day.day}`);
                     setIsOpenMenuModal(true);
                   }
                 }}

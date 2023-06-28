@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { SearchResultType } from "../../types/SearchResultType";
 import { userMenuStore } from "../../store/userMenuStore";
+import { useMakeMenuListFunction } from "../../hooks/useMakeMenuListFunction";
 
 type SearchedItemPropType = {
   resultMenuTitle: "메인메뉴" | "국/찌개" | "반찬";
@@ -12,7 +13,9 @@ export default function SearchedItem({
   searchResult,
   menuType,
 }: SearchedItemPropType) {
-  const { setUserMainMenu, setUserSoup, setUserSideMenu } = userMenuStore();
+  const { setUserMainMenu, setUserSoup, setUserSideMenu, clickedDay } =
+    userMenuStore();
+  const { makeMenuList } = useMakeMenuListFunction(clickedDay);
 
   return (
     <>
@@ -23,6 +26,18 @@ export default function SearchedItem({
           .map((resultMenuItem: string, index: number) => (
             <MenuButton
               draggable="true"
+              onClickCapture={() => {
+                if (clickedDay !== "") {
+                  if (menuType === "sideMenu")
+                    setUserSideMenu([resultMenuItem]);
+                  else if (menuType === "mainMenu")
+                    setUserMainMenu(resultMenuItem);
+                  else setUserSoup(resultMenuItem);
+                }
+              }}
+              onClick={() => {
+                if (clickedDay !== "") makeMenuList();
+              }}
               onDragStart={() => {
                 if (menuType === "sideMenu") setUserSideMenu([resultMenuItem]);
                 else if (menuType === "mainMenu")

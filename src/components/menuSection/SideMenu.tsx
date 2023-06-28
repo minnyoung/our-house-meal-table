@@ -1,15 +1,24 @@
 import styled from "styled-components";
 import { menuListStore } from "../../store/menuListStore";
 import { userMenuStore } from "../../store/userMenuStore";
+import { useMakeMenuListFunction } from "../../hooks/useMakeMenuListFunction";
 
 export default function SideMenu() {
   const { sideMenu } = menuListStore();
-  const { setUserSideMenu } = userMenuStore();
+  const { setUserSideMenu, clickedDay } = userMenuStore();
+  const { makeMenuList } = useMakeMenuListFunction(clickedDay);
+
   return (
     <MenuButtonContainer>
       {sideMenu.sort().map((sideMenu: string, index: number) => (
         <MenuButton
           draggable="true"
+          onClickCapture={() => {
+            if (clickedDay !== "") setUserSideMenu([sideMenu]);
+          }}
+          onClick={() => {
+            if (clickedDay !== "") makeMenuList();
+          }}
           onDragStart={() => {
             setUserSideMenu([sideMenu]);
           }}

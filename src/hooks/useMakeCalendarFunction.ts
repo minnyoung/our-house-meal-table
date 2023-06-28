@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { format, addMonths, subMonths } from "date-fns";
+import { addMonths, subMonths } from "date-fns";
 
 export default function useMakeCalenderFunction() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
