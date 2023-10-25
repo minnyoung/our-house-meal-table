@@ -36,10 +36,8 @@
 
 우리집 식단표는 한 달 식단표를 직접 제작할 수 있는 웹 서비스입니다. 🍽 <br />
 
-> 현재 제작중입니다!
-
 <br />
-제작 중인 서비스 구경하기 👉 https://our-house-meal-table.web.app/
+서비스로 이동하기 👉 https://our-house-meal-table.web.app/
 
 <br />
 
